@@ -1,5 +1,5 @@
 /*=========================================================================
-DO FILE NAME:		    07cr_copd_treatment_ep.do
+DO FILE NAME:		    09cr_copd_treatment_ep.do
 
 AUTHOR:					Marleen Bokern
 
@@ -17,7 +17,7 @@ HOUSEKEEPING
 *************************************************************/
 clear all 
 capture log close
-log using "$Logdir\07cr_copd_treatment_ep.log", replace
+log using "$Logdir\09cr_copd_treatment_ep.log", replace
 cd "$Datadir_copd\extracted"
 
 putexcel set "$Datadir_copd/medication_summary.xlsx", replace
@@ -305,7 +305,7 @@ gen end_exp = end_pres + sum_overlap
 
 noi di "Generate episode denoting if prescription belongs to same episode as previous Rx"
 sort patid prescription
-gen episode = 1 if end_exp[_n-1] >= issuedate & prescription != 1
+gen episode = 1 if end_exp[_n - 1] >= issuedate & prescription != 1
 order episode, after(overlap_len)
 
 drop sum_overlap1

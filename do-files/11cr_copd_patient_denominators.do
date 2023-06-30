@@ -1,5 +1,5 @@
 /*=========================================================================
-DO FILE NAME:			08cr_copd_patient_denominators.do
+DO FILE NAME:			11cr_copd_patient_denominators.do
 
 AUTHOR:					Marleen Bokern
 VERSION:				v1
@@ -13,7 +13,7 @@ DESCRIPTION OF FILE:	Get denominators for each month and prescription counts for
 *=========================================================================*/
 clear all
 capture log close
-log using "$Logdir/08cr_copd_patient_denominators.log", replace
+log using "$Logdir/11cr_copd_patient_denominators.log", replace
 ssc install ereplace
 
 return list
@@ -360,7 +360,7 @@ save "$Datadir_copd\extracted\copd_patient_prevalence_ics6m", replace
    
 ***get users of any ics   
 clear all
-use "$Datadir_copd\extracted\07cr_copd_all_ics.dta", replace
+use "$Datadir_copd\extracted\10cr_copd_all_ics.dta", replace
 
 putexcel R1 = "ics_all_pat"
 local loop_count = 1

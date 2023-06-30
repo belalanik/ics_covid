@@ -1,5 +1,5 @@
 /*=========================================================================
-DO FILE NAME:		    06cr_copd_med_check.do
+DO FILE NAME:		    08cr_copd_med_check.do
 
 AUTHOR:					Marleen Bokern
 
@@ -17,7 +17,7 @@ HOUSEKEEPING
 *run globals
 clear all
 capture log close
-log using "$Logdir\06cr_copd_med_check.log", replace
+log using "$Logdir\08cr_copd_med_check.log", replace
 cd "$Datadir_copd\extracted"
 ssc install ereplace
 ssc install moss

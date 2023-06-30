@@ -1,5 +1,5 @@
 /*=========================================================================
-DO FILE NAME:		    07cr_copd_all_drugs.do
+DO FILE NAME:		    10cr_copd_all_drugs.do
 
 AUTHOR:					Marleen Bokern
 
@@ -20,7 +20,7 @@ CREATE DATASET CONTAINING ALL INHALED MED PRESCRIPTIONS
 *************************************************************************/
 clear all 
 capture log close
-log using $Logdir/07cr_copd_all_drugs.log , replace
+log using $Logdir/10cr_copd_all_drugs.log , replace
 
 ***append datasets containing individual prescriptions
 use "$Datadir_copd\extracted\\${file_stub}_ics_single_clean.dta"
@@ -47,7 +47,7 @@ drop ics_single ics_laba laba_single lama_single laba_lama
 drop termfromemis productname
 
 compress
-save "$Datadir_copd\extracted\07cr_copd_all_drugs.dta", replace
+save "$Datadir_copd\extracted\10cr_copd_all_drugs.dta", replace
 
 /*********************************************************
 1. INITIATIONS
@@ -68,14 +68,14 @@ rename (issuedate end_exp) (date1 date2)
 reshape long date, i(patid class episode) j(startend) 
 
 ***Encode the start and end for ranking the order
-gen startend2 = 0 if startend==1
-replace startend2 = 1 if startend==2
+gen startend2 = 0 if startend == 1
+replace startend2 = 1 if startend == 2
 
 ***sort by patid and class, date (and within date, start and end), subract number of preceding end dates from number of preceding starts
 by patid class (date startend2), sort: gen int in_proc = sum(startend == 1) - sum(startend == 2)
 replace in_proc = 1 if in_proc > 1
 
-by patid class (date): gen block_num = 1 if in_proc == 1 & in_proc[_n-1] != 1 //**1s now denote start of new block
+by patid class (date): gen block_num = 1 if in_proc == 1 & in_proc[_n - 1] != 1 //**1s now denote start of new block
 by patid class (date): replace block_num = sum(block_num) //***count number of blocks per patient
 
 ***assert that a patient's first date is a start and the last is an end
@@ -101,7 +101,7 @@ gen excl = 1 if lag < 365
 
 ****generate variable init denoting initiation
 sort patid class date1
-bysort patid class (date1): gen init = 1 if (episode == 1 & excl ==.) | date1 - date2[_n-1] > 365 & excl ==.
+bysort patid class (date1): gen init = 1 if (episode == 1 & excl ==.) | date1 - date2[_n - 1] > 365 & excl ==.
 
 ***generate variable to denote month of episode start
 g dm = mofd(date1)
@@ -128,7 +128,7 @@ gen startend2 = 0 if startend == 1
 replace startend2 = 1 if startend == 2
 
 *** flag startdates within 60d of previous date (sorted within patient on the date, starts before ends if same date)
-by patid class (date startend2), sort: gen no_gap = 1 if startend == 1 & (date - date[_n-1] <= 60) 
+by patid class (date startend2), sort: gen no_gap = 1 if startend == 1 & (date - date[_n - 1] <= 60) 
 
 *** flag end dates that are followed by start date within 60d
 replace no_gap = 1 if startend == 2 & no_gap[_n+1] == 1
@@ -137,7 +137,7 @@ replace no_gap = 1 if startend == 2 & no_gap[_n+1] == 1
 egen no_gap_max = max(no_gap), by (patid class episode)
 
 keep if no_gap ==. //*** flags starts and ends of episodes
-**keep if (no_gap_max==1 & no_gap==.) | (no_gap==. & no_gap_max ==.)
+**keep if (no_gap_max == 1 & no_gap ==.) | (no_gap==. & no_gap_max ==.)
 
 drop no_gap no_gap_max episode startend2 dm lag excl init
 
@@ -150,7 +150,7 @@ g dm = mofd(date1)
 format dm %tm
 
 replace date2 = date2 + 60
-bysort patid class (date1): assert date2 < date1[_n+1]
+bysort patid class (date1): assert date2 < date1[_n + 1]
 
 ***flag if registration end or death is before calculated discontinuation date
 gen flag = 1 if enddate < date2
@@ -172,7 +172,7 @@ ASSESS DISCONTINUATIONS,  DEFINED AS 6M AFTER ISSUEDATE
 *************************************************************************/
 
 clear all
-use "$Datadir_copd\extracted\07cr_copd_all_drugs.dta", replace
+use "$Datadir_copd\extracted\10cr_copd_all_drugs.dta", replace
 
 ***merge in registration start and end dates
 drop substancestrength dosageid

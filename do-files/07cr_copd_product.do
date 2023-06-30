@@ -1,6 +1,6 @@
 
 /*=========================================================================
-DO FILE NAME:		    05cr_copd_product.do
+DO FILE NAME:		    07cr_copd_product.do
 
 AUTHOR:					Marleen Bokern
 
@@ -15,7 +15,7 @@ DATASETS CREATED:       copd_DrugIssue_ics_single
 						copd_DrugIssue_lama_single
 						copd_DrugIssue_triple_therapy
 						
-DESCRIPTION OF FILE:	Generate list of prescriptions for each drug type. uses patient list with excl/incl criteria applied
+DESCRIPTION OF FILE:	Generate list of prescriptions for each drug type, merged with patient list with excl/incl criteria applied and dosage lookup file
 
 *=========================================================================*/
 /**************************************************************************************************************
@@ -24,9 +24,8 @@ HOUSEKEEPING
 
 clear all
 
-*run globals
 capture log close 
-log using $Logdir\05cr_copd_product.log, replace
+log using $Logdir\07cr_copd_product.log, replace
 
 ****get dosages lookup file as dta
 cd "$Datadir_copd\extracted"
@@ -37,7 +36,7 @@ save "$Datadir_copd\common_dosages", replace
 glob common_dosages "$Datadir_copd\common_dosages.dta"
 
 /*******************************************************************************************************************
-merge each drug type observation file with included patient list and dosage lookup file
+merge each drug type drug issue file with included patient list and dosage lookup file
 *******************************************************************************************************************/
 
 local drugissue ics_single ics_laba laba_lama laba_single lama_single triple_therapy
@@ -54,7 +53,6 @@ foreach drug in `drugissue' {
 	compress
 	save "${file_stub}_`drug'.dta", replace
 }
-
 
 log close
 clear all

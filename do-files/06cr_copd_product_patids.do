@@ -1,12 +1,12 @@
 
 /*=========================================================================
-DO FILE NAME:		    cr05_copd_product_patids.do
+DO FILE NAME:		    cr06_copd_product_patids.do
 
 AUTHOR:					Marleen Bokern
 
 VERSION:				v1
 
-DATE VERSION CREATED: 	12/2022
+DATE VERSION CREATED: 	06/2023
 
 DATASETS CREATED:       copd_DrugIssue_ics_single
 						copd_DrugIssue_ics_laba
@@ -15,7 +15,7 @@ DATASETS CREATED:       copd_DrugIssue_ics_single
 						copd_DrugIssue_lama_single
 						copd_DrugIssue_triple_therapy
 						
-DESCRIPTION OF FILE:	Generate list of prescriptions for each drug type. uses patient list with excl/incl criteria applied
+DESCRIPTION OF FILE:	Generates list of drug issues for each drug type. 
 
 *=========================================================================*/
 /******************
@@ -24,7 +24,7 @@ HOUSEKEEPING
 
 clear all
 capture log close 
-log using $Logdir\05cr_copd_product_patids.log, replace
+log using $Logdir\06cr_copd_product_patids.log, replace
 
 cd "$Datadir_copd\extracted"
 
@@ -50,7 +50,7 @@ glob no_Problem = 1
 glob no_DrugIssue = 49
 
 /***************************************************************************************
-MANAGE CODELISTS
+MANAGE CODELISTS - use if necessary
 ****************************************************************************************/
 
 /***check before that codelists are unique
@@ -74,7 +74,7 @@ cd $Datadir_copd\extracted
 
 timer on 1
 /*****************************************************************************************
-Inhalers
+Inhalers - 
 TRIPLE THERAPY has been extracted in inclusion/ exclusion criteria file
 ******************************************************************************************/
 
