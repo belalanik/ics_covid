@@ -23,14 +23,14 @@ capture log close
 log using $Logdir/10cr_copd_all_drugs.log , replace
 
 ***append datasets containing individual prescriptions
-use "$Datadir_copd\extracted\\${file_stub}_ics_single_clean.dta"
+use "$Datadir_copd\\${file_stub}_ics_single_clean.dta"
 gen ics_single = 1
 
-append using "$Datadir_copd\extracted\\${file_stub}_ics_laba_clean.dta", gen(ics_laba)
-append using "$Datadir_copd\extracted\\${file_stub}_laba_single_clean.dta", gen(laba_single)
-append using "$Datadir_copd\extracted\\${file_stub}_laba_lama_clean.dta", gen(laba_lama)
-append using "$Datadir_copd\extracted\\${file_stub}_lama_single_clean.dta", gen(lama_single)
-append using "$Datadir_copd\extracted\\${file_stub}_triple_therapy_clean.dta", gen(triple)
+append using "${file_stub}_ics_laba_clean.dta", gen(ics_laba)
+append using "${file_stub}_laba_single_clean.dta", gen(laba_single)
+append using "${file_stub}_laba_lama_clean.dta", gen(laba_lama)
+append using "${file_stub}_lama_single_clean.dta", gen(lama_single)
+append using "${file_stub}_triple_therapy_clean.dta", gen(triple)
 sort patid issuedate
 
 ***generate new variable for class of inhaler
@@ -47,7 +47,7 @@ drop ics_single ics_laba laba_single lama_single laba_lama
 drop termfromemis productname
 
 compress
-save "$Datadir_copd\extracted\10cr_copd_all_drugs.dta", replace
+save "10cr_copd_all_drugs.dta", replace
 
 /*********************************************************
 1. INITIATIONS
@@ -93,7 +93,7 @@ bysort patid class (date1): gen episode = _n
 keep patid episode date1 date2 class
 
 ***merge in first reg date 
-merge m:1 patid using "$Datadir_copd\extracted\copd_Patient_included.dta", keepusing(regstart enddate) keep(match) nogen
+merge m:1 patid using "copd_Patient_included.dta", keepusing(regstart enddate) keep(match) nogen
 
 ***tag people whose regstart is less than 12 months before start of episode
 gen lag = date1 - regstart
@@ -114,7 +114,7 @@ histogram dm if init == 1 & date1 > td(01dec2017), discrete frequency title(Init
 graph export $Graphdir/initiation_any.jpg, replace
 
 compress
-save "$Datadir_copd\extracted\copd_treatment_episodes_initiation", replace
+save "copd_treatment_episodes_initiation", replace
 /************************************************************************
 *************************************************************************
 ASSESS DISCONTINUATIONS, TAKING INTO ACCOUNT 60 DAY ALLOWABLE GAP
@@ -163,7 +163,7 @@ histogram dm_disc if dm_disc < tm(2021m4) & dm_disc > tm(2017m4) & flag != 1, xl
 graph export $Graphdir/discontinuation60_any.jpg, replace
 
 compress
-save "$Datadir_copd\extracted\copd_treatment_episodes_60d", replace
+save "copd_treatment_episodes_60d", replace
 
 /************************************************************************
 *************************************************************************
@@ -172,11 +172,11 @@ ASSESS DISCONTINUATIONS,  DEFINED AS 6M AFTER ISSUEDATE
 *************************************************************************/
 
 clear all
-use "$Datadir_copd\extracted\10cr_copd_all_drugs.dta", replace
+use "10cr_copd_all_drugs.dta", replace
 
 ***merge in registration start and end dates
 drop substancestrength dosageid
-merge m:1 patid using "$Datadir_copd\extracted\copd_Patient_included.dta", keepusing(regstart enddate) keep(match) nogen
+merge m:1 patid using "copd_Patient_included.dta", keepusing(regstart enddate) keep(match) nogen
 
 assert issuedate <= enddate
 
@@ -228,7 +228,7 @@ reshape wide date, i(patid flag block_num class) j(startend)
 bysort patid class (date1): gen episode = _n 
 
 ***merge in registration start and end dates
-merge m:1 patid using "$Datadir_copd\extracted\copd_Patient_included.dta", keepusing(regstart enddate) keep(match) nogen
+merge m:1 patid using "copd_Patient_included.dta", keepusing(regstart enddate) keep(match) nogen
 
 bysort patid class (episode date1): assert date2 < date1[_n + 1] if date2 !=.
 
@@ -248,7 +248,7 @@ histogram dm_disc if dm_disc < tm(2021m4) & dm_disc > tm(2017m4) & flag != 1, xl
 graph export $Graphdir/discontinuation6m_any.jpg, replace
 
 compress
-save "$Datadir_copd\extracted\copd_treatment_episodes_6m", replace
+save "copd_treatment_episodes_6m", replace
 
 log close 
 clear all

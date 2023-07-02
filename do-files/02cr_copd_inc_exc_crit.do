@@ -22,7 +22,7 @@ clear all
 cap log close
 log using $Logdir\02cr_copd_inc_exc_crit.log, replace
 
-cd "$Datadir_copd/extracted"
+cd "$Datadir_copd"
 
 glob file_stub 			= 	"copd"
 glob file_Patient 		= 	"${file_stub}_Extract_Patient_"

@@ -24,11 +24,11 @@ capture log close
 log using $Logdir/10cr_copd_all_ics.log , replace
 
 ***append datasets containing individual prescriptions
-use "$Datadir_copd\extracted\\${file_stub}_ics_single_clean.dta"
+use "$Datadir_copd\\${file_stub}_ics_single_clean.dta"
 gen ics_single = 1
 
-append using "$Datadir_copd\extracted\\${file_stub}_ics_laba_clean.dta", gen(ics_laba)
-append using "$Datadir_copd\extracted\\${file_stub}_triple_therapy_clean.dta", gen(triple)
+append using "${file_stub}_ics_laba_clean.dta", gen(ics_laba)
+append using "${file_stub}_triple_therapy_clean.dta", gen(triple)
 
 ***generate new variable for class of ics inhaler
 gen class = 0 if ics_single == 1
@@ -40,7 +40,7 @@ drop ics_single ics_laba triple
 drop termfromemis productname
 
 compress
-save "$Datadir_copd\extracted\10cr_copd_all_ics.dta", replace
+save "10cr_copd_all_ics.dta", replace
 
 /*********************************************************
 1. INITIATIONS
@@ -86,7 +86,7 @@ bysort patid (date1): gen episode = _n
 keep patid episode date1 date2
 
 ***merge in first registration date 
-merge m:1 patid using "$Datadir_copd\extracted/${file_stub}_Patient_included", keepusing(regstart enddate) keep(match) nogen
+merge m:1 patid using "${file_stub}_Patient_included", keepusing(regstart enddate) keep(match) nogen
 
 ***tag people whose regstart is less than 12 months before start of episode
 gen lag = date1 - regstart
@@ -107,7 +107,7 @@ histogram dm if init == 1 & date1 > td(01dec2017), discrete frequency title(Init
 graph export $Graphdir/initiation_ics.jpg, replace
 
 compress
-save "$Datadir_copd\extracted\copd_ics_episodes_initiation", replace
+save "${file_stub}_ics_episodes_initiation", replace
 /************************************************************************
 *************************************************************************
 ASSESS DISCONTINUATIONS, TAKING INTO ACCOUNT 60 DAY ALLOWABLE GAP
@@ -158,7 +158,7 @@ histogram dm_disc if dm_disc < tm(2021m4) & dm_disc > tm(2017m4), xlabel(#10) di
 graph export $Graphdir/discontinuation60_ics.jpg, replace
 
 compress
-save "$Datadir_copd\extracted\copd_ics_episodes_60d", replace
+save "${file_stub}_ics_episodes_60d", replace
 
 /************************************************************************
 *************************************************************************
@@ -166,11 +166,11 @@ ASSESS DISCONTINUATIONS,  DEFINED AS 6M AFTER ISSUEDATE
 *************************************************************************
 *************************************************************************/
 clear all
-use "$Datadir_copd\extracted\10cr_copd_all_ics.dta", replace
+use "10cr_copd_all_ics.dta", replace
 
 ***merge in registration start and end dates
 drop substancestrength dosageid
-merge m:1 patid using "$Datadir_copd\extracted/${file_stub}_Patient_included", keepusing(regstart enddate) keep(match) nogen
+merge m:1 patid using "${file_stub}_Patient_included", keepusing(regstart enddate) keep(match) nogen
 
 assert issuedate <= enddate
 
@@ -222,7 +222,7 @@ reshape wide date, i(patid flag block_num) j(startend)
 bysort patid (date1): gen episode = _n 
 
 ***merge in registration start and end dates
-merge m:1 patid using "$Datadir_copd\extracted/${file_stub}_Patient_included", keepusing(regstart enddate) keep(match) nogen
+merge m:1 patid using "${file_stub}_Patient_included", keepusing(regstart enddate) keep(match) nogen
 
 bysort patid (episode date1): assert date2 < date1[_n + 1] 
 
@@ -242,7 +242,7 @@ histogram dm_disc if dm_disc < tm(2021m4) & dm_disc > tm(2017m4) & flag != 1, xl
 graph export $Graphdir/discontinuation6m_ics.jpg, replace
 
 compress
-save "$Datadir_copd\extracted\copd_ics_episodes_6m", replace
+save "${file_stub}_ics_episodes_6m", replace
 
 log close 
 clear all

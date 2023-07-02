@@ -17,7 +17,7 @@ clear all
 capture log close 
 log using $Logdir/04cr_copd_comorbidities.log, replace
 
-cd "$Datadir_copd\extracted"
+cd "$Datadir_copd"
 
 glob file_stub 			= 	"copd"
 glob file_Patient 		= 	"${file_stub}_Extract_Patient_"

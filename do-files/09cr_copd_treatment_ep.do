@@ -18,7 +18,7 @@ HOUSEKEEPING
 clear all 
 capture log close
 log using "$Logdir\09cr_copd_treatment_ep.log", replace
-cd "$Datadir_copd\extracted"
+cd "$Datadir_copd"
 
 putexcel set "$Datadir_copd/medication_summary.xlsx", replace
 putexcel A2 = "n_pat"
@@ -38,7 +38,7 @@ local col: word `ncol' of `c(ALPHA)'
 
 putexcel `col'1 = `"`drugclass'"'
 
-cd "$Datadir_copd\extracted"
+cd "$Datadir_copd"
 
 noi di "Cleaning drug issue file for `drugclass'"
 noi di "Import drug issue file for `drugclass'"

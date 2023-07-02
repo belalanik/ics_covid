@@ -25,7 +25,7 @@ capture log close
 log using $Logdir/01cr_copd_file_import.log, replace
 
 macro list _all
-cd "$Datadir_copd\extracted"
+cd "$Datadir_copd"
 
 ** Instructions: to use specify directory containing unzipped aurum files, file name stubs, and number of files expected
 // Specify file names
@@ -86,7 +86,7 @@ qui {
 >> Convert all necessary files to dta, rename, reformat, and drop variables where necessary
 *******************************************************************************************************/
 
-local sourcedir "$Datadir_copd\extracted"
+local sourcedir "$Datadir_copd"
 cd "`sourcedir'"
 
 /******************************************************************************************************
