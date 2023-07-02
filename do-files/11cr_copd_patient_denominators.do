@@ -16,10 +16,12 @@ capture log close
 log using "$Logdir/11cr_copd_patient_denominators.log", replace
 ssc install ereplace
 
+cd "$Datadir_copd"
+
 return list
 scalar list
 
-putexcel set "$Datadir_copd\extracted\denominators", replace
+putexcel set "denominators", replace
 putexcel A1 = "month_str"
 putexcel B1 = "month"
 putexcel A2 = "Mar2019"
@@ -79,9 +81,9 @@ putexcel B27 = "735"
 /************************************************************************
 DENOMINATOR COUNTS
 *************************************************************************/
-use "$Datadir_copd/extracted/copd_Patient_included.dta", replace 
+use "${file_stub}_Patient_included.dta", replace 
 
-merge m:1 patid using "$Datadir_copd\extracted\copd_firstevent", keep(match)
+merge m:1 patid using "${file_stub}_firstevent", keep(match)
 
 g dm_copd = mofd(copd_date)
 format dm_copd %tm
@@ -113,7 +115,7 @@ ICS SINGLE
 
 ***ICS patients
 clear all
-use "$Datadir_copd/extracted/copd_ics_single_clean", replace
+use "${file_stub}_ics_single_clean", replace
 
 putexcel D1 = "ics_single_pat"
 local loop_count = 1
@@ -144,7 +146,7 @@ ICS LABA
 *************************************************************************/
 ****add ICS LABA PATIENTS
 clear all
-use "$Datadir_copd/extracted/copd_ics_laba_clean", replace
+use "${file_stub}_ics_laba_clean", replace
      
 putexcel F1 = "ics_laba_pat"
 local loop_count = 1
@@ -174,7 +176,7 @@ LABA LAMA
 *************************************************************************/
 ***LABA LAMA patients
 clear all
-use "$Datadir_copd/extracted/copd_laba_lama_clean", replace
+use "${file_stub}_laba_lama_clean", replace
 
 putexcel H1 = "laba_lama_pat"
 local loop_count = 1
@@ -204,7 +206,7 @@ LABA single
 *************************************************************************/
 ***LABA single patients
 clear all
-use "$Datadir_copd/extracted/copd_laba_single_clean", replace
+use "${file_stub}_laba_single_clean", replace
 
 putexcel J1 = "laba_single_pat"
 local loop_count = 1
@@ -235,7 +237,7 @@ LAMA single
 ***LAMA single patients
 
 clear all
-use "$Datadir_copd/extracted/copd_lama_single_clean", replace
+use "${file_stub}_lama_single_clean", replace
 
 putexcel L1 = "lama_single_pat"
 local loop_count = 1
@@ -266,7 +268,7 @@ TRIPLE THERAPY
 ***TRIPLE THERAPY patients
 
 clear all
-use "$Datadir_copd/extracted/copd_triple_therapy_clean", replace
+use "${file_stub}_triple_therapy_clean", replace
 
 putexcel N1 = "triple_therapy_pat"
 local loop_count = 1
@@ -297,7 +299,7 @@ forvalues m = `=tm(2019m3)'/`=tm(2021m4)' {
 *************************************************************************/
 clear all
 
-use "$Datadir_copd\extracted\copd_ics_episodes_60d"
+use "${file_stub}_ics_episodes_60d"
 
 ****gen prevalence counts
 forvalues m = `=tm(2019m3)'/`=tm(2021m4)' {
@@ -326,14 +328,14 @@ forvalues m = `=tm(2019m3)'/`=tm(2021m4)' {
 	local loop_count = `loop_count' + 1
    }
 
-save "$Datadir_copd\extracted\copd_patient_prevalence_ics60d", replace
+save "${file_stub}_patient_prevalence_ics60d", replace
 clear all
 
 /************************************************************************
 ***generate end/discontinuation dates in different ways
 ***ICS prevalence with 6m post-last prescription gap
 *************************************************************************/
-use "$Datadir_copd\extracted\copd_ics_episodes_6m" 
+use "${file_stub}_ics_episodes_6m" 
 
 ****gen prevalence counts
 forvalues m = `=tm(2019m3)'/`=tm(2021m4)' {
@@ -355,12 +357,12 @@ forvalues m = `=tm(2019m3)'/`=tm(2021m4)' {
 	local loop_count = `loop_count' + 1
    }   
    
-save "$Datadir_copd\extracted\copd_patient_prevalence_ics6m", replace
+save "${file_stub}_patient_prevalence_ics6m", replace
 
    
 ***get users of any ics   
 clear all
-use "$Datadir_copd\extracted\10cr_copd_all_ics.dta", replace
+use "10cr_copd_all_ics.dta", replace
 
 putexcel R1 = "ics_all_pat"
 local loop_count = 1
@@ -375,7 +377,7 @@ forvalues m = `=tm(2019m3)'/`=tm(2021m4)' {
    
 **** get discontinuations = 6m post last prescription
 drop substancestrength dosageid
-merge m:1 patid using "$Datadir_copd\extracted\copd_Patient.dta", keepusing(regstart enddate) keep(match) nogen
+merge m:1 patid using "${file_stub}_Patient.dta", keepusing(regstart enddate) keep(match) nogen
 gen disc_date6m = issuedate + 183
 format disc_date6m %td
 replace disc_date6m =. if enddate < disc_date6m
@@ -397,7 +399,7 @@ forvalues m = `=tm(2019m3)'/`=tm(2021m4)' {
 *********************************************************************************************
 *********************************************************************************************
 ***get initiations = 1y without prescriptions
-use "$Datadir_copd\extracted\copd_ics_episodes_initiation", replace
+use "${file_stub}_ics_episodes_initiation", replace
 
 ****assess initation over time 
 tabulate dm if init == 1 & date1 >= td(01mar2019) & excl ==., matcell(freq) matrow(names)
@@ -410,7 +412,7 @@ by patid (date1): assert date2 < date1[_n + 1]
 clear all
 ***********************************************************************************************
 ***get discontinuations = 60 post end date
-use "$Datadir_copd\extracted\copd_ics_episodes_60d"
+use "${file_stub}_ics_episodes_60d"
 
 **export only numbers no months
 tabulate dm_disc if dm_disc >= tm(2019m3) & dm_disc <= tm(2021m4) , matcell(freq) matrow(names)
@@ -419,11 +421,11 @@ matrix list names
 
 putexcel U1 = "disc60d" U2 = matrix(freq)
 
-save "$Datadir_copd\extracted\copd_ics_episodes_60d", replace
+save "${file_stub}_ics_episodes_60d", replace
 **************************************************************************************************
 
 clear all 
-import excel "$Datadir_copd/extracted/denominators.xlsx", firstrow
+import excel "denominators.xlsx", firstrow
 
 destring month, replace
 format month %tm
@@ -437,8 +439,8 @@ gen init_prop = init/denom
 gen disc60d_prop = disc60d /denom
 gen disc6m_prop = disc6m /denom
 
-save "$Datadir_copd\extracted\\${file_stub}_summary_stats.dta", replace
-export excel "$Datadir_copd\extracted\\${file_stub}_summary_stats.xlsx", firstrow(var) keepcellfmt replace
+save "${file_stub}_summary_stats.dta", replace
+export excel "${file_stub}_summary_stats.xlsx", firstrow(var) keepcellfmt replace
 
 clear all
 log close

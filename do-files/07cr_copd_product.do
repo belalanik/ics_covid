@@ -28,7 +28,7 @@ capture log close
 log using $Logdir\07cr_copd_product.log, replace
 
 ****get dosages lookup file as dta
-cd "$Datadir_copd\extracted"
+cd "$Datadir_copd"
 
 import delimited "$Denominator\CPRD Aurum\Lookups\2022_05\common_dosages.txt", clear
 save "$Datadir_copd\common_dosages", replace
@@ -46,7 +46,7 @@ disp `"`drugissue'"'
 foreach drug in `drugissue' {
 	noi di "File `drug'"
     use "${file_stub}_DrugIssue_`drug'.dta", clear
-	merge m:1 patid using "$Datadir_copd\extracted/${file_stub}_Patient_included", keep(match) nogen
+	merge m:1 patid using "${file_stub}_Patient_included", keep(match) nogen
 	merge m:1 dosageid using "$common_dosages", keep(match master) nogen
 	drop dose_duration dose_max_average change_dose dose_unit dose_interval dose_frequency choice_of_dose dose_number enterdate
 	cap drop drugissues

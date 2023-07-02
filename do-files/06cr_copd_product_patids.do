@@ -26,7 +26,7 @@ clear all
 capture log close 
 log using $Logdir\06cr_copd_product_patids.log, replace
 
-cd "$Datadir_copd\extracted"
+cd "$Datadir_copd"
 
 // Specify file names
 glob file_stub 			= 	"copd"
@@ -70,7 +70,7 @@ clear all
 
 ****************/
 
-cd $Datadir_copd\extracted
+cd $Datadir_copd
 
 timer on 1
 /*****************************************************************************************

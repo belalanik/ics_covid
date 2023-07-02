@@ -18,7 +18,7 @@ HOUSEKEEPING
 clear all
 capture log close
 log using "$Logdir\08cr_copd_med_check.log", replace
-cd "$Datadir_copd\extracted"
+cd "$Datadir_copd"
 ssc install ereplace
 ssc install moss
 

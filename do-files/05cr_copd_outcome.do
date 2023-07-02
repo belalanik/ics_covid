@@ -18,7 +18,7 @@ clear all
 capture log close 
 log using $Logdir/05cr_copd_outcome.log, replace
 
-cd "$Datadir_copd\extracted"
+cd "$Datadir_copd"
 
 /***************************************************************************************
 COMORBIDITIES THAT USE FIRST EVENT EVER

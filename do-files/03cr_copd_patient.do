@@ -25,7 +25,7 @@ clear all
 cap log close
 log using $Logdir\03cr_copd_patient.log, replace
 
-cd "$Datadir_copd/extracted"
+cd "$Datadir_copd"
 
 glob file_stub 			= 	"copd"
 glob file_Patient 		= 	"${file_stub}_Extract_Patient_"
@@ -51,7 +51,7 @@ glob no_DrugIssue = 49
 /*******************************************************************************
 Import patient file
 *******************************************************************************/
-use "$Datadir_copd/extracted/${file_stub}_Extract_Patient_1.dta"
+use "${file_stub}_Extract_Patient_1.dta"
 describe
 
 count if emis_death!=. & missing(deathdate) //***0 --> no cases where emis has death date but cprd does not
@@ -95,7 +95,7 @@ count if regstart >= td(01mar2020) //*0 --> as expected
 assert regstart < td(01mar2020)
 
 **merge with practice file to generate end dates
-merge m:1 pracid using "$Datadir_copd\extracted/${file_stub}_Extract_Practice_1", nogen
+merge m:1 pracid using "${file_stub}_Extract_Practice_1", nogen
 
 ***Generate end date (last collection or registration end or death)
 gen enddate = min(regend,lcd,deathdate)
@@ -107,7 +107,7 @@ assert enddate >= td(01mar2020) //***0, as expected
 misstable summarize
 summarize
 compress
-save "$Datadir_copd\extracted/${file_stub}_Patient", replace 
+save "${file_stub}_Patient", replace 
 
 clear all 
 
