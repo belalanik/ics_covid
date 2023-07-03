@@ -20,7 +20,7 @@ clear all
 
 capture log close
 log using $Logdir/copd_covariate_smoking.log, replace
-cd "$Datadir_copd\extracted"
+cd "$Datadir_copd"
 
 foreach file of numlist 1/$no_Observation {
 	noi di "Merging smoking observations, File `file'"

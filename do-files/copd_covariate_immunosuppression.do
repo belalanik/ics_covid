@@ -16,7 +16,7 @@ clear all
 capture log close 
 log using $Logdir/copd_covariate_immunosuppression.log, replace
 
-cd "$Datadir_copd\extracted"
+cd "$Datadir_copd"
 /********************************************************************************************
 ORGAN TRANSPLANT - EVER BEFORE INDEX
 **********************************************************************************************/

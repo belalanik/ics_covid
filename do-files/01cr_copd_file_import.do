@@ -25,7 +25,6 @@ capture log close
 log using $Logdir/01cr_copd_file_import.log, replace
 
 macro list _all
-cd "$Datadir_copd"
 
 ** Instructions: to use specify directory containing unzipped aurum files, file name stubs, and number of files expected
 // Specify file names
@@ -55,7 +54,7 @@ glob no_DrugIssue = 49
 *******************************************************************************/
 
 // Specify directory containing file names
-
+cd $Copd_aurum_extract
 
 // Check presence of files
 loc valid_check = 1
@@ -86,8 +85,7 @@ qui {
 >> Convert all necessary files to dta, rename, reformat, and drop variables where necessary
 *******************************************************************************************************/
 
-local sourcedir "$Datadir_copd"
-cd "`sourcedir'"
+cd "$Datadir_copd"
 
 /******************************************************************************************************
 >> CONVERT OBSERVATION FILES
@@ -100,7 +98,7 @@ cd "`sourcedir'"
 *******************************************************************************************************/
 foreach file of numlist 1/9 {
 	noi di "Converting Observation, File `file'"
-    import delimited using "marleen_${file_stub}_Extract_Observation_00`file'.txt", clear stringcols(_all)
+    import delimited using "$Copd_aurum_extract\marleen_${file_stub}_Extract_Observation_00`file'.txt", clear stringcols(_all)
 	drop staffid consid obsid parentobsid probobsid
 	g obsdate1 = date(obsdate, "DMY")
 	g enterdate1 = date(enterdate,"DMY")
@@ -109,7 +107,7 @@ foreach file of numlist 1/9 {
 	format (obsdate1 enterdate1 eventdate) %td
 	drop obsdate enterdate 
 	rename (enterdate1 obsdate1) (enterdate obsdate)
-	drop if obsdate >=td(01may2021) & obsdate !=.
+	drop if obsdate >= td(01may2021) & obsdate !=.
     misstable summarize patid pracid obsdate enterdate eventdate medcodeid
 	compress
 	save "${file_stub}_Extract_Observation_`file'.dta", replace
@@ -117,7 +115,7 @@ foreach file of numlist 1/9 {
 
 foreach file of numlist 10/$no_Observation {
 	noi di "Converting Observation, File `file'"
-    import delimited using "marleen_${file_stub}_Extract_Observation_0`file'.txt", clear stringcols(_all)
+    import delimited using "$Copd_aurum_extract\marleen_${file_stub}_Extract_Observation_0`file'.txt", clear stringcols(_all)
 	drop staffid consid obsid parentobsid probobsid
 	g obsdate1 = date(obsdate, "DMY")
 	g enterdate1 = date(enterdate,"DMY")
@@ -144,7 +142,7 @@ foreach file of numlist 10/$no_Observation {
 *******************************************************************************************************/
 foreach file of numlist 1/9 {
 	noi di "Converting Drug Issue, File `file'"
-    import delimited using "marleen_${file_stub}_Extract_DrugIssue_00`file'.txt", stringcols(_all) clear
+    import delimited using "$Copd_aurum_extract\marleen_${file_stub}_Extract_DrugIssue_00`file'.txt", stringcols(_all) clear
 	drop issueid probobsid drugrecid staffid
 	g issuedate1 = date(issuedate, "DMY")
 	g enterdate1 = date(enterdate,"DMY")
@@ -152,7 +150,7 @@ foreach file of numlist 1/9 {
 	drop issuedate enterdate 
 	rename (enterdate1 issuedate1) (enterdate issuedate)
 	destring quantity duration, replace
-	drop if issuedate >=td(01may2021) & issuedate !=.
+	drop if issuedate >= td(01may2021) & issuedate !=.
     misstable summarize patid pracid issuedate enterdate prodcodeid dosageid quantity quantunitid duration
 	compress
 	save "${file_stub}_Extract_DrugIssue_`file'.dta", replace
@@ -160,7 +158,7 @@ foreach file of numlist 1/9 {
 
 foreach file of numlist 10/$no_DrugIssue {
 	noi di "Converting Drug Issue, File `file'"
-    import delimited using "marleen_${file_stub}_Extract_DrugIssue_0`file'.txt", stringcols(_all) clear
+    import delimited using "$Copd_aurum_extract\marleen_${file_stub}_Extract_DrugIssue_0`file'.txt", stringcols(_all) clear
 	drop issueid probobsid drugrecid staffid
 	g issuedate1 = date(issuedate, "DMY")
 	g enterdate1 = date(enterdate,"DMY")
@@ -168,7 +166,7 @@ foreach file of numlist 10/$no_DrugIssue {
 	drop issuedate enterdate 
 	rename (enterdate1 issuedate1) (enterdate issuedate)
 	destring quantity duration, replace
-	drop if issuedate >=td(01may2021) & issuedate !=.
+	drop if issuedate >= td(01may2021) & issuedate !=.
     misstable summarize patid pracid issuedate enterdate prodcodeid dosageid quantity quantunitid duration
 	compress
 	save "${file_stub}_Extract_DrugIssue_`file'.dta", replace
@@ -183,7 +181,7 @@ foreach file of numlist 10/$no_DrugIssue {
 ****compress and save as dta file
 *******************************************************************************************************/
 noi di "Converting Patient"
-import delimited using "marleen_${file_stub}_Extract_Patient_001.txt", clear stringcols(_all)
+import delimited using "$Copd_aurum_extract\marleen_${file_stub}_Extract_Patient_001.txt", clear stringcols(_all)
 drop usualgpstaffid acceptable
 destring yob mob gender, replace
 g regstart = date(regstartdate, "DMY")
@@ -204,7 +202,7 @@ save "${file_stub}_Extract_Patient_1.dta", replace
 ****compress and save as dta file
 *******************************************************************************************************/
 noi di "Converting Practice"
-import delimited using "marleen_${file_stub}_Extract_Practice_001.txt", clear stringcols(_all)
+import delimited using "$Copd_aurum_extract\marleen_${file_stub}_Extract_Practice_001.txt", clear stringcols(_all)
 drop uts region
 g lcd1 = date(lcd, "DMY")
 format lcd1 %td

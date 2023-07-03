@@ -85,7 +85,7 @@ foreach drug of local product {
 	foreach file of numlist 1/$no_DrugIssue {
 		noi di "Merging `drug', File `file'"
 		use "${file_stub}_Extract_DrugIssue_`file'", clear
-		drop if issuedate > td(30apr2021)
+		drop if issuedate > td(31aug2020)
 		drop pracid estnhscost
 		merge m:1 prodcodeid using "$Codelistsdir\Product_codelists\cl_`drug'.dta", keep(match) nogen
 		cap drop drugissues
@@ -115,7 +115,7 @@ save "$Codelistsdir/Comorbidities/cl_immunosuppressants", replace
 foreach file of numlist 1/$no_DrugIssue {
 	noi di "Merging immunosuppressants Drug Issue, File `file'"
     use "${file_stub}_Extract_DrugIssue_`file'", clear
-	drop if issuedate > td(30apr2021)
+	drop if issuedate > td(31aug2020)
 	drop pracid estnhscost
     merge m:1 prodcodeid using "$Codelistsdir/Comorbidities/cl_`product'", keep(match) nogen
 	cap drop drugissues

@@ -57,7 +57,7 @@ foreach comorbidity of local disease {
 foreach file of numlist 1/$no_Observation {
 	noi di "Merging `comorbidity' Observations, File `file'"
     use "${file_stub}_Extract_Observation_`file'", clear
-	drop if eventdate > td(30apr2021)
+	drop if eventdate > td(01mar2020)
     merge m:1 medcodeid using "$Codelistsdir\Comorbidities\cl_`comorbidity'.dta", keep(match) nogen
 	merge m:1 patid using "${file_stub}_Patient_included.dta", keep(match) nogen
 	keep patid medcodeid term obsdate enterdate eventdate
@@ -73,7 +73,6 @@ foreach file of numlist 1/$no_Observation {
 	
 
 sort patid eventdate
-drop if eventdate > td(01mar2020)
 bysort patid (eventdate): gen keep = _n
 keep if keep == 1
 drop enterdate obsdate medcodeid term keep
@@ -85,12 +84,12 @@ clear all
 
 /*********************************************************************************************************************
 ASTHMA - ONLY CODES MORE THAN 3 YEARS BEFORE INDEX DATE ARE OF INTEREST. 
+Asthma observations have been extracted in 02_cr_copd_inc_exc_crit 
 *************************************************************************************************************************/
 clear all
 
 local comorbidity asthma
 disp `"`comorbidity'"'
-
 
 use "${file_stub}_Observation_`comorbidity'.dta"
 merge m:1 patid using "${file_stub}_Patient_included.dta", keep(match) nogen // this list only includes people who had no asthma code within 3 years before the index date
@@ -115,7 +114,7 @@ foreach comorbidity of local disease {
 foreach file of numlist 1/$no_Observation {
 	noi di "Merging `comorbidity' Observations, File `file'"
     use "${file_stub}_Extract_Observation_`file'", clear
-	drop if eventdate > td(30apr2021)
+	drop if eventdate > td(01mar2020)
     merge m:1 medcodeid using "$Codelistsdir\Comorbidities\cl_`comorbidity'.dta", keep(match) nogen
 	merge m:1 patid using "${file_stub}_Patient_included.dta", keep(match) nogen
 	keep patid medcodeid term obsdate enterdate eventdate
