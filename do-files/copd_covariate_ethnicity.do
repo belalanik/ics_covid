@@ -351,8 +351,8 @@ gsort patid -count
 replace eth5same = eth5same[_n - 1] if eth5same[_n - 1] == 0 & patid[_n] == patid[_n - 1]
 sort patid count
 
-tab eth5same if enter==1
-tab eth5same if exit==1
+tab eth5same if enter == 1
+tab eth5same if exit == 1
 
 
 sort patid count
@@ -387,14 +387,14 @@ replace latesteth5 = latesteth5[_n - 1] if patid[_n] == patid[_n - 1] & [_n] != 
 *label values latesteth16 eth16
 label values latesteth5 eth5
 compress
-save "copd_Observation_all_eth.dta", replace
+save "${file_stub}_Observation_all_eth.dta", replace
 
 
 **MAKE PATIENT LEVEL FILE
 **drop duplicate patids
-use "copd_Patient_included.dta", clear
+use "${file_stub}_Patient_included.dta", clear
 
-merge 1:m patid using "copd_Observation_all_eth.dta", gen(merge2)
+merge 1:m patid using "${file_stub}_Observation_all_eth.dta", gen(merge2)
 
 
 codebook patid //
@@ -426,5 +426,5 @@ compress
 
 keep patid eth5 eth16  
 compress 
-save "copd_Patient_ethnicity", replace
+save "${file_stub}_Patient_ethnicity", replace
 log close

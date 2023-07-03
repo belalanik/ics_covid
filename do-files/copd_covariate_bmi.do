@@ -14,7 +14,6 @@ DESCRIPTION OF FILE:	bmi codelist applied to cohort (incl/excl. already applied)
 
 *=========================================================================*/
 
-
 /*******************************************************************************
 >> HOUSEKEEPING
 *******************************************************************************/
@@ -23,12 +22,12 @@ clear all
 capture log close
 log using $Logdir/covariate_bmi_copd.log, replace
 cd "$Projectdir"
-cd "$Datadir_copd\extracted"
+cd "$Datadir_copd"
 
 import delimited "J:\EHR Share\3 Database guidelines and info\CPRD Aurum\Lookups\2022_05\NumUnit.txt", clear
-save "$Datadir_copd\NumUnit", replace
+save "$Mainfolder\NumUnit", replace
 
-glob numunit "$Datadir_copd\NumUnit.dta"
+glob numunit "$Mainfolder\NumUnit.dta"
 
 **********************************
 
@@ -57,14 +56,14 @@ drop if obsdate > td(01sep2020)
 
 drop if term == "body mass index" & (value < 15|value ==.)
 
-drop if term =="body weight" & (value < 1 | value ==.)
-drop if term =="standing height" & (value < 1 | value ==.)
-drop if term =="weight monitoring" & value ==.
+drop if term == "body weight" & (value < 1 | value ==.)
+drop if term == "standing height" & (value < 1 | value ==.)
+drop if term == "weight monitoring" & value ==.
 drop if obsdate < td(01jan1960)
 
 replace bmicat = 0 if term == "body mass index" & (value < 16.5)
-replace bmicat = 1 if term == "body mass index" & (value >= 16.5|value < 25)
-replace bmicat = 2 if term == "body mass index" & (value >= 25|value < 30)
+replace bmicat = 1 if term == "body mass index" & (value >= 16.5 | value < 25)
+replace bmicat = 2 if term == "body mass index" & (value >= 25 | value < 30)
 replace bmicat = 3 if term == "body mass index" & (value >= 30)
 
 
@@ -142,14 +141,14 @@ sort patid obsdate enttype data1
 *Deal with remaining with >1 mmt on same day
 *If 2, and within 5cm (ht) or 1kg (wt) or 1 BMI, take the average, otherwise drop all
 noi di "Dealing with 2 different mmts on the same day..."
-by patid obsdate enttype: gen diff=data1-data1[_n-1] if _n==2
-by patid obsdate enttype: replace diff=diff[2]  if _n==1 & _N==2 
-noi di "... if 2 weights >1kg difference, drop both"
-noi drop if diff>1 & diff<. & enttype==13
-noi di "... if 2 heights >5cm difference, drop both"
-noi drop if diff>.05 & diff<. & enttype==14 
+by patid obsdate enttype: gen diff = data1 - data1[_n - 1] if _n == 2
+by patid obsdate enttype: replace diff = diff[2]  if _n == 1 & _N == 2 
+noi di "... if 2 weights > 1kg difference, drop both"
+noi drop if diff > 1 & diff <. & enttype == 13
+noi di "... if 2 heights > 5cm difference, drop both"
+noi drop if diff > .05 & diff <. & enttype == 14 
 noi di "... if 2 BMI >1 difference, drop both"
-noi drop if diff>1 & diff<. & enttype==15
+noi drop if diff > 1 & diff <. & enttype == 15
 noi di "For the remainder, take the mean of the 2 mmts and keep 1 record"
 drop diff
 by patid obsdate enttype: egen data1av = mean(data1)
@@ -181,17 +180,17 @@ local tottofill = r(N)
 cou if weight <.
 local totalwtrecords = r(N)
 noi di "Total number of records containing a weight : " `totalwtrecords'
-cou if weight<. & height==.
+cou if weight <. & height ==.
 local totmissinght = r(N)
 noi di "Total number of records containing a weight but no height: " r(N) " (" %3.1f 100*`totmissinght'/`totalwtrecords' "%)"
-cou if weight<. & height==. & ageatlastht<.
+cou if weight <. & height ==. & ageatlastht<.
 local tottofill = r(N)
 noi di "Number of missing heights to be filled by locf (i.e. where a previous height was recorded): " `tottofill' " (" %3.1f 100*`tottofill'/`totmissinght' "% of those missing)"
-cou if weight<. & height==. & ageatmmt>21 & ageatlastht<18
+cou if weight <. & height ==. & ageatmmt > 21 & ageatlastht < 18
 noi di "Number of missing heights aged over 21 where the last height was age<18: " r(N) " (" %3.1f 100*r(N)/`tottofill' "% of those being filled)"
 
 noi di "Filling in the heights with LOCF regardless of age..."
-noi by patid: replace height = height[_n-1] if height==. & height[_n-1]<.
+noi by patid: replace height = height[_n - 1] if height==. & height[_n - 1] <.
 
 by patid: gen cumht = sum(height) if height <.
 by patid: egen firstht = min(cumht)
@@ -240,12 +239,12 @@ egen wtcat = cut(weight), at(0(1)25 30(5)100 1000)
 noi di "Weight distribution - note the peak between 10 and 20 - suggests recorded in stones?"
 noi tab wtcat /*note the peak between 10 and 20 - stones?*/
 noi di "Drop if weight<=20 as likely to be recorded in stones or error"
-noi drop if weight<=20 /*I think these have mostly been recorded in stones*/
+noi drop if weight <= 20 /*I think these have mostly been recorded in stones*/
 
 *Use calculated version where poss as no weird rounding 
 noi di "Prioritise calculated bmi (from wt/ht) as the one to use (preferable as GPRD version always appears to be rounded down)...  "
 noi di "...but fill in missing values in the calculated BMI, with GPRD BMI where it is available"
-noi replace bmi_calc=bmi if bmi_calc ==.
+noi replace bmi_calc = bmi if bmi_calc ==.
 
 egen bmicat = cut(bmi_calc), at(0 5 6 7 8 9 10 11 12 13 14 15 20 30 40 50 60 70 80 90 100 110 120 130 140 150 160 170 180 190 200)
 noi di "Distribution of BMI records (before considering fup dates etc); note truncated at 5 and 200 by above processing, but may wish to restrict more in analysis...e.g. to 3 sds from mean?"

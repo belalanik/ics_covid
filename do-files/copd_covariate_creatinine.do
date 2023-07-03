@@ -28,14 +28,14 @@ capture log close
 log using $Logdir/covariate_creatinine_copd.log, replace
 
 cd "$Projectdir"
-cd "$Datadir_copd\extracted"
+cd "$Datadir_copd"
 
 ****get NumUnit lookup file as dta
 
 import delimited "J:\EHR Share\3 Database guidelines and info\CPRD Aurum\Lookups\2022_05\NumUnit.txt", clear
-save "$Datadir_copd\NumUnit", replace
+save "$Mainfolder\NumUnit", replace
 
-glob NumUnit "$Datadir_copd\NumUnit.dta"
+glob NumUnit "$Mainfolder\NumUnit.dta"
 
 ****creatinine codelist was originally from Angel, adapted using code from Emily Herrett
 ****loop thorugh all observation files to generate dataset of all creatinine codes
@@ -110,7 +110,7 @@ destring numunitid, replace
 	#A7. Add notes and labels to the data
 	*******************************************************************************/
 
-	save "copd_creatinine_values", replace
+	save "${file_stub}_creatinine_values", replace
 	
 /*******************************************************************************
 ================================================================================
@@ -121,7 +121,7 @@ destring numunitid, replace
 	#B1. Open patient details file, sort and save relevant details ready to merge
 		with test results file
 	**************************************************************************/
-	use "copd_Patient_included.dta", clear
+	use "${file_stub}_Patient_included.dta", clear
 	keep patid gender yob
 	
 	destring gender, replace
@@ -129,7 +129,7 @@ destring numunitid, replace
 	
 	sort patid
 	
-	merge 1:m patid using "copd_creatinine_values.dta", nogen keep(match) force // only keep patients with test results available
+	merge 1:m patid using "${file_stub}_creatinine_values.dta", nogen keep(match) force // only keep patients with test results available
 
 	/**************************************************************************
 	#B2. Calculate age at event
@@ -225,7 +225,7 @@ destring numunitid, replace
 	label data "serum creatinine records and eGFR results from CPRD"
 	notes: prog_getScr.do / TS
 	compress
-	save "copd_Observations_egfr", replace
+	save "${file_stub}_Observations_egfr", replace
 
 drop if eventdate > td(01mar2020)
 drop pracid term obsdate rangeTo rangeFrom obstypeid unit description max min SCr_adj ageAtEvent ckd

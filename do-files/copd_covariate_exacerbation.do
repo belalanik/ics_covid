@@ -21,7 +21,7 @@ clear all
 log using "$Logdir/copd_covariate_exacerbation.log", replace
 local path_browsers "$Denominator\CPRD Aurum\Code browsers\2022_05"
 
-cd "$Datadir_copd\extracted"
+cd "$Datadir_copd"
 
 /******************************************************************************************************************
 USE CODELISTS FOR AECOPD, LRTI, ANNUAL REVIEW, AECOPD SYMPTOMS
@@ -125,7 +125,7 @@ drop if eventdate > td(01mar2020)
 by patid (eventdate): gen exacerbation = 1 if _n == 1 | eventdate[_n - 1] < eventdate - 14
 
 //Step 15. You now have a list of exacerbations for each patient. If you run the collapse command you can generate the total number of exacerbations for each patient over the given time peroid
-collapse (sum) exacerbations=exacerbation, by(patid)
+collapse (sum) exacerbations = exacerbation, by(patid)
 
 save "${file_stub}_covariate_exacerbation_w1.dta", replace
 
