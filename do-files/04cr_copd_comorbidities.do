@@ -56,7 +56,7 @@ disp `"`comorbidity'"'
 foreach comorbidity of local disease {
 foreach file of numlist 1/$no_Observation {
 	noi di "Merging `comorbidity' Observations, File `file'"
-    use "${file_stub}_Extract_Observation_`file'", clear
+    use "$Copd_aurum_extract\\${file_stub}_Extract_Observation_`file'", clear
 	drop if eventdate > td(01mar2020)
     merge m:1 medcodeid using "$Codelistsdir\Comorbidities\cl_`comorbidity'.dta", keep(match) nogen
 	merge m:1 patid using "${file_stub}_Patient_included.dta", keep(match) nogen
@@ -98,8 +98,9 @@ assert eventdate < td(01mar2017) | eventdate >= td(01mar2020)
 sort patid eventdate
 bysort patid: gen keep = _n
 keep if keep == 1
-drop enterdate obsdate medcodeid term keep
+drop medcodeid term keep
 rename eventdate `comorbidity'_date 
+
 save "${file_stub}_covariate_`comorbidity'.dta", replace
 
 /**************************************************************************
@@ -113,7 +114,7 @@ disp `"`comorbidity'"'
 foreach comorbidity of local disease {
 foreach file of numlist 1/$no_Observation {
 	noi di "Merging `comorbidity' Observations, File `file'"
-    use "${file_stub}_Extract_Observation_`file'", clear
+    use "$Copd_aurum_extract\\${file_stub}_Extract_Observation_`file'", clear
 	drop if eventdate > td(01mar2020)
     merge m:1 medcodeid using "$Codelistsdir\Comorbidities\cl_`comorbidity'.dta", keep(match) nogen
 	merge m:1 patid using "${file_stub}_Patient_included.dta", keep(match) nogen

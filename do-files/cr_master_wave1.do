@@ -42,7 +42,7 @@ cd $Dodir
 do "copd_covariate_creatinine.do"
 
 cd $Dodir
-do "05cr_copd_outcome.do"
+*do "05cr_copd_outcome.do"
 
 cd $Dodir
 do "06cr_copd_product_patids"

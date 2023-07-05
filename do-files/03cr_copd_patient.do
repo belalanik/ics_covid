@@ -47,11 +47,10 @@ glob no_Referral = 1
 glob no_Problem = 1
 glob no_DrugIssue = 49
 
-
 /*******************************************************************************
 Import patient file
 *******************************************************************************/
-use "${file_stub}_Extract_Patient_1.dta"
+use "$Copd_aurum_extract\\${file_stub}_Extract_Patient_1.dta"
 describe
 
 count if emis_death!=. & missing(deathdate) //***0 --> no cases where emis has death date but cprd does not
@@ -95,7 +94,7 @@ count if regstart >= td(01mar2020) //*0 --> as expected
 assert regstart < td(01mar2020)
 
 **merge with practice file to generate end dates
-merge m:1 pracid using "${file_stub}_Extract_Practice_1", nogen
+merge m:1 pracid using "$Copd_aurum_extract\\${file_stub}_Extract_Practice_1", nogen
 
 ***Generate end date (last collection or registration end or death)
 gen enddate = min(regend,lcd,deathdate)
@@ -157,7 +156,7 @@ local concept asthma
 
 use "${file_stub}_Observation_`concept'.dta"
 
-merge m:1 patid using "$Datadir_copd\extracted/${file_stub}_Patient", keep(match)
+merge m:1 patid using "$Datadir_copd\\${file_stub}_Patient", keep(match)
 
 gen excl = 1 if eventdate >= td(01mar2017) & eventdate <= td(01mar2020)
 sort patid eventdate
@@ -173,9 +172,10 @@ rename eventdate `concept'_date
 keep patid `concept'_date 
 
 compress
-save "$Datadir_copd\extracted/${file_stub}_exclusion_`concept'", replace
+save "$Datadir_copd\\${file_stub}_exclusion_`concept'", replace
 
 clear all
+
 /*******************************************************************************
 >> LTRA 
 *******************************************************************************/
@@ -183,7 +183,7 @@ local concept ltra
 
 use "${file_stub}_DrugIssue_`concept'.dta"
 
-merge m:1 patid using "$Datadir_copd\extracted/${file_stub}_Patient", keep(match)
+merge m:1 patid using "$Datadir_copd\\${file_stub}_Patient", keep(match)
 drop if issuedate > td(01mar2020)
 
 gen excl = 1 if issuedate >= td(01nov2019) & issuedate <= td(01mar2020)
@@ -200,7 +200,7 @@ rename issuedate `concept'_date
 
 keep patid `concept'_date 
 compress
-save "$Datadir_copd\extracted/${file_stub}_exclusion_`concept'", replace
+save "$Datadir_copd\\${file_stub}_exclusion_`concept'", replace
 
 clear all
 
@@ -237,7 +237,7 @@ local concept triple_therapy
 
 use "${file_stub}_DrugIssue_`concept'.dta"
 
-merge m:1 patid using "$Datadir_copd\extracted/${file_stub}_Patient", keep(match)
+merge m:1 patid using "$Datadir_copd\\${file_stub}_Patient", keep(match)
 
 drop if issuedate < td(01dec2019)
 drop if issuedate > td(01mar2020)
@@ -249,7 +249,7 @@ keep if first == 1
 
 keep patid `concept'_date 
 compress
-save "$Datadir_copd\extracted/${file_stub}_exclusion_`concept'", replace
+save "$Datadir_copd\\${file_stub}_exclusion_`concept'", replace
 
 clear all
 
@@ -363,9 +363,8 @@ export delim "copd_Patid_for_linkage.txt", replace
 
 clear all
 
-
 import delim "$Denominator\CPRD Linkage Source Data Files\Version22\set_22_Source_Aurum\Aurum_enhanced_eligibility_January_2022.txt", stringcols(_all)
-merge 1:1 patid using "$Datadir_copd\extracted/copd_Patient", keep(match using)
+merge 1:1 patid using "$Datadir_copd\copd_Patient", keep(match using)
 drop pracid sgss_e chess_e hes_op_e hes_ae_e hes_did_e cr_e sact_e mhds_e icnarc_e rtds_e _merge linkdate
 destring lsoa_e hes_apc_e ons_death_e, replace
 drop if hes_apc_e == 0 & ons_death_e == 0 & lsoa_e == 0
@@ -373,7 +372,7 @@ drop if hes_apc_e == 0 & ons_death_e == 0 & lsoa_e == 0
 keep patid hes_apc_e ons_death_e lsoa_e
 
 export delim "copd_Patid_linkage_all.txt", replace
-save "$Datadir_copd\extracted/copd_Patid_linkage_all.dta", replace
+save "$Datadir_copd\copd_Patid_linkage_all.dta", replace
 clear all
 
 log close

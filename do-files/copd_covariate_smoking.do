@@ -22,21 +22,9 @@ capture log close
 log using $Logdir/copd_covariate_smoking.log, replace
 cd "$Datadir_copd"
 
-foreach file of numlist 1/$no_Observation {
-	noi di "Merging smoking observations, File `file'"
-    use "${file_stub}_Extract_Observation_`file'", clear
-	drop pracid
-	merge m:1 patid using "${file_stub}_Patid_list_included.dta", keep(match)
-    merge m:1 medcodeid using "$Codelistsdir/cl_smoking.dta", keep(match) nogen
-	if `file' == 1 {
-		save "${file_stub}_Observation_smoking.dta", replace
-	}
-	if `file' > 1 {
-		append using "${file_stub}_Observation_smoking.dta"
-	}
-	compress
-	save "${file_stub}_Observation_smoking.dta", replace
-}
+/*******************************************************************************
+>>Use file containing smoking observations, created in 02cr_copd_inc_exc_crit.dta
+*******************************************************************************/
 
 use "${file_stub}_Observation_smoking.dta"
 drop if eventdate > td(30apr2021)
@@ -52,7 +40,6 @@ drop if smokstatus == 9 | smokstatus == 12
 by patid: gen obs_no = _n
 
 gsort patid -eventdate
-
 
 ***included patients all had record of former smoking. Therefore all patients coded as non-smokers are ex-smokers
 ***NEED TO FIGURE OUT WHAT TO DO WITH AMBIGUOUS CATEGORIES

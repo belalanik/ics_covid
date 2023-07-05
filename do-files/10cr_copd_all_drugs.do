@@ -22,8 +22,10 @@ clear all
 capture log close
 log using $Logdir/10cr_copd_all_drugs.log , replace
 
+cd $Datadir_copd
+
 ***append datasets containing individual prescriptions
-use "$Datadir_copd\\${file_stub}_ics_single_clean.dta"
+use "${file_stub}_ics_single_clean.dta"
 gen ics_single = 1
 
 append using "${file_stub}_ics_laba_clean.dta", gen(ics_laba)
