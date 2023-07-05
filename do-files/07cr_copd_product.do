@@ -31,9 +31,9 @@ log using $Logdir\07cr_copd_product.log, replace
 cd "$Datadir_copd"
 
 import delimited "$Denominator\CPRD Aurum\Lookups\2022_05\common_dosages.txt", clear
-save "$Datadir_copd\common_dosages", replace
+save "$Mainfolder\common_dosages", replace
 
-glob common_dosages "$Datadir_copd\common_dosages.dta"
+glob common_dosages "$Mainfolder\common_dosages.dta"
 
 /*******************************************************************************************************************
 merge each drug type drug issue file with included patient list and dosage lookup file

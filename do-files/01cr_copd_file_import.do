@@ -85,7 +85,7 @@ qui {
 >> Convert all necessary files to dta, rename, reformat, and drop variables where necessary
 *******************************************************************************************************/
 
-cd "$Datadir_copd"
+cd $Copd_aurum_extract
 
 /******************************************************************************************************
 >> CONVERT OBSERVATION FILES
@@ -98,7 +98,7 @@ cd "$Datadir_copd"
 *******************************************************************************************************/
 foreach file of numlist 1/9 {
 	noi di "Converting Observation, File `file'"
-    import delimited using "$Copd_aurum_extract\marleen_${file_stub}_Extract_Observation_00`file'.txt", clear stringcols(_all)
+    import delimited using "marleen_${file_stub}_Extract_Observation_00`file'.txt", clear stringcols(_all)
 	drop staffid consid obsid parentobsid probobsid
 	g obsdate1 = date(obsdate, "DMY")
 	g enterdate1 = date(enterdate,"DMY")
@@ -115,7 +115,7 @@ foreach file of numlist 1/9 {
 
 foreach file of numlist 10/$no_Observation {
 	noi di "Converting Observation, File `file'"
-    import delimited using "$Copd_aurum_extract\marleen_${file_stub}_Extract_Observation_0`file'.txt", clear stringcols(_all)
+    import delimited using "marleen_${file_stub}_Extract_Observation_0`file'.txt", clear stringcols(_all)
 	drop staffid consid obsid parentobsid probobsid
 	g obsdate1 = date(obsdate, "DMY")
 	g enterdate1 = date(enterdate,"DMY")
@@ -142,7 +142,7 @@ foreach file of numlist 10/$no_Observation {
 *******************************************************************************************************/
 foreach file of numlist 1/9 {
 	noi di "Converting Drug Issue, File `file'"
-    import delimited using "$Copd_aurum_extract\marleen_${file_stub}_Extract_DrugIssue_00`file'.txt", stringcols(_all) clear
+    import delimited using "marleen_${file_stub}_Extract_DrugIssue_00`file'.txt", stringcols(_all) clear
 	drop issueid probobsid drugrecid staffid
 	g issuedate1 = date(issuedate, "DMY")
 	g enterdate1 = date(enterdate,"DMY")
@@ -158,7 +158,7 @@ foreach file of numlist 1/9 {
 
 foreach file of numlist 10/$no_DrugIssue {
 	noi di "Converting Drug Issue, File `file'"
-    import delimited using "$Copd_aurum_extract\marleen_${file_stub}_Extract_DrugIssue_0`file'.txt", stringcols(_all) clear
+    import delimited using "marleen_${file_stub}_Extract_DrugIssue_0`file'.txt", stringcols(_all) clear
 	drop issueid probobsid drugrecid staffid
 	g issuedate1 = date(issuedate, "DMY")
 	g enterdate1 = date(enterdate,"DMY")
@@ -181,7 +181,7 @@ foreach file of numlist 10/$no_DrugIssue {
 ****compress and save as dta file
 *******************************************************************************************************/
 noi di "Converting Patient"
-import delimited using "$Copd_aurum_extract\marleen_${file_stub}_Extract_Patient_001.txt", clear stringcols(_all)
+import delimited using "marleen_${file_stub}_Extract_Patient_001.txt", clear stringcols(_all)
 drop usualgpstaffid acceptable
 destring yob mob gender, replace
 g regstart = date(regstartdate, "DMY")
@@ -202,7 +202,7 @@ save "${file_stub}_Extract_Patient_1.dta", replace
 ****compress and save as dta file
 *******************************************************************************************************/
 noi di "Converting Practice"
-import delimited using "$Copd_aurum_extract\marleen_${file_stub}_Extract_Practice_001.txt", clear stringcols(_all)
+import delimited using "marleen_${file_stub}_Extract_Practice_001.txt", clear stringcols(_all)
 drop uts region
 g lcd1 = date(lcd, "DMY")
 format lcd1 %td

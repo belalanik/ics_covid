@@ -18,9 +18,9 @@ DATASETS CREATED:       copd_DrugIssue_ics_single
 DESCRIPTION OF FILE:	Generates list of drug issues for each drug type. 
 
 *=========================================================================*/
-/******************
+/************************************************************************
 HOUSEKEEPING
-******************/
+************************************************************************/
 
 clear all
 capture log close 
@@ -84,8 +84,8 @@ disp `"`product'"'
 foreach drug of local product {
 	foreach file of numlist 1/$no_DrugIssue {
 		noi di "Merging `drug', File `file'"
-		use "${file_stub}_Extract_DrugIssue_`file'", clear
-		drop if issuedate > td(31aug2020)
+		use "$Copd_aurum_extract\\${file_stub}_Extract_DrugIssue_`file'", clear
+		drop if issuedate > td(30apr2021)
 		drop pracid estnhscost
 		merge m:1 prodcodeid using "$Codelistsdir\Product_codelists\cl_`drug'.dta", keep(match) nogen
 		cap drop drugissues
@@ -114,8 +114,8 @@ save "$Codelistsdir/Comorbidities/cl_immunosuppressants", replace
 
 foreach file of numlist 1/$no_DrugIssue {
 	noi di "Merging immunosuppressants Drug Issue, File `file'"
-    use "${file_stub}_Extract_DrugIssue_`file'", clear
-	drop if issuedate > td(31aug2020)
+    use "$Copd_aurum_extract\\${file_stub}_Extract_DrugIssue_`file'", clear
+	drop if issuedate > td(30apr2021)
 	drop pracid estnhscost
     merge m:1 prodcodeid using "$Codelistsdir/Comorbidities/cl_`product'", keep(match) nogen
 	cap drop drugissues

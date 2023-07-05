@@ -12,11 +12,13 @@ DATASETS CREATED:       copd_covariate_immunosuppression.dta
 DESCRIPTION OF FILE:	immunosuppression algorithm for immunosuppression at baseline
 
 *=========================================================================*/
+
 clear all
 capture log close 
 log using $Logdir/copd_covariate_immunosuppression.log, replace
 
 cd "$Datadir_copd"
+
 /********************************************************************************************
 ORGAN TRANSPLANT - EVER BEFORE INDEX
 **********************************************************************************************/
@@ -46,6 +48,7 @@ drop if eventdate > td(01mar2020)
 
 keep patid eventdate
 save "${file_stub}_covariate_`concept'.dta", replace
+
 /********************************************************************************************
 PERMCMI - EVER BEFORE INDEX
 **********************************************************************************************/
@@ -153,10 +156,10 @@ local i = 1
 foreach j of local concept {
     use "${file_stub}_covariate_`j'.dta", clear
 	gen `j' = 9
-	if `j' == 1{
+	if `i' == 1{
 		save "${file_stub}_covariate_immunosuppression.dta", replace
 	}
-	if `j' != 1{
+	if `i' != 1{
 		append using "${file_stub}_covariate_immunosuppression.dta"
 	}
 	compress

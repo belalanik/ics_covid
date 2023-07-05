@@ -21,7 +21,30 @@ DESCRIPTION OF FILE:
 		* ethnicityfile  				// optional string with filename of file containing 
 										// ethnicity data, ethnicity should be recorded in a var called ethdm
 *=========================================================================*/
+// Specify file names
+glob file_stub 			= 	"copd"
+glob file_Patient 		= 	"${file_stub}_Extract_Patient_"
+glob file_Practice 		=	"${file_stub}_Extract_Practice_"
+glob file_Staff			=	"${file_stub}_Extract_Staff_"
+glob file_Consultation 	= 	"${file_stub}_Extract_Consultation_"
+glob file_Observation	= 	"${file_stub}_Extract_Observation_"
+glob file_Referral 		= 	"${file_stub}_Extract_Referral_"
+glob file_Problem 		= 	"${file_stub}_Extract_Problem_"
+glob file_DrugIssue		= 	"${file_stub}_Extract_DrugIssue_"
 
+// Specify number of different files
+glob no_Patient = 1
+glob no_Practice = 1
+glob no_Staff = 1
+glob no_Consultation = 12
+glob no_Observation = 48
+glob no_Referral = 1
+glob no_Problem = 1
+glob no_DrugIssue = 49
+
+/***********************************************************************************************
+>> HOUSEKEEPING
+************************************************************************************************/
 clear all
 
 capture log close
@@ -42,7 +65,7 @@ glob NumUnit "$Mainfolder\NumUnit.dta"
 
 foreach file of numlist 1/$no_Observation {
 	noi di "Merging creatinine observations, File `file'"
-    use "${file_stub}_Extract_Observation_`file'", clear
+    use "$Copd_aurum_extract\\${file_stub}_Extract_Observation_`file'", clear
 	merge m:1 patid using "${file_stub}_Patid_list_included.dta", keep(match) nogen
     merge m:1 medcodeid using "$Codelistsdir/cl_creatinine.dta", keep(match) nogen
 	if `file' == 1 {
@@ -66,7 +89,7 @@ destring numunitid, replace
 	/*******************************************************************************
 	#A3. Drop unnecessary vars and label variables.
 	*******************************************************************************/	
-	merge m:1 numunitid using "$Datadir_copd\NumUnit", keep(master match) nogen
+	merge m:1 numunitid using "$Mainfolder\NumUnit", keep(master match) nogen
 	
 	destring value, gen(SCr)
 	*rename value SCr

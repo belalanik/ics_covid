@@ -51,8 +51,8 @@ local disease copd
 
 foreach file of numlist 1/$no_Observation {
 	noi di "Merging `disease' observations, File `file'"
-    use "${file_stub}_Extract_Observation_`file'", clear
-	drop if eventdate > td(01sep2020)
+    use "$Copd_aurum_extract\\${file_stub}_Extract_Observation_`file'", clear
+	drop if eventdate > td(30apr2021)
 	keep patid medcodeid eventdate 
     merge m:1 medcodeid using "$Codelistsdir\cl_copd_aurum_052022.dta", keep(match) nogen
 	if `file' == 1 {
@@ -72,8 +72,8 @@ local disease asthma
 
 foreach file of numlist 1/$no_Observation {
 	noi di "Merging `disease' observations, File `file'"
-	use "${file_stub}_Extract_Observation_`file'", clear
-	drop if eventdate > td(01sep2020)
+	use "$Copd_aurum_extract\\${file_stub}_Extract_Observation_`file'", clear
+	drop if eventdate > td(30apr2021)
 	keep patid medcodeid eventdate
 	merge m:1 medcodeid using "$Codelistsdir\cl_asthma_aurum_052022.dta", keep(match) nogen keepusing(term)
 	capture confirm string variable medcodeid
@@ -97,9 +97,9 @@ local disease smoking
 
 foreach file of numlist 1/$no_Observation {
 	noi di "Merging `disease' observations, File `file'"
-    use "${file_stub}_Extract_Observation_`file'", clear
+    use "$Copd_aurum_extract\\${file_stub}_Extract_Observation_`file'", clear
 	drop pracid
-	drop if eventdate > td(01sep2020)
+	drop if eventdate > td(30apr2021)
     merge m:1 medcodeid using "$Codelistsdir/cl_`disease'.dta", keep(match) nogen
 	capture confirm string variable medcodeid
 	drop if missing(medcodeid)
@@ -122,9 +122,9 @@ local disease other_resp_disease
 
 foreach file of numlist 1/$no_Observation {
 	noi di "Merging `disease' observations, File `file'"
-    use "${file_stub}_Extract_Observation_`file'", clear
+    use "$Copd_aurum_extract\\${file_stub}_Extract_Observation_`file'", clear
 	keep patid medcodeid eventdate
-	drop if eventdate > td(01sep2020)
+	drop if eventdate > td(30apr2021)
     merge m:1 medcodeid using "$Codelistsdir/Exclusion/cl_`disease'.dta", keep(match)
 	capture confirm string variable medcodeid
 	drop if missing(medcodeid)
@@ -142,14 +142,14 @@ foreach file of numlist 1/$no_Observation {
 >> LTRA, TRIPLE THERAPY
 *******************************************************************************/
 
-local drug ltra triple_therapy
+local drug ltra triple_therapy nebuliser
 disp `"`drug'"'
 
 foreach product of local drug {
 	foreach file of numlist 1/$no_DrugIssue {
 		noi di "Merging `product', File `file'"
-		use "${file_stub}_Extract_DrugIssue_`file'", clear
-		drop if issuedate > td(01sep2020)
+		use "$Copd_aurum_extract\\${file_stub}_Extract_DrugIssue_`file'", clear
+		drop if issuedate > td(30apr2021)
 		merge m:1 prodcodeid using "$Codelistsdir\Product_codelists\cl_`product'.dta", keep(match) nogen
 		capture confirm string variable prodcodeid
 		drop if missing(prodcodeid)

@@ -14,14 +14,35 @@ DESCRIPTION OF FILE:	bmi codelist applied to cohort (incl/excl. already applied)
 
 *=========================================================================*/
 
-/*******************************************************************************
+// Specify file names
+glob file_stub 			= 	"copd"
+glob file_Patient 		= 	"${file_stub}_Extract_Patient_"
+glob file_Practice 		=	"${file_stub}_Extract_Practice_"
+glob file_Staff			=	"${file_stub}_Extract_Staff_"
+glob file_Consultation 	= 	"${file_stub}_Extract_Consultation_"
+glob file_Observation	= 	"${file_stub}_Extract_Observation_"
+glob file_Referral 		= 	"${file_stub}_Extract_Referral_"
+glob file_Problem 		= 	"${file_stub}_Extract_Problem_"
+glob file_DrugIssue		= 	"${file_stub}_Extract_DrugIssue_"
+
+// Specify number of different files
+glob no_Patient = 1
+glob no_Practice = 1
+glob no_Staff = 1
+glob no_Consultation = 12
+glob no_Observation = 48
+glob no_Referral = 1
+glob no_Problem = 1
+glob no_DrugIssue = 49
+
+/***********************************************************************************************
 >> HOUSEKEEPING
-*******************************************************************************/
+************************************************************************************************/
 clear all
 
 capture log close
 log using $Logdir/covariate_bmi_copd.log, replace
-cd "$Projectdir"
+
 cd "$Datadir_copd"
 
 import delimited "J:\EHR Share\3 Database guidelines and info\CPRD Aurum\Lookups\2022_05\NumUnit.txt", clear
@@ -33,7 +54,7 @@ glob numunit "$Mainfolder\NumUnit.dta"
 
 foreach file of numlist 1/$no_Observation {
 	noi di "Merging bmi observations, File `file'"
-    use "${file_stub}_Extract_Observation_`file'", clear
+    use "$Copd_aurum_extract\\${file_stub}_Extract_Observation_`file'", clear
 	drop pracid
     merge m:1 medcodeid using "$Codelistsdir/cl_bmi.dta", keep(match) nogen
 	merge m:1 patid using "${file_stub}_Patid_list_included.dta", keep(match) nogen
@@ -129,8 +150,8 @@ sort patid obsdate enttype data1
 
 *Drop duplicate heights, BMI and weights on the same day or (for heights) if duplicated in m then cm
 noi di "Dropping duplicate heights or weights on the same day (or duplicate heights where one in m one in cm"
-noi by patid obsdate enttype: drop if data1==data1[_n-1]
-noi by patid obsdate enttype: drop if data1>=99*data1[_n-1] & data1<=101*data1[_n-1] & enttype==14
+noi by patid obsdate enttype: drop if data1 == data1[_n - 1]
+noi by patid obsdate enttype: drop if data1 >= 99*data1[_n - 1] & data1 <= 101*data1[_n - 1] & enttype==14
 
 *Drop if >2 ht/wt/bmi mmts on the same day
 noi di "Drop records where 3+ measurements on the same day"
@@ -271,7 +292,7 @@ bysort patid: gen order=_n
 keep if order == 1
 drop if dobmi < td(01mar2010)
 keep patid bmi dobmi
-save "copd_covariate_bmi_w1.dta", replace
+save "copd_covariate_bmi.dta", replace
 
 
 noi di in yellow _dup(120) "*"

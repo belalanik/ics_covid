@@ -22,15 +22,15 @@ clear all
 
 capture log close
 log using $Logdir/covariate_ethnicity_copd.log, replace
-cd "$Projectdir"
-cd "$Datadir_copd\extracted"
+
+cd "$Datadir_copd"
 
 ****ethnicity codelist was originally from Angel, adapted using code from Emily Herrett
 ****loop thorugh all observation files to generate dataset of all ethnicity codes
 
 foreach file of numlist 1/$no_Observation {
 	noi di "Merging ethnicity observations, File `file'"
-    use "${file_stub}_Extract_Observation_`file'", clear
+    use "$Copd_aurum_extract\\${file_stub}_Extract_Observation_`file'", clear
 	keep patid medcodeid eventdate 
 	gen filenumber = `file'
 	merge m:1 patid using "${file_stub}_Patid_list_included.dta", keep(match)
@@ -389,20 +389,17 @@ label values latesteth5 eth5
 compress
 save "${file_stub}_Observation_all_eth.dta", replace
 
-
 **MAKE PATIENT LEVEL FILE
 **drop duplicate patids
 use "${file_stub}_Patient_included.dta", clear
 
 merge 1:m patid using "${file_stub}_Observation_all_eth.dta", gen(merge2)
 
-
 codebook patid //
 duplicates drop patid, force
 codebook patid //
 
 keep patid latesteth16 latesteth5 mostcommon*
-
 
 **GEN ONE VARIABLE FOR ETHNICITY
 gen eth5 = mostcommoneth5 //main ethnicity is most common in CPRD
@@ -412,7 +409,6 @@ tab eth5, missing
 *remove equally common group
 replace eth5=latesteth5 if eth5 >= 5 & latesteth5 !=.  //replace ethnicity with latest eth5 if mostcommoneth5 is not stated/equal/missing
 tab eth5, missing
-
 
 gen eth16 = mostcommoneth16 
 label values eth16 eth16

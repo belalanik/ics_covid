@@ -15,7 +15,31 @@ DESCRIPTION OF FILE:	exacerbation definition: https://github.com/NHLI-Respirator
 						- A lower respiratory tract infection (LRTI) code
 						- An AECOPD code
 						Any of these events closer together than 14 days are considered part of the same exacerbation event.
-*=========================================================================*/
+*=========================================================================*/// Specify file names
+glob file_stub 			= 	"copd"
+glob file_Patient 		= 	"${file_stub}_Extract_Patient_"
+glob file_Practice 		=	"${file_stub}_Extract_Practice_"
+glob file_Staff			=	"${file_stub}_Extract_Staff_"
+glob file_Consultation 	= 	"${file_stub}_Extract_Consultation_"
+glob file_Observation	= 	"${file_stub}_Extract_Observation_"
+glob file_Referral 		= 	"${file_stub}_Extract_Referral_"
+glob file_Problem 		= 	"${file_stub}_Extract_Problem_"
+glob file_DrugIssue		= 	"${file_stub}_Extract_DrugIssue_"
+
+// Specify number of different files
+glob no_Patient = 1
+glob no_Practice = 1
+glob no_Staff = 1
+glob no_Consultation = 12
+glob no_Observation = 48
+glob no_Referral = 1
+glob no_Problem = 1
+glob no_DrugIssue = 49
+
+/***********************************************************************************************
+>> HOUSEKEEPING
+************************************************************************************************/
+
 capture log close
 clear all
 log using "$Logdir/copd_covariate_exacerbation.log", replace
@@ -29,7 +53,7 @@ MERGE OBSERVATION FILES
 *******************************************************************************************************************/
 foreach file of numlist 1/$no_Observation {
 	noi di "Merging exacerbation observations, File `file'"
-    use "${file_stub}_Extract_Observation_`file'", clear
+    use "$Copd_aurum_extract\\${file_stub}_Extract_Observation_`file'", clear
 	drop pracid value numunitid obstypeid numrangelow numrangehigh
 	drop if eventdate > td(30apr2021)
     merge m:1 medcodeid using "$Codelistsdir/COPD/Exacerbation/cl_AECOPD.dta", keep(match master) nogen
@@ -66,7 +90,7 @@ disp `"`product'"'
 
 foreach file of numlist 1/$no_DrugIssue {
 	noi di "Merging Drug Issue, File `file'"
-    use "${file_stub}_Extract_DrugIssue_`file'", clear
+    use "$Copd_aurum_extract\\${file_stub}_Extract_DrugIssue_`file'", clear
 	drop pracid estnhscost enterdate dosageid quantity quantunitid duration
 	drop if issuedate > td(30apr2021)
 	merge m:1 patid using "${file_stub}_Patid_list_included.dta", keep(match) nogen
@@ -127,7 +151,7 @@ by patid (eventdate): gen exacerbation = 1 if _n == 1 | eventdate[_n - 1] < even
 //Step 15. You now have a list of exacerbations for each patient. If you run the collapse command you can generate the total number of exacerbations for each patient over the given time peroid
 collapse (sum) exacerbations = exacerbation, by(patid)
 
-save "${file_stub}_covariate_exacerbation_w1.dta", replace
+save "${file_stub}_covariate_exacerbation.dta", replace
 
 log close
 clear all

@@ -32,7 +32,7 @@ disp `"`outcome'"'
 
 foreach file of numlist 1/$no_Observation {
 	noi di "Merging positive COVID test Observations, File `file'"
-    use "${file_stub}_Extract_Observation_`file'", clear
+    use "$Copd_aurum_extract\\${file_stub}_Extract_Observation_`file'", clear
 	drop if eventdate > td(31aug2020)
 	drop if eventdate < td(01mar2020)
     merge m:1 medcodeid using "$Codelistsdir\Outcomes\cl_`outcome'.dta", keep(match) nogen
