@@ -15,7 +15,9 @@ DESCRIPTION OF FILE:	exacerbation definition: https://github.com/NHLI-Respirator
 						- A lower respiratory tract infection (LRTI) code
 						- An AECOPD code
 						Any of these events closer together than 14 days are considered part of the same exacerbation event.
-*=========================================================================*/// Specify file names
+*=========================================================================*/
+
+// Specify file names
 glob file_stub 			= 	"copd"
 glob file_Patient 		= 	"${file_stub}_Extract_Patient_"
 glob file_Practice 		=	"${file_stub}_Extract_Practice_"

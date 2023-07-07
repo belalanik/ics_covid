@@ -37,7 +37,7 @@ glob file_Referral 		= 	"${file_stub}_Extract_Referral_"
 glob file_Problem 		= 	"${file_stub}_Extract_Problem_"
 glob file_DrugIssue		= 	"${file_stub}_Extract_DrugIssue_"
 
-// Specify number of different files CHANGE THIS
+// Specify number of different file
 glob no_Patient = 1
 glob no_Practice = 1
 glob no_Staff = 1
@@ -71,15 +71,15 @@ format do35bday %td
 list yob mob dob do35bday in 1/10
 
 *drop people under 35 on 01mar2020
-count if do35bday > td(01mar2020) //*0 --> as expected
+count if do35bday > td(01mar2020)
 drop if do35bday > td(01mar2020)
 
 *check if anyone is born after deathdate
-count if deathdate < dob //*0 --> as expected
+count if deathdate < dob
 drop if deathdate < dob
 
 *check if anyone dies before registration
-count if deathdate < regstart //*0 --> as expected
+count if deathdate < regstart
 drop if deathdate < regstart 
 
 ***drop people with missing gender
@@ -89,19 +89,19 @@ tab gender
 count if deathdate < td(01mar2020)
 drop if deathdate < td(01mar2020)
 
-**check if anyone starts after 1st march 2020
-count if regstart >= td(01mar2020) //*0 --> as expected
-assert regstart < td(01mar2020)
+**drop anyone who starts after 1st march 2019
+count if regstart > td(01mar2019)
+drop if regstart > td(01mar2019)
 
 **merge with practice file to generate end dates
-merge m:1 pracid using "$Copd_aurum_extract\\${file_stub}_Extract_Practice_1", nogen
+merge m:1 pracid using "$Copd_aurum_extract\\${file_stub}_Extract_Practice_1", nogen keep(match)
 
 ***Generate end date (last collection or registration end or death)
 gen enddate = min(regend,lcd,deathdate)
 lab var enddate "End Date"
 format enddate %d
 
-assert enddate >= td(01mar2020) //***0, as expected
+assert enddate >= td(01mar2020)
 
 misstable summarize
 summarize
@@ -118,10 +118,9 @@ COPD
 ********************************************************/
 local concept copd 
 
-clear all
 use "${file_stub}_Observation_`concept'.dta", clear
 capture drop _merge
-merge m:1 patid using "${file_stub}_Patient.dta"
+merge m:1 patid using "${file_stub}_Patient.dta", keep(match)
 keep if _merge == 3
 drop _merge
 
@@ -143,14 +142,14 @@ duplicates report patid //*** duplicates should be 0
 
 count if `concept'_date < regstart
 
-keep patid `concept'_date 
+keep patid `concept'_date
 compress
 save "copd_firstevent", replace
 
+clear all
 /*******************************************************************************
 >> ASTHMA 
 *******************************************************************************/
-clear all
 
 local concept asthma
 

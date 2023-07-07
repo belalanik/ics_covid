@@ -24,7 +24,6 @@ clear all
 capture log close
 log using $Logdir/01cr_copd_file_import.log, replace
 
-macro list _all
 
 ** Instructions: to use specify directory containing unzipped aurum files, file name stubs, and number of files expected
 // Specify file names
@@ -124,7 +123,7 @@ foreach file of numlist 10/$no_Observation {
 	format (obsdate1 enterdate1 eventdate) %td
 	drop obsdate enterdate 
 	rename (enterdate1 obsdate1) (enterdate obsdate)
-	drop if obsdate >=td(01may2021) & obsdate !=.
+	drop if obsdate >= td(01may2021) & obsdate !=.
     misstable summarize patid pracid obsdate enterdate eventdate medcodeid
 	compress
 	save "${file_stub}_Extract_Observation_`file'.dta", replace

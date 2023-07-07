@@ -42,7 +42,7 @@ cd $Dodir
 do "copd_covariate_creatinine.do"
 
 cd $Dodir
-*do "05cr_copd_outcome.do"
+do "05cr_copd_outcome.do"
 
 cd $Dodir
 do "06cr_copd_product_patids"
@@ -64,3 +64,60 @@ do "10cr_copd_all_ics"
 
 cd $Dodir
 do "11cr_copd_patient_denominators"
+
+
+
+
+
+
+
+cd $Dodir2019
+do "01cr_copd_file_import_2019.do"
+
+cd $Dodir2019
+do "02cr_copd_inc_exc_crit_2019.do"
+
+cd $Dodir2019
+do "03cr_copd_patient_2019.do"
+
+cd $Dodir2019
+do "04cr_copd_comorbidities_2019.do"
+
+cd $Dodir2019
+do "copd_covariate_bmi_precovid.do"
+
+cd $Dodir2019
+do "copd_covariate_immunosuppression_precovid.do"
+
+cd $Dodir2019
+do "copd_covariate_ethnicity_precovid.do"
+
+cd $Dodir2019
+do "copd_covariate_smoking_precovid.do"
+
+cd $Dodir2019
+do "copd_covariate_exacerbation_precovid.do"
+
+cd $Dodir2019
+do "copd_covariate_creatinine_precovid.do"
+
+cd $Dodir2019
+do "05cr_copd_product_patids_precovid.do"
+
+cd $Dodir2019
+do "06cr_copd_product_precovid.do"
+
+cd $Dodir2019
+do "07cr_copd_med_check_precovid.do"
+
+cd $Dodir2019 
+do "08cr_copd_treatment_ep_precovid.do"
+
+cd $Dodir2019 
+do "09cr_copd_all_drugs_precovid.do"
+
+cd $Dodir2019 
+do "09cr_copd_all_ics_precovid.do"
+
+cd $Dodir2019 
+do "10cr_copd_patient_denominators_precovid.do"

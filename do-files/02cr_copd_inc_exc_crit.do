@@ -18,7 +18,6 @@ DESCRIPTION OF FILE: 	Gets full list of events for exclusion/inclusion criteria
 *=========================================================================*/
 clear all
 
-***run globals
 cap log close
 log using $Logdir\02cr_copd_inc_exc_crit.log, replace
 
@@ -34,7 +33,7 @@ glob file_Referral 		= 	"${file_stub}_Extract_Referral_"
 glob file_Problem 		= 	"${file_stub}_Extract_Problem_"
 glob file_DrugIssue		= 	"${file_stub}_Extract_DrugIssue_"
 
-// Specify number of different files CHANGE THIS
+// Specify number of different files
 glob no_Patient = 1
 glob no_Practice = 1
 glob no_Staff = 1
@@ -55,6 +54,8 @@ foreach file of numlist 1/$no_Observation {
 	drop if eventdate > td(30apr2021)
 	keep patid medcodeid eventdate 
     merge m:1 medcodeid using "$Codelistsdir\cl_copd_aurum_052022.dta", keep(match) nogen
+	capture confirm string variable medcodeid
+	drop if missing(medcodeid)
 	if `file' == 1 {
 		save "${file_stub}_Observation_`disease'.dta", replace
 	}
@@ -64,6 +65,8 @@ foreach file of numlist 1/$no_Observation {
 	compress
 	save "${file_stub}_Observation_`disease'.dta", replace
 }
+
+clear all
 
 /*******************************************************************************
 >> ASTHMA
@@ -139,7 +142,7 @@ foreach file of numlist 1/$no_Observation {
 }
 
 /*******************************************************************************
->> LTRA, TRIPLE THERAPY
+>> LTRA, TRIPLE THERAPY, NEBULISER
 *******************************************************************************/
 
 local drug ltra triple_therapy nebuliser
