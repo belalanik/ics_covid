@@ -204,7 +204,7 @@ noi di "Total number of records containing a weight : " `totalwtrecords'
 cou if weight <. & height ==.
 local totmissinght = r(N)
 noi di "Total number of records containing a weight but no height: " r(N) " (" %3.1f 100*`totmissinght'/`totalwtrecords' "%)"
-cou if weight <. & height ==. & ageatlastht<.
+cou if weight <. & height ==. & ageatlastht <.
 local tottofill = r(N)
 noi di "Number of missing heights to be filled by locf (i.e. where a previous height was recorded): " `tottofill' " (" %3.1f 100*`tottofill'/`totmissinght' "% of those missing)"
 cou if weight <. & height ==. & ageatmmt > 21 & ageatlastht < 18

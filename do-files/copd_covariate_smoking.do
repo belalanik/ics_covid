@@ -23,7 +23,7 @@ log using $Logdir/copd_covariate_smoking.log, replace
 cd "$Datadir_copd"
 
 /*******************************************************************************
->>Use file containing smoking observations, created in 02cr_copd_inc_exc_crit.dta
+>> Use file containing smoking observations, created in 02cr_copd_inc_exc_crit.dta
 *******************************************************************************/
 
 use "${file_stub}_Observation_smoking.dta"

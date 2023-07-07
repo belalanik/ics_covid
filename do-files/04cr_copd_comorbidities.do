@@ -39,7 +39,6 @@ glob no_Referral2019 = 1
 glob no_Problem2019 = 1
 glob no_DrugIssue2019 = 7
 
-// Specify number of different files
 glob no_Consultation = 12
 glob no_Observation = 48
 glob no_Referral = 1
@@ -50,25 +49,25 @@ glob no_DrugIssue = 49
 COMORBIDITIES THAT USE FIRST EVENT EVER
 *****************************************************************************************/
 
-local disease diabetes allcancers hypertension ckd cvd bmt 
+local disease diabetes allcancers hypertension ckd cvd
 disp `"`comorbidity'"'
 
 foreach comorbidity of local disease {
-foreach file of numlist 1/$no_Observation {
-	noi di "Merging `comorbidity' Observations, File `file'"
-    use "$Copd_aurum_extract\\${file_stub}_Extract_Observation_`file'", clear
-	drop if eventdate > td(01mar2020)
-    merge m:1 medcodeid using "$Codelistsdir\Comorbidities\cl_`comorbidity'.dta", keep(match) nogen
-	merge m:1 patid using "${file_stub}_Patient_included.dta", keep(match) nogen
-	keep patid medcodeid term obsdate enterdate eventdate
-	if `file' == 1{
+	foreach file of numlist 1/$no_Observation {
+		noi di "Merging `comorbidity' Observations, File `file'"
+		use "$Copd_aurum_extract\\${file_stub}_Extract_Observation_`file'", clear
+		drop if eventdate > td(01mar2020)
+		merge m:1 medcodeid using "$Codelistsdir\Comorbidities\cl_`comorbidity'.dta", keep(match) nogen
+		merge m:1 patid using "${file_stub}_Patient_included.dta", keep(match) nogen
+		keep patid medcodeid term obsdate enterdate eventdate
+		if `file' == 1{
+			save "${file_stub}_Observation_`comorbidity'.dta", replace
+		}
+		if `file' > 1{
+			append using "${file_stub}_Observation_`comorbidity'.dta"
+		}
+		compress
 		save "${file_stub}_Observation_`comorbidity'.dta", replace
-	}
-	if `file' > 1{
-		append using "${file_stub}_Observation_`comorbidity'.dta"
-	}
-	compress
-	save "${file_stub}_Observation_`comorbidity'.dta", replace
 	}
 	
 
@@ -112,21 +111,21 @@ local disease bmt hiv othercmi permcmi aplastic_anaemia organ_transplant spleen 
 disp `"`comorbidity'"'
 
 foreach comorbidity of local disease {
-foreach file of numlist 1/$no_Observation {
-	noi di "Merging `comorbidity' Observations, File `file'"
-    use "$Copd_aurum_extract\\${file_stub}_Extract_Observation_`file'", clear
-	drop if eventdate > td(01mar2020)
-    merge m:1 medcodeid using "$Codelistsdir\Comorbidities\cl_`comorbidity'.dta", keep(match) nogen
-	merge m:1 patid using "${file_stub}_Patient_included.dta", keep(match) nogen
-	keep patid medcodeid term obsdate enterdate eventdate
-	if `file' == 1{
+	foreach file of numlist 1/$no_Observation {
+		noi di "Merging `comorbidity' Observations, File `file'"
+		use "$Copd_aurum_extract\\${file_stub}_Extract_Observation_`file'", clear
+		drop if eventdate > td(01mar2020)
+		merge m:1 medcodeid using "$Codelistsdir\Comorbidities\cl_`comorbidity'.dta", keep(match) nogen
+		merge m:1 patid using "${file_stub}_Patient_included.dta", keep(match) nogen
+		keep patid medcodeid term obsdate enterdate eventdate
+		if `file' == 1{
+			save "${file_stub}_Observation_`comorbidity'.dta", replace
+		}
+		if `file' > 1{
+			append using "${file_stub}_Observation_`comorbidity'.dta"
+		}
+		compress
 		save "${file_stub}_Observation_`comorbidity'.dta", replace
-	}
-	if `file' > 1{
-		append using "${file_stub}_Observation_`comorbidity'.dta"
-	}
-	compress
-	save "${file_stub}_Observation_`comorbidity'.dta", replace
 	}
 
 }

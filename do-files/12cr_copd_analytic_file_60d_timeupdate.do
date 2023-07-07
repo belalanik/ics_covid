@@ -55,7 +55,7 @@ merge 1:1 patid using "${file_stub}_covariate_exacerbation.dta", nogen
 merge 1:1 patid using "${file_stub}_covariate_smoking.dta", nogen
 
 ***immunosuppression
-merge 1:1 patid using "${file_stub}_covariate_immunosuppression_patid.dta", nogen
+
 *** vaccines
 
 
@@ -63,10 +63,15 @@ merge 1:1 patid using "${file_stub}_covariate_immunosuppression_patid.dta", noge
 ***positive covid test
 merge 1:1 patid using "copd_outcome_pos_covid_test_w1.dta", nogen
 
+save "${file_stub}_analytic_file_w1_no_exposures.dta", replace
+
 ***EXPOSURES
-merge 1:m patid using "${file_stub}_treatment_eps_w1_60d", nogen
-drop on_ics_single on_ics_laba on_laba_single on_lama_single on_laba_lama off_ics_single off_ics_laba off_laba_single off_lama_single off_laba_lama
+merge 1:m patid using "${file_stub}_treatment_eps_60d", nogen
+drop on_ics_single on_ics_laba on_laba_single on_lama_single on_laba_lama on_triple_inhaler off_ics_single off_ics_laba off_laba_single off_lama_single off_laba_lama off_triple_inhaler date ics_single ics_laba laba_single lama_single laba_lama triple_inhaler triple ics_only laba_only lama_only ics_lama no_med _merge ics_group control_group ics_group
+
 duplicates drop
-export delim "copd_analytic_file_w1_60d_timeupdate.csv", replace
+export delim "copd_analytic_file_w1_60d.csv", replace
+
+clear all
 
 
