@@ -168,7 +168,8 @@ foreach j of local concept {
 }
 
 collapse (max) organ_transplant hiv permcmi spleen haematological_cancer aplastic_anaemia bmt othercmi eventdate, by(patid)
-keep patid 
+keep patid eventdate
+rename eventdate immunosuppression_date
 
 save "${file_stub}_covariate_immunosuppression_patid.dta", replace
 

@@ -9,7 +9,7 @@ DATE VERSION CREATED: 	03/2022
 
 DATASETS CREATED:       copd_Observation_covid_positive.dta
 						
-DESCRIPTION OF FILE:	
+DESCRIPTION OF FILE:	Create patid + eventdate lists for outcome positive COVID test. Uses patient file with inclusion/exclusion criteria applied
 
 *=========================================================================*/
 

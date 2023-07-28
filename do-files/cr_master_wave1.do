@@ -65,6 +65,8 @@ do "10cr_copd_all_ics"
 cd $Dodir
 do "11cr_copd_patient_denominators"
 
+cd $Dodir
+do "cr_copd_linkage_data"
 
 
 

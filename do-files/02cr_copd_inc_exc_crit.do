@@ -13,7 +13,7 @@ DATASETS CREATED:
 						copd_Patid_list_included.dta
 						copd_Patient_smoking_inclusion.dta
 						
-DESCRIPTION OF FILE: 	Gets full list of events for exclusion/inclusion criteria
+DESCRIPTION OF FILE: 	Gets full list of events for exclusion/inclusion criteria by merging observation or drug issue files with codelists
 					
 *=========================================================================*/
 clear all
