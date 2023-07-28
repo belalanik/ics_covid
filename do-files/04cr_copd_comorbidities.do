@@ -9,7 +9,7 @@ DATE VERSION CREATED: 	03/2022
 
 DATASETS CREATED:       copd_Observation_`comorbidities'.dta
 						
-DESCRIPTION OF FILE:	Create patid + eventdate lists for each comorbidity. Uses patien file with inclusion/exclusion criteria applied
+DESCRIPTION OF FILE:	Create patid + eventdate lists for each comorbidity. Uses patient file with inclusion/exclusion criteria applied
 For comorbidities where first event ever of interest: generates final list of patients. For other comorbidities: generates list of all observations
 
 *=========================================================================*/

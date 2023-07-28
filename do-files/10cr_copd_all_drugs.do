@@ -133,7 +133,7 @@ replace startend2 = 1 if startend == 2
 by patid class (date startend2), sort: gen no_gap = 1 if startend == 1 & (date - date[_n - 1] <= 60) 
 
 *** flag end dates that are followed by start date within 60d
-replace no_gap = 1 if startend == 2 & no_gap[_n+1] == 1
+replace no_gap = 1 if startend == 2 & no_gap[_n + 1] == 1
 
 *flag if episode belongs to the same treatment block as other episodes
 egen no_gap_max = max(no_gap), by (patid class episode)
@@ -169,7 +169,7 @@ save "copd_treatment_episodes_60d", replace
 
 /************************************************************************
 *************************************************************************
-ASSESS DISCONTINUATIONS,  DEFINED AS 6M AFTER ISSUEDATE
+ASSESS DISCONTINUATIONS, DEFINED AS 6M AFTER ISSUEDATE
 *************************************************************************
 *************************************************************************/
 

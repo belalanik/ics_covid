@@ -56,7 +56,7 @@ describe
 count if emis_death!=. & missing(deathdate) //***0 --> no cases where emis has death date but cprd does not
 drop emis_death patienttypeid
 
-*Generate DOB
+*Generate DOB. Uses 01 July if month and day are missing, or 15th of month if month is not missing
 gen day = 15 if mob !=.
 replace mob = 7 if mob ==.
 replace day = 1 if day ==.
@@ -85,7 +85,7 @@ drop if deathdate < regstart
 ***drop people with missing gender
 tab gender 
 
-***check if there are people who die before 1st march 2020
+***drop people who die before 1st march 2020
 count if deathdate < td(01mar2020)
 drop if deathdate < td(01mar2020)
 
@@ -171,7 +171,7 @@ rename eventdate `concept'_date
 keep patid `concept'_date 
 
 compress
-save "$Datadir_copd\\${file_stub}_exclusion_`concept'", replace
+save "${file_stub}_exclusion_`concept'", replace
 
 clear all
 
@@ -199,7 +199,35 @@ rename issuedate `concept'_date
 
 keep patid `concept'_date 
 compress
-save "$Datadir_copd\\${file_stub}_exclusion_`concept'", replace
+save "${file_stub}_exclusion_`concept'", replace
+
+clear all
+
+/*******************************************************************************
+>> Nebuliser 
+*******************************************************************************/
+local concept nebuliser 
+
+use "${file_stub}_DrugIssue_`concept'.dta"
+
+merge m:1 patid using "$Datadir_copd\\${file_stub}_Patient", keep(match)
+drop if issuedate > td(01mar2020)
+
+gen excl = 1 if issuedate > td(01mar2019) & issuedate <= td(01mar2020)
+sort patid issuedate
+by patid: ereplace excl = max(excl)
+
+keep if excl == 1 
+sort patid issuedate
+by patid : gen first = _n
+keep if first == 1
+drop first
+
+rename issuedate `concept'_date
+
+keep patid `concept'_date 
+compress
+save "${file_stub}_exclusion_`concept'", replace
 
 clear all
 
@@ -283,7 +311,7 @@ use "${file_stub}_exclusion_ltra.dta"
 
 append using "${file_stub}_exclusion_asthma"
 append using "${file_stub}_exclusion_other_resp_disease.dta"
-
+append using "${file_stub}_exclusion_nebuliser.dta"
 unique patid
 
 ***combine eventdates and issuedates into one variable

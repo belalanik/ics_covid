@@ -314,6 +314,7 @@ drop sum_overlap1
 compress
 save "${file_stub}_`drugclass'_clean", replace
 local ncol = `ncol' + 1
+
 }
 
 log close 

@@ -24,7 +24,7 @@ use "$Datadir_copd\copd_treatment_episodes_60d"
 
 expand 2, gen(dup)
 
-*dup=0 has starts, dup = 1 has ends
+*dup = 0 has starts, dup = 1 has ends
 gen date = date1 if dup == 0
 replace date = date2 if dup == 1
 format (date) %td
@@ -100,7 +100,7 @@ foreach c in `expClasses' {
 
 gen triple = 1 if (ics_laba == 1 & lama_single == 1) | (ics_single == 1 & laba_lama == 1) | (ics_single == 1 & laba_single == 1 & lama_single == 1) | (ics_laba == 1 & laba_lama == 1) | (triple_inhaler == 1)
 replace triple = 0 if triple ==.
-drop if date > td(01sep2020) //drop changes that happen after the end of follow-up
+drop if date > td(01mar2021) //drop changes that happen after the end of follow-up
 
 gen ics_group = 1 if ics_single == 1 & laba_single == 1 | ics_laba == 1 | triple == 1
 replace ics_group = 0 if ics_group ==.
@@ -120,6 +120,7 @@ replace no_med = 0 if no_med ==.
 
 unique patid 
 return list
+
 ***check every combination has been accounted for
 by patid date: gen sum = sum(ics_group + control_group + ics_only + laba_only + lama_only + ics_lama + no_med)
 assert sum == 1

@@ -78,7 +78,7 @@ qui {
 	}
 }
 
-***all files found
+***all necessary files found
 ***********************************************************************************************
 /******************************************************************************************************
 >> Convert all necessary files to dta, rename, reformat, and drop variables where necessary
@@ -212,5 +212,4 @@ save "${file_stub}_Extract_Practice_1", replace
 
 
 clear all
-
 log close

@@ -56,12 +56,24 @@ merge 1:1 patid using "${file_stub}_covariate_smoking.dta", nogen
 ***immunosuppression
 merge 1:1 patid using "${file_stub}_covariate_immunosuppression_patid.dta", nogen
 
-*** vaccines
+*** flu vaccines
+merge 1:1 patid using "${file_stub}_covariate_flu_vaccine.dta", nogen keepusing(flu_vacc_date)
 
+*** pneumo vaccines
+merge 1:1 patid using "${file_stub}_covariate_pneumo_vaccine.dta", nogen keepusing(pneumo_vacc_date)
+
+***IMD 
+merge 1:1 patid using "${file_stub}_covariate_imd.dta", nogen
 
 ***OUTCOMES
 ***positive covid test
 merge 1:1 patid using "copd_outcome_pos_covid_test_w1.dta", nogen
+
+***covid hospitalisation
+merge 1:1 patid using "copd_outcome_covid_hes_date_w1.dta", nogen
+
+***covid hospitalisation
+merge 1:1 patid using "copd_outcome_covid_death_date_w1.dta", nogen
 
 ***EXPOSURES
 merge 1:1 patid using "${file_stub}_treatment_baseline_6m", nogen
