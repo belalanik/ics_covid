@@ -18,24 +18,20 @@ setwd(Datadir_copd)
 #read in parquet dataset
 df <- read_parquet("copd_wave1_60d.parquet")
 
-#create binary variables for each covariate
-df$diabetes_present <- factor(ifelse(!is.na(df$diabetes_date), "Yes", "No"))
-df$hypertension_present <- factor(ifelse(!is.na(df$hypertension_date), "Yes", "No"))
-df$cvd_present <- factor(ifelse(!is.na(df$cvd_date), "Yes", "No"))
-df$allcancers_present <- factor(ifelse(!is.na(df$allcancers_date), "Yes", "No"))
-df$asthma_present <- factor(ifelse(!is.na(df$asthma_date), "Yes", "No"))
-df$covid_present <- factor(ifelse(!is.na(df$pos_covid_test_date), "Yes", "No"))
-df$kidney_present <- factor(ifelse(!is.na(df$kidney_date), "Yes", "No"))
-
-df$exacerbations <- ifelse(is.na(df$exacerbations), 0, df$exacerbations)
-df$exacerb_present <- factor(ifelse(df$exacerbations != 0, "Yes", "No"))
-
-# sort on positive covid test
-df <- df %>% arrange(pos_covid_test_date)
-
-#some people have positive covid test before 01mar2020. Drop these people.
-df <- df[df$pos_covid_test_date >= as.Date("2020-03-01") | is.na(df$pos_covid_test_date),]
-
+#some people have outcomes before 01mar2020. Set these date to missing.
+outcome_variables <- c("pos_covid_test_date", "covid_hes_date", "covid_death_date")
+ 
+for (var_name in outcome_variables) {
+  #count people with outcomes before index date
+  sum_result <- sum(df[[var_name]] < as.Date("2020-03-01"), na.rm = TRUE)
+  cat("Sum for", var_name, ":", sum_result, "\n")
+  
+  df <- df[df[[var_name]] >= as.Date("2020-03-01") | is.na(df[[var_name]]),]
+  
+  #count people with outcomes before index date. Should now be 0
+  sum_result <- sum(df[[var_name]] < as.Date("2020-03-01"), na.rm = TRUE)
+  cat("Sum for", var_name, ":", sum_result, "\n")
+}
 
 #crosstab gender and treatment group
 ctab <- table(df$gender, df$treatgroup,
@@ -54,7 +50,7 @@ ggplot(df_subset, aes(x = age_index)) +
        x = "Age Index", y = "Count")
 
 #MAIN TABLE
-tab1 <- tbl_summary(df %>% select(age_index, gender, bmi, eth, smok, diabetes_present, hypertension_present, cvd_present, allcancers_present, asthma_present, kidney_present, exacerbations, exacerb_present, covid_present, treat),
+tab1 <- tbl_summary(df %>% select(age_index, gender, bmi, eth, smok, imd, diabetes_present, hypertension_present, cvd_present, allcancers_present, asthma_present, kidney_present, immunosuppression_present, flu_vacc_present, pneumo_vacc_present, exacerbations, exacerb_present, covid_present, covid_hes_present, covid_death_present, treat),
             by = treat,
             label = list(age_index ~ "Age",
                          gender ~ "Gender",
@@ -66,8 +62,14 @@ tab1 <- tbl_summary(df %>% select(age_index, gender, bmi, eth, smok, diabetes_pr
                          allcancers_present ~ "Cancer",
                          asthma_present ~ "Past asthma",
                          kidney_present ~ "Kidney impairment",
+                         immunosuppression_present ~ "Immunosuppression",
                          smok ~ "Smoking",
+                         imd ~ "Index of Multiple Deprivation",
+                         flu_vacc_present ~ "Influenza vaccine",
+                         pneumo_vacc_present ~ "Pneumococcal vaccine",
                          covid_present ~ "Positive COVID-19 test",
+                         covid_hes_present ~ "COVID-19 hospitalisation",
+                         covid_death_present ~ "COVID-19 death",
                          exacerbations ~ "Number of COPD exacerbations \n in past 12 months", 
                          exacerb_present ~ "Any exacerbation in past 12 months"),
             percent = "column",
@@ -96,5 +98,3 @@ tab1
 tab1 %>%
   as_flex_table() %>%
   flextable::save_as_docx(path = paste0(Tables, "copd_baseline_w1_60d.docx"), align = "left")
-
-# need to add subheadings --> group observations

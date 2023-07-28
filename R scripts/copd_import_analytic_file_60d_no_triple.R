@@ -64,4 +64,31 @@ df$eth[df$eth5 == "5. Not Stated" | df$eth5 == "3. Other" | df$eth5 == ""] <- NA
 labels_eth <- c("White", "South Asian", "Black", "Mixed")
 df$eth <- factor(df$eth, levels = c(0,1,2,3), labels = labels_eth)
 
+# Create a new variable called 'timeout' based on the value of 'pos_covid_test_date'
+df$timeout <- df$pos_covid_test_date
+# Replace missing values in 'timeout' with the value of 'enddate'
+df$timeout[is.na(df$timeout)] <- df$enddate
+# Replace values in 'timeout' that are greater than '2020-08-31' with the value of '2020-08-31'
+df$timeout[df$timeout > as.Date("2020-08-31")] <- as.Date("2020-08-31")
+sum(df$timeout == as.Date("2020-08-31"))
+
+# Generate a variable that is 1 if outcome is present, and 0 if outcome date is empty
+df$pos_covid_test_present <- factor(ifelse(!is.na(df$pos_covid_test_date), "Yes", "No"))
+df$pos_covid_test_present <- ifelse(is.na(df$pos_covid_test_date), 0, 1)
+
+df$covid_hes_present <- factor(ifelse(!is.na(df$covid_hes_date), "Yes", "No"))
+df$covid_hes_present <- ifelse(is.na(df$covid_hes_date), 0, 1)
+
+df$covid_death_present <- factor(ifelse(!is.na(df$covid_death_date), "Yes", "No"))
+df$covid_death_present <- ifelse(is.na(df$covid_death_date), 0, 1)
+
+# Set the time origin to 01 Mar 2020
+df$time_origin <- as.Date("2020-03-01")
+
+# Convert the exit time variable to a survival time object
+df$timeout = as.numeric(df$timeout, "%d%b%Y")
+df$time_origin = as.numeric(df$time_origin, "%d%b%Y")
+df$timeinstudy <- df$timeout - df$time_origin
+
+
 arrow::write_parquet(df, "copd_wave1_60d_no_triple.parquet")
