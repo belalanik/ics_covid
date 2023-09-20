@@ -80,7 +80,6 @@ foreach disease of local vaccine {
 		compress
 		save "${file_stub}_Observation_`disease'_medcodes.dta", replace
 		}
-		
 	}
 	
 /***************************************************************************************

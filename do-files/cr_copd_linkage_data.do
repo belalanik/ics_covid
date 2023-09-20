@@ -37,19 +37,20 @@ foreach x of local linkagefiles {
 /**************************************************
 GET COVID HES DIAGNOSES
 ***************************************************/
-use "hes_diagnosis_epi.dta"
+use "hes_primary_diag_hosp.dta"
 
+rename icd_primary icd
 merge m:1 icd using "$Codelistsdir\Outcomes\cl_covid_hes.dta", keep(match)
-g epistart1 = date(epistart, "DMY")
-format epistart1 %td
-drop epistart
-rename epistart1 epistart
+g admidate1 = date(admidate, "DMY")
+format admidate1 %td
+drop admidate
+rename admidate1 admidate
 
-hist epistart
+hist admidate
 
-drop if epistart > td(31aug2020) | epistart < td(01mar2020)
+drop if admidate > td(31aug2020) | admidate < td(01mar2020)
 
-rename epistart covid_hes_date
+rename admidate covid_hes_date
 keep patid covid_hes_date
 
 duplicates drop

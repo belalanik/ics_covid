@@ -15,7 +15,7 @@ DESCRIPTION OF FILE:
 clear all
 ***run globals
 capture log close 
-log using $Logdir/10cr_copd_analytic_file_6m.log, replace
+log using $Logdir/12cr_copd_analytic_file_60d.log, replace
 
 cd "$Datadir_copd"
 

@@ -8,7 +8,7 @@ DATE VERSION CREATED: 	12/2022
 						
 DATASETS CREATED:       patient_denominators_copd.dta
 						
-DESCRIPTION OF FILE:	Get denominators for each month and prescription counts for each month. uses clean drug issue files for calculation
+DESCRIPTION OF FILE:	Get denominators for each month and prescription counts for each month. Uses clean drug issue files for calculation
 					
 *=========================================================================*/
 clear all
@@ -51,32 +51,14 @@ putexcel A25 = "Feb2021"
 putexcel A26 = "Mar2021"
 putexcel A27 = "Apr2021"
 
-putexcel B2 = "710"
-putexcel B3 = "711"
-putexcel B4 = "712"
-putexcel B5 = "713"
-putexcel B6 = "714"
-putexcel B7 = "715"
-putexcel B8 = "716"
-putexcel B9 = "717"
-putexcel B10 = "718"
-putexcel B11 = "719"
-putexcel B12 = "720"
-putexcel B13 = "721"
-putexcel B14 = "722"
-putexcel B15 = "723"
-putexcel B16 = "724"
-putexcel B17 = "725"
-putexcel B18 = "726"
-putexcel B19 = "727"
-putexcel B20 = "728"
-putexcel B21 = "729"
-putexcel B22 = "730"
-putexcel B23 = "731"
-putexcel B24 = "732"
-putexcel B25 = "733"
-putexcel B26 = "734"
-putexcel B27 = "735"
+local start = 710
+local end = 735
+
+local row = 2
+forval i = `start'/`end' {
+    putexcel B`row' = "`i'"
+    local row = `row' + 1
+}
 
 /************************************************************************
 DENOMINATOR COUNTS
@@ -95,7 +77,6 @@ g first_month = dm_copd
 replace first_month = first_month + 1  if day(copd_date) >= 15
 format first_month %tm
 
-
 putexcel C1 = "denom"
 local loop_count = 1
 forvalues dm = `=tm(2019m3)'/`=tm(2021m4)' {
@@ -112,7 +93,6 @@ clear all
 /************************************************************************
 ICS SINGLE
 *************************************************************************/
-
 ***ICS patients
 clear all
 use "${file_stub}_ics_single_clean", replace
@@ -129,7 +109,6 @@ forvalues m = `=tm(2019m3)'/`=tm(2021m4)' {
    }
 
 ***individual ICS prescriptions
-
 putexcel E1 = "ics_single_rx"
 local loop_count = 1
 forvalues m = `=tm(2019m3)'/`=tm(2021m4)' {
@@ -235,7 +214,6 @@ forvalues m = `=tm(2019m3)'/`=tm(2021m4)' {
 LAMA single
 *************************************************************************/
 ***LAMA single patients
-
 clear all
 use "${file_stub}_lama_single_clean", replace
 
@@ -266,7 +244,6 @@ forvalues m = `=tm(2019m3)'/`=tm(2021m4)' {
 TRIPLE THERAPY
 *************************************************************************/
 ***TRIPLE THERAPY patients
-
 clear all
 use "${file_stub}_triple_therapy_clean", replace
 
@@ -298,7 +275,6 @@ forvalues m = `=tm(2019m3)'/`=tm(2021m4)' {
 ***ICS prevalence with 60d allowable gap
 *************************************************************************/
 clear all
-
 use "${file_stub}_ics_episodes_60d"
 
 ****gen prevalence counts
@@ -310,9 +286,6 @@ forvalues m = `=tm(2019m3)'/`=tm(2021m4)' {
    } 
 
 drop date1 date2 regstart dm rx enddate disc_date dm_disc
-
-unique patid
-
 duplicates drop
 
 ****1 row per patient
@@ -344,7 +317,6 @@ forvalues m = `=tm(2019m3)'/`=tm(2021m4)' {
 	replace count`m' = 0 if count`m' ==.
 	bysort patid: ereplace count`m' = max(count`m')
    }
-
    
 putexcel Q1 = "ics_prev_pat6m"
 local loop_count = 1
@@ -359,7 +331,6 @@ forvalues m = `=tm(2019m3)'/`=tm(2021m4)' {
    
 save "${file_stub}_patient_prevalence_ics6m", replace
 
-   
 ***get users of any ics   
 clear all
 use "10cr_copd_all_ics.dta", replace
@@ -422,9 +393,9 @@ matrix list names
 putexcel U1 = "disc60d" U2 = matrix(freq)
 
 save "${file_stub}_ics_episodes_60d", replace
+clear all 
 **************************************************************************************************
 
-clear all 
 import excel "denominators.xlsx", firstrow
 
 destring month, replace
@@ -441,6 +412,7 @@ gen disc6m_prop = disc6m /denom
 
 save "${file_stub}_summary_stats.dta", replace
 export excel "${file_stub}_summary_stats.xlsx", firstrow(var) keepcellfmt replace
+export delim "${file_stub}_summary_stats.csv", replace
 
 clear all
 log close

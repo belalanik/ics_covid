@@ -7,7 +7,10 @@ VERSION:				v1
 
 DATE VERSION CREATED: 	06/2023
 
-DATASETS CREATED:       07cr_copd_all_ics.dta //file containing all prescrpitions of ICS containing inhalers
+DATASETS CREATED:       copd_all_ics.dta //file containing all prescrpitions of ICS containing inhalers
+						copd_ics_episodes_initiation
+						copd_ics_episodes_6m
+						copd_ics_episodes_60d
 						
 DESCRIPTION OF FILE:	appends all ICS medication files (ics single and ics laba) and creates episodes
 
@@ -24,6 +27,7 @@ capture log close
 log using $Logdir/10cr_copd_all_ics.log , replace
 
 cd "$Datadir_copd"
+
 ***append datasets containing individual prescriptions
 use "$Datadir_copd\\${file_stub}_ics_single_clean.dta"
 gen ics_single = 1
@@ -41,7 +45,8 @@ drop ics_single ics_laba triple
 drop termfromemis productname
 
 compress
-save "10cr_copd_all_ics.dta", replace
+save "copd_all_ics.dta", replace
+export delim "copd_all_ics.csv", replace
 
 /*********************************************************
 1. INITIATIONS
@@ -109,6 +114,8 @@ graph export $Graphdir/initiation_ics.jpg, replace
 
 compress
 save "${file_stub}_ics_episodes_initiation", replace
+export delim "${file_stub}_ics_episodes_initiation.csv", replace
+
 /************************************************************************
 *************************************************************************
 ASSESS DISCONTINUATIONS, TAKING INTO ACCOUNT 60 DAY ALLOWABLE GAP
@@ -160,14 +167,14 @@ graph export $Graphdir/discontinuation60_ics.jpg, replace
 
 compress
 save "${file_stub}_ics_episodes_60d", replace
-
+export delim "${file_stub}_ics_episodes_60d.csv", replace
 /************************************************************************
 *************************************************************************
 ASSESS DISCONTINUATIONS,  DEFINED AS 6M AFTER ISSUEDATE
 *************************************************************************
 *************************************************************************/
 clear all
-use "10cr_copd_all_ics.dta", replace
+use "copd_all_ics.dta", replace
 
 ***merge in registration start and end dates
 drop substancestrength dosageid
@@ -244,6 +251,7 @@ graph export $Graphdir/discontinuation6m_ics.jpg, replace
 
 compress
 save "${file_stub}_ics_episodes_6m", replace
+export delim "${file_stub}_ics_episodes_6m.csv", replace
 
 log close 
 clear all

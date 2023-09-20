@@ -79,28 +79,28 @@ ggsave(filename = "cuminc3_covid_death.png", plot = cuminc3, path = Tables, widt
 
 # COX REGRESSION ----------------------------------------------------------
 
-cox1 <- coxph(surv1 ~ treat, data = subset_df)
-sch.resid1 = cox.zph(cox1, transform ='identity')
-plot(sch.resid1)
- tidy(cox1)
-
-
-cox2 <- coxph(surv2 ~ treat, data = subset_df)
-sch.resid2 = cox.zph(cox2, transform ='identity')
-plot(sch.resid2)
-
-cox3 <- coxph(surv3 ~ treat, data = subset_df)
-sch.resid3 = cox.zph(cox3, transform ='identity')
-plot(sch.resid3)
-
-cox1a <- coxph(surv1 ~ treat + age_index + bmi + eth5 + diabetes_present, data = subset_df)
-mgale_res1 <- resid(cox1, type = "martingale")
-plot(subset_df$age_index, mgale_res1)
-
-
-cox2a <- coxph(surv2 ~ treat, data = subset_df)
-
-cox3a <- coxph(surv3 ~ treat, data = subset_df)
+# cox1 <- coxph(surv1 ~ treat, data = subset_df)
+# sch.resid1 = cox.zph(cox1, transform ='identity')
+# plot(sch.resid1)
+#  tidy(cox1)
+# 
+# 
+# cox2 <- coxph(surv2 ~ treat, data = subset_df)
+# sch.resid2 = cox.zph(cox2, transform ='identity')
+# plot(sch.resid2)
+# 
+# cox3 <- coxph(surv3 ~ treat, data = subset_df)
+# sch.resid3 = cox.zph(cox3, transform ='identity')
+# plot(sch.resid3)
+# 
+# cox1a <- coxph(surv1 ~ treat + age_index + bmi + eth5 + diabetes_present, data = subset_df)
+# mgale_res1 <- resid(cox1, type = "martingale")
+# plot(subset_df$age_index, mgale_res1)
+# 
+# 
+# cox2a <- coxph(surv2 ~ treat, data = subset_df)
+# 
+# cox3a <- coxph(surv3 ~ treat, data = subset_df)
 
 
 
