@@ -18,6 +18,7 @@ DESCRIPTION OF FILE: 	Gets full list of events for exclusion/inclusion criteria 
 *=========================================================================*/
 clear all
 
+***run globals
 cap log close
 log using $Logdir\02cr_copd_inc_exc_crit.log, replace
 
@@ -54,8 +55,6 @@ foreach file of numlist 1/$no_Observation {
 	drop if eventdate > td(30apr2021)
 	keep patid medcodeid eventdate 
     merge m:1 medcodeid using "$Codelistsdir\cl_copd_aurum_052022.dta", keep(match) nogen
-	capture confirm string variable medcodeid
-	drop if missing(medcodeid)
 	if `file' == 1 {
 		save "${file_stub}_Observation_`disease'.dta", replace
 	}
@@ -79,8 +78,6 @@ foreach file of numlist 1/$no_Observation {
 	drop if eventdate > td(30apr2021)
 	keep patid medcodeid eventdate
 	merge m:1 medcodeid using "$Codelistsdir\cl_asthma_aurum_052022.dta", keep(match) nogen keepusing(term)
-	capture confirm string variable medcodeid
-	drop if missing(medcodeid)
 	if `file' == 1 {
 			save "${file_stub}_Observation_`disease'.dta", replace
 		}
@@ -153,6 +150,7 @@ foreach product of local drug {
 		noi di "Merging `product', File `file'"
 		use "$Copd_aurum_extract\\${file_stub}_Extract_DrugIssue_`file'", clear
 		drop if issuedate > td(30apr2021)
+		drop pracid estnhscost
 		merge m:1 prodcodeid using "$Codelistsdir\Product_codelists\cl_`product'.dta", keep(match) nogen
 		capture confirm string variable prodcodeid
 		drop if missing(prodcodeid)

@@ -1,6 +1,5 @@
-
 /*=========================================================================
-DO FILE NAME:		    cr06_copd_product_patids.do
+DO FILE NAME:		    06cr_copd_product_patids.do
 
 AUTHOR:					Marleen Bokern
 
@@ -72,7 +71,6 @@ clear all
 
 cd $Datadir_copd
 
-timer on 1
 /*****************************************************************************************
 Inhalers - 
 TRIPLE THERAPY has been extracted in inclusion/ exclusion criteria file
@@ -128,10 +126,6 @@ foreach file of numlist 1/$no_DrugIssue {
 	compress
 	save "${file_stub}_DrugIssue_`product'.dta", replace
 }
-
-
-timer off 1
-timer list 1
 
 clear all
 log close

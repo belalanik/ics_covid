@@ -50,12 +50,12 @@ ggplot(df_subset, aes(x = age_index)) +
        x = "Age Index", y = "Count")
 
 #MAIN TABLE
-tab1 <- tbl_summary(df %>% select(age_index, gender, bmi, eth, smok, imd, diabetes_present, hypertension_present, cvd_present, allcancers_present, asthma_present, kidney_present, immunosuppression_present, flu_vacc_present, pneumo_vacc_present, exacerbations, exacerb_present, covid_present, covid_hes_present, covid_death_present, treat),
+tab1 <- tbl_summary(df %>% select(age_index, gender, bmicat, eth, smok, imd, diabetes_present, hypertension_present, cvd_present, allcancers_present, asthma_present, kidney_present, immunosuppression_present, flu_vacc_present, pneumo_vacc_present, exacerbations, exacerb_present, covid_present, covid_hes_present, covid_death_present, treat),
             by = treat,
             label = list(age_index ~ "Age",
                          gender ~ "Gender",
                          eth ~ "Ethnicity",
-                         bmi ~ "BMI",
+                         bmicat ~ "BMI",
                          diabetes_present ~ "Diabetes",
                          hypertension_present ~ "Hypertension",
                          cvd_present ~ "Cardiovascular disease",
@@ -79,13 +79,10 @@ tab1 <- tbl_summary(df %>% select(age_index, gender, bmi, eth, smok, imd, diabet
             statistic = list(
               all_continuous() ~ "{mean} ({sd})",
               age_index ~ c("{mean} ({sd})", "{median}  \n ({p25}-{p75})"),
-              bmi ~ c("{mean} ({sd})", "{median}  \n ({p25}-{p75})"),
-              all_categorical() ~ "{n} ({p}%)"
-            ),
+              #bmi ~ c("{mean} ({sd})", "{median}  \n ({p25}-{p75})"),
+              all_categorical() ~ "{n} ({p}%)"),
             type = list(
-              c(age_index, bmi) ~ "continuous2"
-            )
-)  %>% 
+              c(age_index) ~ "continuous2"))  %>% 
   add_p() %>%
   modify_header(label ~ "", all_stat_cols() ~ "**{level}**  \n N = {n}")  %>%
   # modify_caption("Patient Characteristics") %>%
@@ -98,3 +95,27 @@ tab1
 tab1 %>%
   as_flex_table() %>%
   flextable::save_as_docx(path = paste0(Tables, "copd_baseline_w1_60d.docx"), align = "left")
+
+#Table of outcomes
+tab2 <- tbl_summary(df %>% select(covid_hes_present, covid_death_present, any_death_present, treat),
+                    by = treat,
+                    label = list(covid_hes_present ~ "COVID-19 hospitalisation",
+                                 covid_death_present ~ "COVID-19 death",
+                                 any_death_present ~ "All-cause mortality"),
+                    percent = "column",
+                    statistic = list(
+                      all_categorical() ~ "{n} ({p}%)"))  %>% 
+  add_p() %>%
+  modify_header(label ~ "", all_stat_cols() ~ "**{level}**  \n N = {n}")  %>%
+  # modify_caption("Patient Characteristics") %>%
+  modify_column_alignment(columns = c(stat_1, stat_2), align = "right") %>% 
+  italicize_levels()
+
+tab2
+
+#export to word
+tab2 %>%
+  as_flex_table() %>%
+  flextable::save_as_docx(path = paste0(Tables, "copd_outcomes_w1_60d.docx"), align = "left")
+
+

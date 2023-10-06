@@ -1,5 +1,5 @@
 /*=========================================================================
-DO FILE NAME:		    11cr_copd_treatment_combinations60d.do
+DO FILE NAME:		    11cr_copd_treatment_combinations6m.do
 
 AUTHOR:					Marleen Bokern
 
@@ -7,9 +7,9 @@ VERSION:				v1
 
 DATE VERSION CREATED: 	11/2022
 
-DATASETS CREATED:       ${file_stub}_treatment_ep_for_combination60d
-						${file_stub}_treatment_eps_w1_full60d
-						${file_stub}_treatment_baseline_w160d
+DATASETS CREATED:       {file_stub}_treatment_ep_for_combination6m
+						${file_stub}_treatment_eps_w1_full6m
+						${file_stub}_treatment_baseline_w16m
 						
 DESCRIPTION OF FILE:	uses code from Kate Mansfield to generate treatment episodes
 
@@ -17,10 +17,10 @@ DESCRIPTION OF FILE:	uses code from Kate Mansfield to generate treatment episode
 
 clear all
 capture log close
-log using "$Logdir\11cr_copd_treatment_combinations60d.log", replace
+log using "$Logdir\11cr_copd_treatment_combinations6m.log", replace
 
-***use file with treatment episodes according to 60d discontinuation definition
-use "$Datadir_copd\copd_treatment_episodes_60d"
+***use file with treatment episodes according to 6m discontinuation definition
+use "$Datadir_copd\copd_treatment_episodes_6m"
 
 expand 2, gen(dup)
 
@@ -35,10 +35,10 @@ replace onoff = 0 if dup == 1
 *flag denotes an exposure end date that occurs after the registration end date
 replace flag =. if dup == 0
 
-drop rx date1 date2 dm_disc enddate regstart dm
+drop date1 date2 dm_disc enddate regstart dm
 
 compress
-*save "$Datadir_copd\\${file_stub}_treatment_ep_for_combination60d", replace
+save "$Datadir_copd\\${file_stub}_treatment_ep_for_combination6m", replace
 
 /************************************************************************
 generate on and off indicators for each drug class
@@ -125,9 +125,8 @@ return list
 by patid date: gen sum = sum(ics_group + control_group + ics_only + laba_only + lama_only + ics_lama + no_med)
 assert sum == 1
 drop sum
-
 compress
-save "$Datadir_copd\\${file_stub}_treatment_eps_full60d", replace
+save "$Datadir_copd\\${file_stub}_treatment_eps_full6m", replace
 
 ************************************************************************************************************************************************************
 *** find baseline exposure --> keep last observation before index date
@@ -157,13 +156,13 @@ unique patid if no_med == 1
 drop last ep on_ics_single on_ics_laba on_laba_single on_lama_single on_laba_lama off_ics_single off_ics_laba off_laba_single off_lama_single off_laba_lama date
 
 compress
-save "$Datadir_copd\\${file_stub}_treatment_baseline_60d", replace
+save "$Datadir_copd\\${file_stub}_treatment_baseline_6m", replace
 
 clear all
 
 ***count people who change treatment groups during follow up
-use "$Datadir_copd\\${file_stub}_treatment_eps_full60d"
-merge m:1 patid using "$Datadir_copd\\${file_stub}_treatment_baseline_60d", keepusing(baseline_control baseline_ics baseline_triple)
+use "$Datadir_copd\\${file_stub}_treatment_eps_full6m"
+merge m:1 patid using "$Datadir_copd\\${file_stub}_treatment_baseline_6m", keepusing(baseline_control baseline_ics baseline_triple)
 
 sort patid date
 unique patid if date > td(01mar2020) & date < td(01sep2020) //anyone with a treatment change during follow-up
@@ -172,7 +171,7 @@ unique patid if date > td(01mar2020) & date < td(01sep2020) & (baseline_control 
 unique patid if date > td(01mar2020) & date < td(01sep2020) & (baseline_ics == 0 & ics_group == 1) // people not in ics group at baseline who enter ics group
 unique patid if date > td(01mar2020) & date < td(01sep2020) & (baseline_control == 0 & control_group == 1) // people not in control group at baseline who enter control group
 unique patid if date > td(01mar2020) & date < td(01sep2020) & (baseline_ics == 1 & control_group == 1) // people in ics group at baseline who enter control group
-unique patid if date > td(01mar2020) & date < td(01sep2020) & (baseline_control == 1 & ics_group == 1 ) // people in control group at baseline who enter ics group
+unique patid if date > td(01mar2020) & date < td(01sep2020) & (baseline_control == 1 & ics_group == 1) // people in control group at baseline who enter ics group
 
 sort patid date
 by patid: gen ics_ever = 1 if baseline_ics == 1 | (ics_group == 1) & date > td(01mar2020)
@@ -182,7 +181,7 @@ by patid: ereplace control_ever = max(control_ever)
 by patid: gen triple_ever = 1 if baseline_triple == 1 | (triple == 1) & date > td(01mar2020)
 by patid: ereplace triple_ever = max(triple_ever)
 
-compress
-save "$Datadir_copd\\${file_stub}_treatment_eps_60d", replace
+save "$Datadir_copd\\${file_stub}_treatment_eps_full6m", replace
+
 log close 
 clear all

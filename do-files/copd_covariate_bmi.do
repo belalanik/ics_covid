@@ -284,7 +284,6 @@ sort patid dobmi
 compress
 save "copd_covariate_bmi_all.dta", replace
 
-drop if dobmi > td(30apr2021)
 drop if dobmi > td(01mar2020)
 gsort patid -dobmi
 bysort patid: gen order=_n
