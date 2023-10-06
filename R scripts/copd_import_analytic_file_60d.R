@@ -96,7 +96,7 @@ df$bmicat[df$bmi >= 30] <- 4
 # Assign category labels
 df$bmicat <- factor(df$bmicat, levels = c(1, 2, 3, 4),
                     labels = c("Underweight (<18.5)", "Normal (18.5-24.9)",
-                               "Overweight (25-29.9)", "Obese (>=30"))
+                               "Overweight (25-29.9)", "Obese (>=30)"))
 
 # Create a less granular categorization
 df$obese4cat <- NA
@@ -145,8 +145,10 @@ df$covid_hes_present <- ifelse(is.na(df$covid_hes_date), 0, 1)
 df$covid_death_present <- factor(ifelse(!is.na(df$covid_death_date), "Yes", "No"))
 df$covid_death_present <- ifelse(is.na(df$covid_death_date), 0, 1)
 
-df$any_death_present <- factor(ifelse(!is.na(df$deathdate), "Yes", "No"))
-df$any_death_present <- ifelse(is.na(df$deathdate), 0, 1)
+df$any_death_present <- factor(ifelse(df$deathdate < as.Date("2020-09-01"), "Yes", "No"))
+df$any_death_present <- ifelse(df$deathdate < as.Date("2020-09-01"), 1, 0)
+df$any_death_present[is.na(df$any_death_present)] <- 0
+df$any_death_present[df$deathdate > as.Date("2020-08-31")] <- 0
 
 #assert that there are more all cause deaths than covid deaths
 sum(df$any_death_present == 1 & df$deathdate < as.Date("2020-09-01"), na.rm = TRUE) > sum(df$covid_death_present == 1 & df$deathdate < as.Date("2020-09-01"), na.rm = TRUE)

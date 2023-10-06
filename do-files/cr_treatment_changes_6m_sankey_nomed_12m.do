@@ -1,5 +1,5 @@
 /*=========================================================================
-DO FILE NAME:		    cr_treatment_changes_60d_sankey_nomed_12m.do
+DO FILE NAME:		    cr_treatment_changes_6m_sankey_nomed_12m.do
 
 AUTHOR:					Marleen Bokern
 
@@ -7,16 +7,16 @@ VERSION:				v1
 
 DATE VERSION CREATED: 	04/2023
 
-DATASETS CREATED:       treatment_changes_w1_60d_sankey_nomed_12m.xlsx
+DATASETS CREATED:       treatment_changes_w1_6m_sankey_nomed_12m.xlsx
 						
 DESCRIPTION OF FILE:	format treatment episode data so it can be used to create a sankey plot in networkD3 in R
 
 *=========================================================================*/
 clear all
 cap log close 
-log using "$Logdir\cr_treatment_changes_60d_sankey_nomed_12m.log", replace
+log using "$Logdir\cr_treatment_changes_6m_sankey_nomed_12m.log", replace
 
-use "$Datadir_copd\\${file_stub}_treatment_eps_full60d"
+use "$Datadir_copd\\${file_stub}_treatment_eps_full6m"
 cap drop _merge
 merge m:1 patid using "$Datadir_copd\\${file_stub}_Patient_included.dta", keepusing(enddate)
 
@@ -67,7 +67,7 @@ bysort patid (date): gen keep = _n
 tab keep
 assert keep <= 5
 
-putexcel set "$Datadir_copd\treatment_changes_60d_sankey_nomed_12m_w1", replace
+putexcel set "$Datadir_copd\treatment_changes_6m_sankey_nomed_12m_w1", replace
 putexcel A1 = "source"
 
 // Fill the source and target cells with the desired pattern using a loop

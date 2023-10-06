@@ -15,7 +15,7 @@ library(MetBrewer)
 webshot::install_phantomjs()
 setwd(Datadir_copd)
 
-sankey_name <- "treatment_changes_60d_sankey_nomed_12m_w1"
+sankey_name <- "treatment_changes_6m_sankey_nomed_12m_w1"
 
 nodes <- data.frame(
   "name" = c(
@@ -64,7 +64,7 @@ sankey60d <- sankeyNetwork(
   fontSize = 10, nodeWidth = 15, colourScale = colors
 )
 
-sankey60d <- htmlwidgets::prependContent(sankey60d, htmltools::tags$h1("Treatment changes from 1st March 2020 to 1st March 2021",  style = "font-family: Garamond; font-size: 22px"),htmltools::tags$h4("Discontinuation defined as 60 days after presumed end of exposure", style = "font-family: Garamond; font-size: 16px"))
+sankey60d <- htmlwidgets::prependContent(sankey60d, htmltools::tags$h1("Treatment changes from 1st March 2020 to 1st March 2021",  style = "font-family: Garamond; font-size: 22px"),htmltools::tags$h4("Discontinuation defined as 6 months after lst prescription issue date", style = "font-family: Garamond; font-size: 16px"))
 
 
 sankey60d
