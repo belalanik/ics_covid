@@ -36,7 +36,7 @@ foreach file of numlist 1/$no_Observation {
 	drop if eventdate > td(31aug2020)
 	drop if eventdate < td(01mar2020)
     merge m:1 medcodeid using "$Codelistsdir\Outcomes\cl_`outcome'.dta", keep(match) nogen
-	merge m:1 patid using "${file_stub}_Patid_list_included.dta", keep(match) nogen
+	merge m:1 patid using "${file_stub}_Patid_list_included_all.dta", keep(match) nogen
 	keep patid medcodeid term obsdate enterdate eventdate
 	if `file' == 1{
 		save "${file_stub}_Observation_`outcome'.dta", replace

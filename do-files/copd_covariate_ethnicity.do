@@ -32,7 +32,7 @@ foreach file of numlist 1/$no_Observation {
 	noi di "Merging ethnicity observations, File `file'"
     use "$Copd_aurum_extract\\${file_stub}_Extract_Observation_`file'", clear
 	keep patid medcodeid eventdate 
-	merge m:1 patid using "${file_stub}_Patid_list_included.dta", keep(match) nogen
+	merge m:1 patid using "${file_stub}_Patid_list_included_all.dta", keep(match) nogen
     merge m:1 medcodeid using "$Codelistsdir/cl_ethnicity.dta", keep(match) nogen
 	drop observations
 	if `file' == 1 {
@@ -389,7 +389,7 @@ save "${file_stub}_Observation_all_eth.dta", replace
 
 **MAKE PATIENT LEVEL FILE
 **drop duplicate patids
-use "${file_stub}_Patient_included.dta", clear
+use "${file_stub}_Patient_included_all.dta", clear
 
 merge 1:m patid using "${file_stub}_Observation_all_eth.dta", gen(merge2)
 

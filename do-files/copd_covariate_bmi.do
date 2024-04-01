@@ -9,6 +9,7 @@ VERSION:				v1
 DATE VERSION CREATED: 	11/2022
 
 DATASETS CREATED:       copd_Observation_bmi.dta
+						copd_covariate_bmi_all.dta // this file contains all calculated BMI values for the cohort
 						
 DESCRIPTION OF FILE:	bmi codelist applied to cohort (incl/excl. already applied)
 
@@ -57,7 +58,7 @@ foreach file of numlist 1/$no_Observation {
     use "$Copd_aurum_extract\\${file_stub}_Extract_Observation_`file'", clear
 	drop pracid
     merge m:1 medcodeid using "$Codelistsdir/cl_bmi.dta", keep(match) nogen
-	merge m:1 patid using "${file_stub}_Patid_list_included.dta", keep(match) nogen
+	merge m:1 patid using "${file_stub}_Patid_list_included_all.dta", keep(match) nogen
 	if `file' == 1 {
 		save "${file_stub}_Observation_bmi.dta", replace
 	}
@@ -116,7 +117,7 @@ noi di in yellow _dup(120) "*"
 
 noi di "Loading weight/bmi records from patient data"
 
-merge m:1 patid using "${file_stub}_Patient_included.dta", keep(master match) nogen keepusing(dob)
+merge m:1 patid using "${file_stub}_Patient_included_all.dta", keep(master match) nogen keepusing(dob)
 drop if obsdate ==.
 drop if missing(value)
 
@@ -286,7 +287,7 @@ save "copd_covariate_bmi_all.dta", replace
 
 drop if dobmi > td(01mar2020)
 gsort patid -dobmi
-bysort patid: gen order=_n
+bysort patid: gen order = _n
 
 keep if order == 1
 drop if dobmi < td(01mar2010)

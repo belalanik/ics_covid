@@ -46,9 +46,9 @@ disp `"`drugissue'"'
 foreach drug in `drugissue' {
 	noi di "File `drug'"
     use "${file_stub}_DrugIssue_`drug'.dta", clear
-	merge m:1 patid using "${file_stub}_Patient_included", keep(match) nogen
+	merge m:1 patid using "${file_stub}_Patient_included_all", keep(match) nogen
 	merge m:1 dosageid using "$common_dosages", keep(match master) nogen
-	drop dose_duration dose_max_average change_dose dose_unit dose_interval dose_frequency choice_of_dose dose_number enterdate day yob mob yo35bday do35bday lcd copd_date smoking_date age_index
+	drop dose_duration dose_max_average change_dose dose_unit dose_interval dose_frequency choice_of_dose dose_number enterdate day yob mob yo35bday do35bday lcd copd_date
 	cap drop drugissues
 	compress
 	save "${file_stub}_`drug'.dta", replace

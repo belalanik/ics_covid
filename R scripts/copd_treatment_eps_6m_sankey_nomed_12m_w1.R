@@ -50,8 +50,8 @@ links60d <- read.xlsx(paste0(sankey_name, ".xlsx"))
 links60d$source <- as.numeric(links60d$source)
 links60d$target <- as.numeric(links60d$target)
 
-palette <- met.brewer("Renoir")
-palette <- c(palette[1], palette[3], palette[5], palette[7])
+palette <- met.brewer("Cassatt2")
+palette <- c(palette[2], palette[3], palette[4],palette[5])
 palette_js <- paste0("'", paste(palette, collapse = "','"), "'")
 
 colors <- paste0("d3.scaleOrdinal([", palette_js, "])")

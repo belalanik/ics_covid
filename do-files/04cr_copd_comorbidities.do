@@ -58,7 +58,7 @@ foreach comorbidity of local disease {
 		use "$Copd_aurum_extract\\${file_stub}_Extract_Observation_`file'", clear
 		drop if eventdate > td(01mar2020)
 		merge m:1 medcodeid using "$Codelistsdir\Comorbidities\cl_`comorbidity'.dta", keep(match) nogen
-		merge m:1 patid using "${file_stub}_Patient_included.dta", keep(match) nogen
+		merge m:1 patid using "${file_stub}_Patient_included_all.dta", keep(match) nogen
 		keep patid medcodeid term obsdate enterdate eventdate
 		if `file' == 1{
 			save "${file_stub}_Observation_`comorbidity'.dta", replace
@@ -91,16 +91,38 @@ local comorbidity asthma
 disp `"`comorbidity'"'
 
 use "${file_stub}_Observation_`comorbidity'.dta"
-merge m:1 patid using "${file_stub}_Patient_included.dta", keep(match) nogen // this list only includes people who had no asthma code within 3 years before the index date
+merge m:1 patid using "${file_stub}_Patient.dta", keep(match) nogen // this list only includes people who had no asthma code within 3 years before the index date
 	
-assert eventdate < td(01mar2017) | eventdate >= td(01mar2020)
+keep if eventdate < td(01mar2017) 
 sort patid eventdate
 bysort patid: gen keep = _n
 keep if keep == 1
-drop medcodeid term keep
-rename eventdate `comorbidity'_date 
+keep patid eventdate
+rename eventdate past_`comorbidity'_date 
 
-save "${file_stub}_covariate_`comorbidity'.dta", replace
+save "${file_stub}_covariate_`comorbidity'_past.dta", replace
+
+clear all
+
+/*********************************************************************************************************************
+ASTHMA - FOR SENSITIVITY ANALYSIS INCLUDING PEOPLE WITH ASTHMA
+Asthma observations have been extracted in 02_cr_copd_inc_exc_crit 
+*************************************************************************************************************************/
+
+local comorbidity asthma
+disp `"`comorbidity'"'
+
+use "${file_stub}_Observation_`comorbidity'.dta"
+merge m:1 patid using "${file_stub}_Patient.dta", keep(match) nogen // this list only includes people who had no asthma code within 3 years before the index date
+
+keep if eventdate > td(01mar2017) & eventdate < td(01mar2020)	
+sort patid eventdate
+bysort patid: gen keep = _n
+keep if keep == 1
+keep patid eventdate
+rename eventdate current_`comorbidity'_date 
+
+save "${file_stub}_covariate_`comorbidity'_current.dta", replace
 
 /**************************************************************************
 Immunosuppression codes - need algorithm
@@ -116,7 +138,7 @@ foreach comorbidity of local disease {
 		use "$Copd_aurum_extract\\${file_stub}_Extract_Observation_`file'", clear
 		drop if eventdate > td(01mar2020)
 		merge m:1 medcodeid using "$Codelistsdir\Comorbidities\cl_`comorbidity'.dta", keep(match) nogen
-		merge m:1 patid using "${file_stub}_Patient_included.dta", keep(match) nogen
+		merge m:1 patid using "${file_stub}_Patient_included_all.dta", keep(match) nogen
 		keep patid medcodeid term obsdate enterdate eventdate
 		if `file' == 1{
 			save "${file_stub}_Observation_`comorbidity'.dta", replace
@@ -129,7 +151,7 @@ foreach comorbidity of local disease {
 	}
 
 }
-	
+
 clear all
 log close
 
