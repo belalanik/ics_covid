@@ -1,5 +1,5 @@
 /*=========================================================================
-DO FILE NAME:		    10cr_copd_analytic_file_60d_timeupdate.do
+DO FILE NAME:		    12cr_copd_analytic_file_60d_timeupdate.do
 
 AUTHOR:					Marleen Bokern
 
@@ -9,7 +9,7 @@ DATE VERSION CREATED: 	03/2022
 
 DATASETS CREATED:       copd_analytic_file
 						
-DESCRIPTION OF FILE:	
+DESCRIPTION OF FILE:	Creates analytic file of using "60d after calculated end date" prescription definition
 
 *=========================================================================*/
 clear all
@@ -19,8 +19,11 @@ log using $Logdir/12cr_copd_analytic_file_60d.log, replace
 
 cd "$Datadir_copd"
 
-use "${file_stub}_Patient_included.dta"
+import delim "$Denominator\CPRD Linkage Source Data Files\Version22\set_22_Source_Aurum\Aurum_enhanced_eligibility_January_2022.txt", stringcols(_all)
+
+merge 1:1 patid using "${file_stub}_Patient_included.dta", keep(match)
 cap drop _merge
+drop hes_apc_e ons_death_e sgss_e lsoa_e chess_e hes_op_e hes_ae_e hes_did_e cr_e icnarc_e mhds_e rtds_e sact_e smokstatus smoking_date
 
 ****MERGE IN COVARIATES. ALL COVARIATES ARE CODED AS DATES
 ***BMI 
@@ -46,7 +49,7 @@ merge 1:1 patid using "${file_stub}_covariate_kidney", nogen keep(match master)
 merge 1:1 patid using "${file_stub}_covariate_allcancers.dta", nogen keep(match master)
 
 **ASTHMA
-merge 1:1 patid using "${file_stub}_covariate_asthma.dta", nogen keep(match master)
+merge 1:1 patid using "${file_stub}_covariate_asthma_past.dta", nogen keep(match master)
 
 ***COPD EXACERBATIONS IN PAST YEAR 
 merge 1:1 patid using "${file_stub}_covariate_exacerbation.dta", nogen keep(match master)
@@ -64,17 +67,27 @@ merge 1:1 patid using "${file_stub}_covariate_flu_vaccine.dta", nogen keepusing(
 merge 1:1 patid using "${file_stub}_covariate_pneumo_vaccine.dta", nogen keepusing(pneumo_vacc_date) keep(match master)
 
 ***IMD 
-merge 1:1 patid using "${file_stub}_covariate_imd.dta", nogen keep(match master)
+merge 1:1 patid using "$Datadir_copd\covariate_imd.dta", nogen keep(match master)
 
 ***OUTCOMES
 ***positive covid test
 merge 1:1 patid using "${file_stub}_outcome_pos_covid_test_w1.dta", nogen keep(match master)
 
-***covid hospitalisation
-merge 1:1 patid using "${file_stub}_outcome_covid_hes_date_w1.dta", nogen keep(match master)
+***primary covid hospitalisation
+merge 1:1 patid using "$Datadir_copd\outcome_covid_hes_date_w1.dta", nogen keep(match master)
 
-***covid hospitalisation
-merge 1:1 patid using "${file_stub}_outcome_covid_death_date_w1.dta", nogen keep(match master) 
+***any covid hospitalisation
+merge 1:1 patid using "$Datadir_copd\outcome_covid_hes_date_w1_any.dta", nogen keep(match master)
+
+***any hospitalisation
+*merge 1:1 patid using "$Datadir_copd\hes_epi_date_w1.dta", nogen keep(match master)
+
+***covid death
+merge 1:1 patid using "$Datadir_copd\outcome_covid_death_date_w1.dta", nogen keep(match master) 
+
+***all death dates
+merge 1:1 patid using "$Datadir_copd\death_date_w1.dta", nogen keep(match master) 
+
 
 save "${file_stub}_analytic_file_w1_no_exposures.dta", replace
 

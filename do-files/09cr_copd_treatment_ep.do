@@ -49,9 +49,8 @@ use "${file_stub}_`drugclass'_checked", clear
 ***merge variable comes from merge with dosage lookup file
 capture drop _merge
 
-***keep only prescriptions from people who meet all inclusion criteria (patient_included is the full patient file for those patients meeting no asthma or ltra or other chronic respiratory condition, with record of current or former smoking criteria)
 noi di "Merge with included patient file, keep matches"
-merge m:1 patid using "${file_stub}_Patient_included.dta", keepusing(dob enddate)
+merge m:1 patid using "${file_stub}_Patient_included_all.dta", keepusing(dob enddate)
 
 ***people in using only are included in the cohort but have no prescription. People in master only dont meet inclusion criteria
 keep if _merge == 3

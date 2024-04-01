@@ -333,7 +333,7 @@ save "${file_stub}_patient_prevalence_ics6m", replace
 
 ***get users of any ics   
 clear all
-use "10cr_copd_all_ics.dta", replace
+use "copd_all_ics.dta", replace
 
 putexcel R1 = "ics_all_pat"
 local loop_count = 1

@@ -93,6 +93,7 @@ assert drugsubstancename !=""
 compress
 save "${file_stub}_${drugclass}_checked", replace
 clear all
+
 /****************************************************************************
 LAMA SINGLE
 *****************************************************************************/

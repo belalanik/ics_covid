@@ -38,7 +38,6 @@ replace flag =. if dup == 0
 drop date1 date2 dm_disc enddate regstart dm
 
 compress
-save "$Datadir_copd\\${file_stub}_treatment_ep_for_combination6m", replace
 
 /************************************************************************
 generate on and off indicators for each drug class
@@ -66,7 +65,7 @@ foreach a in `expClasses' {
 collapse (max) on_* off_* flag, by(patid date)
 
 *drop rows that happen after the end date
-merge m:1 patid using "$Datadir_copd\copd_Patient_included.dta", keepusing(enddate) keep(match) nogen
+merge m:1 patid using "$Datadir_copd\copd_Patient_included_all.dta", keepusing(enddate) keep(match) nogen
 assert (on_ics_single & on_ics_laba & on_laba_single & on_lama_single & on_laba_lama & on_triple_inhaler) == 0 if flag == 1
 assert (off_ics_single == 1 | off_ics_laba == 1 | off_laba_single == 1 | off_lama_single == 1 | off_laba_lama == 1 | off_triple_inhaler == 1) if flag == 1
 
@@ -99,6 +98,7 @@ foreach c in `expClasses' {
 } /*end foreach c in `expClasses' */
 
 gen triple = 1 if (ics_laba == 1 & lama_single == 1)|(ics_single == 1 & laba_lama == 1)|(ics_single == 1 & laba_single == 1 & lama_single == 1)|(ics_laba == 1 & laba_lama == 1)
+replace triple = 1 if triple_inhaler == 1
 replace triple = 0 if triple ==.
 drop if date > td(01mar2021) //drop changes that happen after the end of follow-up
 
@@ -181,7 +181,8 @@ by patid: ereplace control_ever = max(control_ever)
 by patid: gen triple_ever = 1 if baseline_triple == 1 | (triple == 1) & date > td(01mar2020)
 by patid: ereplace triple_ever = max(triple_ever)
 
-save "$Datadir_copd\\${file_stub}_treatment_eps_full6m", replace
+compress
+save "$Datadir_copd\\${file_stub}_treatment_eps_6m", replace
 
 log close 
 clear all

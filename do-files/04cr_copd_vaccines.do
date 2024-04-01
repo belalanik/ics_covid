@@ -69,7 +69,7 @@ foreach disease of local vaccine {
 		use "$Copd_aurum_extract/${file_stub}_Extract_Observation_`file'", clear
 		drop if eventdate > td(30apr2021)
 		merge m:1 medcodeid using "$Codelistsdir\Vaccines\cl_`disease'_medcodes.dta", keep(match) nogen
-		merge m:1 patid using "${file_stub}_Patient_included.dta", keep(match) nogen
+		merge m:1 patid using "${file_stub}_Patient_included_all.dta", keep(match) nogen
 		keep patid medcodeid term obsdate enterdate eventdate
 		if `file' == 1{
 			save "${file_stub}_Observation_`disease'_medcodes.dta", replace

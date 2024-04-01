@@ -95,7 +95,7 @@ bysort patid class (date1): gen episode = _n
 keep patid episode date1 date2 class
 
 ***merge in first reg date 
-merge m:1 patid using "copd_Patient_included.dta", keepusing(regstart enddate) keep(match) nogen
+merge m:1 patid using "copd_patient_included_all.dta", keepusing(regstart enddate) keep(match) nogen
 
 ***tag people whose regstart is less than 12 months before start of episode
 gen lag = date1 - regstart
@@ -178,7 +178,7 @@ use "10cr_copd_all_drugs.dta", replace
 
 ***merge in registration start and end dates
 drop substancestrength dosageid
-merge m:1 patid using "copd_Patient_included.dta", keepusing(regstart enddate) keep(match) nogen
+merge m:1 patid using "copd_patient_included_all.dta", keepusing(regstart enddate) keep(match) nogen
 
 assert issuedate <= enddate
 
@@ -230,7 +230,7 @@ reshape wide date, i(patid flag block_num class) j(startend)
 bysort patid class (date1): gen episode = _n 
 
 ***merge in registration start and end dates
-merge m:1 patid using "copd_Patient_included.dta", keepusing(regstart enddate) keep(match) nogen
+merge m:1 patid using "copd_patient_included_all.dta", keepusing(regstart enddate) keep(match) nogen
 
 bysort patid class (episode date1): assert date2 < date1[_n + 1] if date2 !=.
 

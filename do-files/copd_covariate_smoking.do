@@ -28,25 +28,39 @@ cd "$Datadir_copd"
 
 use "${file_stub}_Observation_smoking.dta"
 drop if eventdate > td(30apr2021)
-unique patid
+
 cap drop _merge
+duplicates drop patid eventdate smokstatus, force
 
 ***get most recent smoking status for wave 1 cohorts
 drop if eventdate > td(01mar2020)
+
 gsort patid -eventdate
-duplicates drop patid eventdate smokstatus, force
+
 ***drop values that were ambiguous
 drop if smokstatus == 9 | smokstatus == 12 
 by patid: gen obs_no = _n
 
 gsort patid -eventdate
 
-***included patients all had record of former smoking. Therefore all patients coded as non-smokers are ex-smokers
-***NEED TO FIGURE OUT WHAT TO DO WITH AMBIGUOUS CATEGORIES
-replace smokstatus = 2 if smokstatus == 0
 keep if obs_no == 1
 
 rename eventdate smokdate
 keep patid smokdate smokstatus
+
+compress
+
+***included patients all had record of former smoking. Therefore all patients coded as non-smokers are ex-smokers
+***NEED TO FIGURE OUT WHAT TO DO WITH AMBIGUOUS CATEGORIES
+replace smokstatus = 2 if smokstatus == 0
+
 compress
 save "${file_stub}_covariate_smoking.dta", replace
+
+
+log close
+clear all
+
+
+
+
