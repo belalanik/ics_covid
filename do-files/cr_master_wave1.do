@@ -63,9 +63,6 @@ cd $Dodir
 do "10cr_copd_all_ics"
 
 cd $Dodir
-do "11cr_copd_patient_denominators"
-
-cd $Dodir
 do "11cr_copd_treatment_combinations6m"
 
 cd $Dodir
@@ -75,10 +72,10 @@ cd $Dodir
 do "cr_copd_linkage_data"
 
 cd $Dodir
-do "12cr_copd_analytic_file_60d_timeupdate"
+do "12cr_copd_analytic_file_60d"
 
 cd $Dodir
-do "12cr_copd_analytic_file_60d_timeupdate_hosp"
+do "12cr_copd_analytic_file_60d_hosp"
 
 cd $Dodir
 do "12cr_copd_analytic_file_60d_all"

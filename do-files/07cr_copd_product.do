@@ -42,7 +42,6 @@ merge each drug type drug issue file with included patient list and dosage looku
 local drugissue ics_single ics_laba laba_lama laba_single lama_single triple_therapy
 disp `"`drugissue'"'
 
-
 foreach drug in `drugissue' {
 	noi di "File `drug'"
     use "${file_stub}_DrugIssue_`drug'.dta", clear

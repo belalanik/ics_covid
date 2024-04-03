@@ -34,13 +34,13 @@ sort drugsubstancename
 ***replace missing drugsubstancenames using info from term variable 
 count if missing(drugsubstancename) //*368
 
-replace drugsubstancename ="ciclesonide" if regex(termfromemis, "ciclesonide") |regex(termfromemis, "alvesco") & drugsubstancename==""
-replace drugsubstancename ="mometasone furoate" if regex(termfromemis, "mometasone furoate")|regex(termfromemis, "asmanex") & drugsubstancename==""
-replace drugsubstancename ="fluticasone propionate" if regex(termfromemis, "fluticasone propionate")|regex(termfromemis, "flixotide") & drugsubstancename==""
-replace drugsubstancename ="beclometasone dipropionate" if (regex(termfromemis, "beclomethasone")|regex(termfromemis, "becotide")|regex(termfromemis, "becloforte")|regex(termfromemis, "asmabec")|regex(termfromemis, "betamethasone")) & drugsubstancename==""
-replace drugsubstancename ="budesonide" if regex(termfromemis, "budesonide") | regex(termfromemis, "pulmicort") & drugsubstancename==""
+replace drugsubstancename = "ciclesonide" if regex(termfromemis, "ciclesonide") |regex(termfromemis, "alvesco") & drugsubstancename==""
+replace drugsubstancename = "mometasone furoate" if regex(termfromemis, "mometasone furoate")|regex(termfromemis, "asmanex") & drugsubstancename==""
+replace drugsubstancename = "fluticasone propionate" if regex(termfromemis, "fluticasone propionate")|regex(termfromemis, "flixotide") & drugsubstancename==""
+replace drugsubstancename = "beclometasone dipropionate" if (regex(termfromemis, "beclomethasone")|regex(termfromemis, "becotide")|regex(termfromemis, "becloforte")|regex(termfromemis, "asmabec")|regex(termfromemis, "betamethasone")) & drugsubstancename==""
+replace drugsubstancename = "budesonide" if regex(termfromemis, "budesonide") | regex(termfromemis, "pulmicort") & drugsubstancename==""
 count if missing(drugsubstancename) //*0
-assert drugsubstancename !=""
+assert drugsubstancename != ""
 
 compress
 save "${file_stub}_${drugclass}_checked", replace
@@ -54,7 +54,7 @@ use "${file_stub}_${drugclass}", clear
 
 sort drugsubstancename
 count if missing(drugsubstancename) //*0
-assert drugsubstancename !=""
+assert drugsubstancename != ""
 ***no missing drugsubstancenames
 
 compress
@@ -64,13 +64,12 @@ clear all
 /****************************************************************************
 LABA LAMA
 *****************************************************************************/
-
 global drugclass laba_lama
 use "${file_stub}_${drugclass}", clear
 
 sort drugsubstancename
 count if missing(drugsubstancename) //*0
-assert drugsubstancename !=""
+assert drugsubstancename != ""
 ***no missing drugsubstancenames
 
 compress
@@ -85,8 +84,8 @@ use "${file_stub}_${drugclass}", clear
 
 sort drugsubstancename
 count if missing(drugsubstancename) //*0
-replace drugsubstancename ="formoterol" if regex(termfromemis, "formoterol")  & drugsubstancename==""
-replace drugsubstancename ="salmeterol xinafoate" if regex(termfromemis, "salmeterol xinafoate")  & drugsubstancename==""
+replace drugsubstancename = "formoterol" if regex(termfromemis, "formoterol")  & drugsubstancename == ""
+replace drugsubstancename = "salmeterol xinafoate" if regex(termfromemis, "salmeterol xinafoate")  & drugsubstancename == ""
 
 assert drugsubstancename !=""
 
@@ -97,7 +96,6 @@ clear all
 /****************************************************************************
 LAMA SINGLE
 *****************************************************************************/
-
 global drugclass lama_single
 use "${file_stub}_${drugclass}", clear
 
@@ -105,14 +103,14 @@ sort drugsubstancename
 count if missing(drugsubstancename) //*0
 ***no missing drugsubstancenames
 
-assert drugsubstancename !=""
+assert drugsubstancename != ""
 compress
 save "${file_stub}_${drugclass}_checked", replace
+clear all
 
 /****************************************************************************
 TRIPLE THERAPY
 *****************************************************************************/
-
 global drugclass triple_therapy
 use "${file_stub}_${drugclass}", clear
 
@@ -120,12 +118,9 @@ sort drugsubstancename
 count if missing(drugsubstancename) //*0
 ***no missing drugsubstancenames
 
-assert drugsubstancename !=""
+assert drugsubstancename != ""
 compress
 save "${file_stub}_${drugclass}_checked", replace
 
-
 clear all
 log close 
-
-

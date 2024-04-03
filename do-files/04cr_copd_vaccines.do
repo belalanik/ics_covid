@@ -7,9 +7,11 @@ VERSION:				v1
 
 DATE VERSION CREATED: 	07/2023
 
-DATASETS CREATED:     
+DATASETS CREATED:     ${file_stub}_DrugIssue_`disease'_product.dta
+					  ${file_stub}_Observation_`disease'_medcodes.dta
 						
-DESCRIPTION OF FILE:	
+DESCRIPTION OF FILE:   Extracts codes (both prodcodes and medcodes) for pneumococcal and influenza vaccines
+					   Algorithm to determine vaccines as a covariate applied in separate do-file.
 
 *=========================================================================*/
 clear all
@@ -17,7 +19,6 @@ clear all
 cap log close
 log using $Logdir\04cr_copd_vaccines, replace
 cd $Codelistsdir\Vaccines
-
 
 import delim "pneumo_terms", clear stringcols(_all)
 duplicates drop
@@ -85,6 +86,7 @@ foreach disease of local vaccine {
 /***************************************************************************************
 VACCINE PRODCODES
 *****************************************************************************************/
+clear all
 	
 local vaccine pneumo_vaccine flu_vaccine
 disp `"`vaccine'"'

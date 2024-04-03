@@ -47,6 +47,7 @@ glob no_DrugIssue = 49
 
 /***************************************************************************************
 COMORBIDITIES THAT USE FIRST EVENT EVER
+*drop events after the index date
 *****************************************************************************************/
 
 local disease diabetes allcancers hypertension ckd cvd
@@ -70,7 +71,6 @@ foreach comorbidity of local disease {
 		save "${file_stub}_Observation_`comorbidity'.dta", replace
 	}
 	
-
 sort patid eventdate
 bysort patid (eventdate): gen keep = _n
 keep if keep == 1
@@ -80,7 +80,6 @@ save "${file_stub}_covariate_`comorbidity'.dta", replace
 }
 
 clear all
-
 /*********************************************************************************************************************
 ASTHMA - ONLY CODES MORE THAN 3 YEARS BEFORE INDEX DATE ARE OF INTEREST. 
 Asthma observations have been extracted in 02_cr_copd_inc_exc_crit 
@@ -108,7 +107,6 @@ clear all
 ASTHMA - FOR SENSITIVITY ANALYSIS INCLUDING PEOPLE WITH ASTHMA
 Asthma observations have been extracted in 02_cr_copd_inc_exc_crit 
 *************************************************************************************************************************/
-
 local comorbidity asthma
 disp `"`comorbidity'"'
 
@@ -124,8 +122,9 @@ rename eventdate current_`comorbidity'_date
 
 save "${file_stub}_covariate_`comorbidity'_current.dta", replace
 
+clear all
 /**************************************************************************
-Immunosuppression codes - need algorithm
+Immunosuppression codes - uses algorithm to determine immunosuppression
 ***************************************************************************/
 clear all
 
