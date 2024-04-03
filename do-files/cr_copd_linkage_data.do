@@ -35,7 +35,7 @@ foreach x of local linkagefiles {
 }
 
 /**************************************************
-GET PRIMARY COVID HES DIAGNOSES
+GET PRIMARY COVID HES DIAGNOSES BETWEEN MAR - AUG 2020
 ***************************************************/
 use "hes_primary_diag_hosp.dta"
 
@@ -66,7 +66,7 @@ save "$Datadir_copd\outcome_covid_hes_date_w1.dta", replace
 
 clear all
 /**************************************************
-GET ANY COVID HES DIAGNOSES
+GET ANY COVID HES DIAGNOSES BETWEEN MAR - AUG 2020
 ***************************************************/
 use "hes_diagnosis_epi.dta"
 
@@ -95,8 +95,6 @@ compress
 save "$Datadir_copd\outcome_covid_hes_date_w1_any.dta", replace
 
 clear all
-
-
 /**************************************************
 GET ALL HOSPITALISATIONS
 ***************************************************/
@@ -133,7 +131,6 @@ save "$Datadir_copd\hes_epi_date_w1.dta", replace
 export delim "$Datadir_copd\hes_epi_date_w1.csv", replace
 
 clear all
-
 /**************************************************
 GET COVID DEATHS
 ***************************************************/

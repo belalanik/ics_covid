@@ -14,7 +14,7 @@ DATASETS CREATED:       copd_Patient.dta
 						copd_Patid_list_included.dta
 						copd_Patient_smoking_inclusion.dta
 						
-DESCRIPTION OF FILE:	Check and manage patient file COPD, apply exclusion criteria (asthma+ltra) to patient file, apply smoking inclusion criteria
+DESCRIPTION OF FILE:	Check and manage patient file COPD, apply exclusion criteria to patient file, apply smoking inclusion criteria
 					
 *=========================================================================*/
 /***********************************************************************************************
@@ -116,7 +116,6 @@ compress
 save "${file_stub}_Patient", replace 
 
 clear all 
-
 /*******************************************************************************
 >> APPLY CODELISTS FOR EXCLUSION AND INCLUSION CRITERIA 
 *******************************************************************************/
@@ -135,6 +134,7 @@ drop _merge
 replace eventdate  =. if year(eventdate) < yob
 replace eventdate  =. if eventdate < td(01jan1910)
 
+***keep only diagnoses before index date
 drop if eventdate > td(01mar2020) 
 drop if eventdate < dob
 drop if missing(eventdate)
@@ -157,17 +157,18 @@ clear all
 /*******************************************************************************
 >> ASTHMA 
 *******************************************************************************/
-
 local concept asthma
 
 use "${file_stub}_Observation_`concept'.dta"
 
 merge m:1 patid using "$Datadir_copd\\${file_stub}_Patient", keep(match)
 
+***flag diagnoses within past 3 years
 gen excl = 1 if eventdate >= td(01mar2017) & eventdate <= td(01mar2020)
 sort patid eventdate
 by patid: ereplace excl = max(excl)
 
+***exclude people with a recent code
 keep if excl == 1 
 sort patid eventdate
 by patid : gen first = _n
@@ -181,7 +182,6 @@ compress
 save "${file_stub}_exclusion_`concept'", replace
 
 clear all
-
 /*******************************************************************************
 >> LTRA 
 *******************************************************************************/
@@ -192,10 +192,12 @@ use "${file_stub}_DrugIssue_`concept'.dta"
 merge m:1 patid using "$Datadir_copd\\${file_stub}_Patient", keep(match)
 drop if issuedate > td(01mar2020)
 
+***flag people with a prescription within 4 months before index date
 gen excl = 1 if issuedate >= td(01nov2019) & issuedate <= td(01mar2020)
 sort patid issuedate
 by patid: ereplace excl = max(excl)
 
+***exclude people with a recent code
 keep if excl == 1 
 sort patid issuedate
 by patid : gen first = _n
@@ -209,7 +211,6 @@ compress
 save "${file_stub}_exclusion_`concept'", replace
 
 clear all
-
 /*******************************************************************************
 >> Nebuliser 
 *******************************************************************************/
@@ -220,10 +221,12 @@ use "${file_stub}_DrugIssue_`concept'.dta"
 merge m:1 patid using "$Datadir_copd\\${file_stub}_Patient", keep(match)
 drop if issuedate > td(01mar2020)
 
+***flag people with a code in the last 4 months
 gen excl = 1 if issuedate > td(01mar2019) & issuedate <= td(01mar2020)
 sort patid issuedate
 by patid: ereplace excl = max(excl)
 
+***exclude people with a recent code
 keep if excl == 1 
 sort patid issuedate
 by patid : gen first = _n
@@ -237,7 +240,6 @@ compress
 save "${file_stub}_exclusion_`concept'", replace
 
 clear all
-
 /*******************************************************************************
 >> SMOKING
 *******************************************************************************/
@@ -248,6 +250,7 @@ capture drop _merge
 drop if eventdate > td(01mar2020)
 rename eventdate `concept'_date
 
+***include only people with past or current smoking
 drop if smokstatus == 0 //***smok status is a byte variable, not string
 drop if missing(smokstatus)
 merge m:1 patid using "${file_stub}_Patient.dta", keep(match)
@@ -256,14 +259,12 @@ bysort patid (`concept'_date): gen keep = _n
 drop if keep != 1 
 
 duplicates drop
-di r(unique)
 
 keep patid `concept'_date smokstatus
 compress
 save "${file_stub}_inclusion_`concept'.dta", replace
 
 clear all
-
 /*******************************************************************************
 >> TRIPLE THERAPY
 *******************************************************************************/
@@ -273,10 +274,10 @@ use "${file_stub}_DrugIssue_`concept'.dta"
 
 merge m:1 patid using "$Datadir_copd\\${file_stub}_Patient", keep(match)
 
+***exclude people with triple therapy prescription within past 3 months
 drop if issuedate < td(01dec2019)
 drop if issuedate > td(01mar2020)
 rename issuedate `concept'_date
-
 
 bysort patid (`concept'_date): gen first = _n
 keep if first == 1
@@ -286,7 +287,6 @@ compress
 save "$Datadir_copd\\${file_stub}_exclusion_`concept'", replace
 
 clear all
-
 /*******************************************************************************
 >> OTHER RESPIRATORY DISEASE
 *******************************************************************************/
@@ -299,6 +299,8 @@ rename eventdate `concept'_date
 
 merge m:1 patid using "${file_stub}_Patient.dta", keep(match)
 sort patid `concept'_date
+
+*exclude people with other respiratory disease ever
 bysort patid (`concept'_date): gen keep = _n
 drop if keep != 1 
 
@@ -328,14 +330,6 @@ gen other_resp_disease = 1 if other_resp_disease_date !=.
 
 collapse (max) ltra asthma other_resp_disease, by(patid)
 
-/*
-gen date = eventdate
-replace date = issuedate if date ==.
-format date %td
-sort patid date
-by patid (date): keep if _n == 1
-*/
-
 ****save list of patients to exclude and merge in list of all patients
 cap drop _merge
 merge 1:1 patid using "${file_stub}_Patient"
@@ -349,18 +343,11 @@ merge 1:1 patid using "${file_stub}_inclusion_smoking.dta"
 keep if _merge == 3
 drop _merge
 
-****tag patients using triple therapy
-*merge 1:1 patid using "${file_stub}_exclusion_triple_therapy.dta", keep(match master) gen(triple)
-*gen triple_therapy = 1 if triple == 3
-*replace triple_therapy = 0 if triple_therapy ==.
-*drop triple
-
 ****exclude people without copd before 01mar 2020
 merge 1:1 patid using "copd_firstevent"
 keep if _merge == 3
 drop if copd_date > td(01mar2020)
 drop _merge
-
 
 compress
 save "${file_stub}_Patient_included.dta", replace
@@ -374,7 +361,6 @@ keep patid
 compress
 save "${file_stub}_Patid_list_included.dta", replace
 clear all
-
 
 /*******************************************************************************
 >> Get list of patients for sensitivity analysis including people with asthma, other respiratory disease, or LTRA use
@@ -404,8 +390,6 @@ save "${file_stub}_Patient_included_all.dta", replace
 keep patid
 save "${file_stub}_Patid_list_included_all.dta", replace
 clear all
-
-
 
 /*******************************************************************************
 >> GENERATE FILE OF PATIENTS FOR LINKAGE
