@@ -14,7 +14,7 @@ lapply(packages, library, character.only = TRUE)
 setwd(Datadir_copd)
 
 #open parquet file with estimates
-filepath <- file.path(Tables, "QBA", "SA_cox_log_regression_estimates_all.parquet")
+filepath <- file.path(Tables, "QBA", "SA_cox_log_regression_estimates_6m.parquet")
 estimates <- read_parquet(filepath)
 estimates <- estimates %>% dplyr::select(-contains("coef_"), -contains("se_"), -contains("res_p"), -contains("cox"), -contains("hr"))
 
@@ -95,8 +95,7 @@ layout <- c(
   area(t = 0, l = 45, b = 30, r = 70))
 
 final_forest <- est + forest_plot + plot_layout(design = layout)
-print(final_forest)
 
 #save plot
-file_path <- file.path(Graphdir, "cox_regression", "forest_plot_crude_all.png")
+file_path <- file.path(Graphdir, "cox_regression", "forest_plot_crude_6m.png")
 ggsave(filename = file_path, plot = final_forest, width = 10, height = 4, units = "in", dpi = 300)

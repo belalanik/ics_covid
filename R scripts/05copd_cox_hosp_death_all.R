@@ -47,7 +47,6 @@ colnames(followup) <- c("Treatment group", "Median follow-up COVID-19 hospitalis
 followup <- t(followup)
 
 #proportion of people censored in each treatment group
-
 total_censored <- subset_df %>%
   summarise(prop_censored_timeinstudy2 = 1 - sum(timeinstudy2 == 183) / n(),
             prop_censored_timeinstudy3 = 1 - sum(timeinstudy3 == 183) / n(),
@@ -63,8 +62,6 @@ censored <- add_row(censored, treat = "Total", prop_censored_timeinstudy2 = tota
                     prop_censored_timeinstudy3 = total_censored$prop_censored_timeinstudy3,
                     prop_censored_timeinstudy_death_any = total_censored$prop_censored_timeinstudy_death_any)
 
-
-
 #rename columns in censored
 colnames(censored) <- c("Treatment group", "% censored COVID-19 hospitalisation", "% censored COVID-19 death", "% censored all-cause death")
 
@@ -78,7 +75,6 @@ censored_all_cause_death <- censored[,"% censored all-cause death"] * 100
 censored$"% censored COVID-19 hospitalisation" <- censored[,"% censored COVID-19 hospitalisation"] * 100
 censored$"% censored COVID-19 death" <- censored[,"% censored COVID-19 death"] * 100
 censored$"% censored all-cause death" <- censored[,"% censored all-cause death"] * 100
-
 
 #transpose censored but turn column names into the first variable
 censored <- t(censored)
@@ -114,27 +110,27 @@ km_weighted <- function(weight_var, outcome, time_to_outcome_var) {
   # Round the number of events to 2 decimal places
   km_curve$n.event <- round(km_curve$n.event, 2)
   
-  ggsurvplot <- ggsurvplot(km_curve, data = subset_df, conf.int = T, censor = F, ylim = c(0.95, 1), xlab = "Time in days", risk.table = "abs_pct", risk.table.title = "Number at risk (%)", cumevents = TRUE, fontsize = 10, tables.height = 0.15, legend.labs = c("ICS", "LABA/LAMA"), legend.title = "", palette = c(palette[9], palette[4]), xlim = c(0, 185)) 
+  ggsurvplot <- ggsurvplot(km_curve, data = subset_df, conf.int = T, censor = F, ylim = c(0.95, 1), xlab = "Time in days", risk.table = "absolute", risk.table.title = "Number at risk",  cumevents = TRUE, fontsize = 13, tables.height = 0.15, legend.labs = c("ICS", "LABA/LAMA"), legend.title = "", palette = c(palette[9], palette[4]), xlim = c(0, 183)) 
   ggsurvplot$plot <- ggsurvplot$plot + scale_x_continuous(breaks = c(0, 50, 100, 150, 183))
   ggsurvplot$table$theme$axis.text.y$colour <- "black"
-  ggsurvplot$table$theme$axis.text.y$size <- 28
-  ggsurvplot$table$theme$axis.text.x$size <- 28
+  ggsurvplot$table$theme$axis.text.y$size <- 40
+  ggsurvplot$table$theme$axis.text.x$size <- 40
   ggsurvplot$table$labels$x <- ""
-  ggsurvplot$table$theme$plot.title$size <- 32
+  ggsurvplot$table$theme$plot.title$size <- 44
   ggsurvplot$cumevents$theme$axis.text.y$colour <- "black"
-  ggsurvplot$cumevents$theme$axis.text.y$size <- 28
-  ggsurvplot$cumevents$theme$axis.text.x$size <- 28
+  ggsurvplot$cumevents$theme$axis.text.y$size <- 40
+  ggsurvplot$cumevents$theme$axis.text.x$size <- 40
   ggsurvplot$cumevents$labels$x <- ""
-  ggsurvplot$cumevents$theme$plot.title$size <- 32
-  ggsurvplot$plot$theme$axis.title.x$size <- 32
-  ggsurvplot$plot$theme$axis.title.y$size <- 32
-  ggsurvplot$plot$theme$axis.text.x$size <- 32
-  ggsurvplot$plot$theme$axis.text.y$size <- 32
-  ggsurvplot$plot$theme$legend.text$size <- 32
+  ggsurvplot$cumevents$theme$plot.title$size <- 44
+  ggsurvplot$plot$theme$axis.title.x$size <- 44
+  ggsurvplot$plot$theme$axis.title.y$size <- 44
+  ggsurvplot$plot$theme$axis.text.x$size <- 44
+  ggsurvplot$plot$theme$axis.text.y$size <- 44
+  ggsurvplot$plot$theme$legend.text$size <- 44
   ggsurvplot$plot$theme$legend.key.size <- unit(4, "lines")
   
   # Define the file path
-  file_path <- file.path(Graphdir, "cox_regression", paste0("km_", outcome, "_", weight_var, ".png"))
+  file_path <- file.path(Graphdir, "cox_regression", paste0("km_", outcome, "_", weight_var, "_all.png"))
   
   # Save the plot
   png(file_path, width = 2000, height = 1500)
@@ -238,7 +234,7 @@ for (j in seq_along(outcomes)){
   file_path_resid <- file.path(Graphdir, "cox_regression", paste0("SA_log_resid_", outcome_event, "_unadj_all.png"))
   png(file_path_resid)
   # Create a plot of the residuals versus the fitted values
-  plot(fitted.values(model_unadj_log), residuals, main = paste("Log residuals for", outcome_label, "(unadjusted)"), cex.main = 0.9)
+  plot(fitted.values(model_unadj_log), residuals, main = paste("Log residuals for", outcome_label, "(unadjusted)"), cex.main = 0.9, xlab = "Fitted values", ylab = "Residuals")
   abline(h = 0, lty = 2)
   dev.off()
   

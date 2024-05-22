@@ -36,7 +36,7 @@ surv1 <- Surv(subset_df$timeinstudy1, subset_df$pos_covid_test_present)
 km_curve1 <- survfit(surv1 ~ subset_df$treat, data = subset_df)
 
 # Plot the Kaplan-Meier curve
-ggsurvplot <- ggsurvplot(km_curve1, data = subset_df, conf.int = T, censor = F, ylim = c(0.95, 1), xlab = "Time in days", risk.table = "absolute", risk.table.title = "Number at risk (%)",  cumevents = TRUE, fontsize = 13, tables.height = 0.15, legend.labs = c("ICS", "LABA/LAMA"), legend.title = "", palette = c(palette[9], palette[4]), xlim = c(0, 185)) 
+ggsurvplot <- ggsurvplot(km_curve1, data = subset_df, conf.int = T, censor = F, ylim = c(0.95, 1), xlab = "Time in days", risk.table = "absolute", risk.table.title = "Number at risk",  cumevents = TRUE, fontsize = 13, tables.height = 0.15, legend.labs = c("ICS", "LABA/LAMA"), legend.title = "", palette = c(palette[9], palette[4]), xlim = c(0, 183)) 
 ggsurvplot$plot <- ggsurvplot$plot + scale_x_continuous(breaks = c(0, 50, 100, 150, 183))
 ggsurvplot$table$theme$axis.text.y$colour <- "black"
 ggsurvplot$table$theme$axis.text.y$size <- 40
@@ -67,7 +67,7 @@ surv2 <- Surv(subset_df$timeinstudy2, subset_df$covid_hes_present)
 km_curve2 <- survfit(surv2 ~ subset_df$treat, data = subset_df)
 
 # Plot the Kaplan-Meier curve
-ggsurvplot <- ggsurvplot(km_curve2, data = subset_df, conf.int = T, censor = F, ylim = c(0.95, 1), xlab = "Time in days", risk.table = "absolute", risk.table.title = "Number at risk (%)",  cumevents = TRUE, fontsize = 13, tables.height = 0.15, legend.labs = c("ICS", "LABA/LAMA"), legend.title = "", palette = c(palette[9], palette[4]), xlim = c(0, 185)) 
+ggsurvplot <- ggsurvplot(km_curve2, data = subset_df, conf.int = T, censor = F, ylim = c(0.95, 1), xlab = "Time in days", risk.table = "absolute", risk.table.title = "Number at risk",  cumevents = TRUE, fontsize = 13, tables.height = 0.15, legend.labs = c("ICS", "LABA/LAMA"), legend.title = "", palette = c(palette[9], palette[4]), xlim = c(0, 183)) 
 ggsurvplot$plot <- ggsurvplot$plot + scale_x_continuous(breaks = c(0, 50, 100, 150, 183))
 ggsurvplot$table$theme$axis.text.y$colour <- "black"
 ggsurvplot$table$theme$axis.text.y$size <- 40
@@ -97,7 +97,7 @@ surv3 <- Surv(subset_df$timeinstudy3, subset_df$covid_death_present)
 km_curve3 <- survfit(surv3 ~ subset_df$treat, data = subset_df)
 
 # Plot the Kaplan-Meier curve
-ggsurvplot <- ggsurvplot(km_curve3, data = subset_df, conf.int = T, censor = F, ylim = c(0.95, 1), xlab = "Time in days", risk.table = "absolute", risk.table.title = "Number at risk (%)",  cumevents = TRUE, fontsize = 13, tables.height = 0.15, legend.labs = c("ICS", "LABA/LAMA"), legend.title = "", palette = c(palette[9], palette[4]), xlim = c(0, 185)) 
+ggsurvplot <- ggsurvplot(km_curve3, data = subset_df, conf.int = T, censor = F, ylim = c(0.95, 1), xlab = "Time in days", risk.table = "absolute", risk.table.title = "Number at risk",  cumevents = TRUE, fontsize = 13, tables.height = 0.15, legend.labs = c("ICS", "LABA/LAMA"), legend.title = "", palette = c(palette[9], palette[4]), xlim = c(0, 183)) 
 ggsurvplot$plot <- ggsurvplot$plot + scale_x_continuous(breaks = c(0, 50, 100, 150, 183))
 ggsurvplot$table$theme$axis.text.y$colour <- "black"
 ggsurvplot$table$theme$axis.text.y$size <- 40
@@ -127,7 +127,7 @@ surv4 <- Surv(subset_df$timeinstudy_death_any, subset_df$any_death_present)
 km_curve4 <- survfit(surv4 ~ subset_df$treat, data = subset_df)
 
 # Plot the Kaplan-Meier curve
-ggsurvplot <- ggsurvplot(km_curve4, data = subset_df, conf.int = T, censor = F, ylim = c(0.95, 1), xlab = "Time in days", risk.table = "absolute", risk.table.title = "Number at risk (%)",  cumevents = TRUE, fontsize = 13, tables.height = 0.15, legend.labs = c("ICS", "LABA/LAMA"), legend.title = "", palette = c(palette[9], palette[4]), xlim = c(0, 185)) 
+ggsurvplot <- ggsurvplot(km_curve4, data = subset_df, conf.int = T, censor = F, ylim = c(0.95, 1), xlab = "Time in days", risk.table = "absolute", risk.table.title = "Number at risk",  cumevents = TRUE, fontsize = 13, tables.height = 0.15, legend.labs = c("ICS", "LABA/LAMA"), legend.title = "", palette = c(palette[9], palette[4]), xlim = c(0, 183)) 
 ggsurvplot$plot <- ggsurvplot$plot + scale_x_continuous(breaks = c(0, 50, 100, 150, 183))
 ggsurvplot$table$theme$axis.text.y$colour <- "black"
 ggsurvplot$table$theme$axis.text.y$size <- 40

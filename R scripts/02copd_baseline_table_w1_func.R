@@ -65,7 +65,7 @@ tab1 <- tbl_summary(subset_df %>%  dplyr::select(age_index, gender, bmicat, eth,
                       age_index ~ c("{mean} ({sd})", "{median}  \n ({p25}-{p75})"),
                       #bmi ~ c("{mean} ({sd})", "{median}  \n ({p25}-{p75})"),
                       all_categorical() ~ "{n} ({p}%)"),
-                    type = list(
+                      type = list(
                       c(age_index) ~ "continuous2"))  %>% 
   modify_header(label ~ "", all_stat_cols() ~ "**{level}**  \n N = {n}")  %>%
   # modify_caption("Patient Characteristics") %>%

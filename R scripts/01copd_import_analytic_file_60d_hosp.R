@@ -24,7 +24,7 @@ df$missing_ons <- ifelse(df$patid %in% df_missing_ons$patid, 1, 0)
 
 #merge in baseline exposures
 df_baseline <- read.xlsx("copd_baseline_exposure_60d.xlsx")
-df<- merge(df, df_baseline, by = "patid", all.x = TRUE)
+df <- merge(df, df_baseline, by = "patid", all.x = TRUE)
 
 df$death_date_cprd <- df$deathdate
 df <- subset(df, select = -deathdate)
@@ -163,6 +163,9 @@ timeout_variables <- c("timeout1", "timeout2", "timeout3", "timeout_death_any", 
 for (var_name in timeout_variables) {
   
   df[[var_name]][is.na(df[[var_name]])] <- df$enddate[is.na(df[[var_name]])]
+  
+  #replace the timeout variables with the end date if the timeout is after the end date
+  df[[var_name]][df[[var_name]] > df$enddate] <- df$enddate[df[[var_name]] > df$enddate]
 
   # Replace values greater than "2020-08-31" with "2020-08-31"
   df[[var_name]][df[[var_name]] > as.Date("2020-08-31")] <- as.Date("2020-08-31")
