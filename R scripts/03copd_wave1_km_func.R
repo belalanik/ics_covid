@@ -38,7 +38,7 @@ surv1 <<- Surv(subset_df$timeinstudy1, subset_df$pos_covid_test_present)
 km_curve1 <- survfit(surv1 ~ subset_df$treat, data = subset_df)
 
 # Plot the Kaplan-Meier curve
-ggsurvplot <- ggsurvplot(km_curve1, data = subset_df, conf.int = T, censor = F, ylim = c(0.95, 1), xlab = "Time in days", risk.table = "absolute", risk.table.title = "Number at risk (%)",  cumevents = TRUE, fontsize = 13, tables.height = 0.15, legend.labs = c("ICS", "LABA/LAMA"), legend.title = "", palette = c(palette[9], palette[4]), xlim = c(0, 185)) 
+ggsurvplot <- ggsurvplot(km_curve1, data = subset_df, conf.int = T, censor = F, ylim = c(0.95, 1), xlab = "Time in days", risk.table = "absolute", risk.table.title = "Number at risk",  cumevents = TRUE, fontsize = 13, tables.height = 0.15, legend.labs = c("ICS", "LABA/LAMA"), legend.title = "", palette = c(palette[9], palette[4]), xlim = c(0, 183)) 
 ggsurvplot$plot <- ggsurvplot$plot + scale_x_continuous(breaks = c(0, 50, 100, 150, 183))
 ggsurvplot$table$theme$axis.text.y$colour <- "black"
 ggsurvplot$table$theme$axis.text.y$size <- 40
@@ -58,7 +58,7 @@ ggsurvplot$plot$theme$legend.text$size <- 44
 ggsurvplot$plot$theme$legend.key.size <- unit(4, "lines")
 print(ggsurvplot)
 
-file_path <- file.path(Graphdir, "cox_regression", paste0("km_pos_test", output_ext, ".png"))
+file_path <- file.path(Graphdir, "cox_regression", paste0("km_pos_covid_test", output_ext, ".png"))
 
 png(file_path, width = 2000, height = 1500)
 print(ggsurvplot)
@@ -69,7 +69,7 @@ surv2 <<- Surv(subset_df$timeinstudy2, subset_df$covid_hes_present)
 km_curve2 <- survfit(surv2 ~ subset_df$treat, data = subset_df)
 
 # Plot the Kaplan-Meier curve
-ggsurvplot <- ggsurvplot(km_curve2, data = subset_df, conf.int = T, censor = F, ylim = c(0.95, 1), xlab = "Time in days", risk.table = "absolute", risk.table.title = "Number at risk (%)",  cumevents = TRUE, fontsize = 13, tables.height = 0.15, legend.labs = c("ICS", "LABA/LAMA"), legend.title = "", palette = c(palette[9], palette[4]), xlim = c(0, 185)) 
+ggsurvplot <- ggsurvplot(km_curve2, data = subset_df, conf.int = T, censor = F, ylim = c(0.95, 1), xlab = "Time in days", risk.table = "absolute", risk.table.title = "Number at risk",  cumevents = TRUE, fontsize = 13, tables.height = 0.15, legend.labs = c("ICS", "LABA/LAMA"), legend.title = "", palette = c(palette[9], palette[4]), xlim = c(0, 183)) 
 ggsurvplot$plot <- ggsurvplot$plot + scale_x_continuous(breaks = c(0, 50, 100, 150, 183))
 ggsurvplot$table$theme$axis.text.y$colour <- "black"
 ggsurvplot$table$theme$axis.text.y$size <- 40
@@ -89,7 +89,7 @@ ggsurvplot$plot$theme$legend.text$size <- 44
 ggsurvplot$plot$theme$legend.key.size <- unit(4, "lines")
 print(ggsurvplot)
 
-file_path <- file.path(Graphdir, "cox_regression", paste0("km_hosp", output_ext, ".png"))
+file_path <- file.path(Graphdir, "cox_regression", paste0("km_covid_hes", output_ext, ".png"))
 png(file_path, width = 2000, height = 1500)
 print(ggsurvplot)
 dev.off()
@@ -99,7 +99,7 @@ surv3 <<- Surv(subset_df$timeinstudy3, subset_df$covid_death_present)
 km_curve3 <- survfit(surv3 ~ subset_df$treat, data = subset_df)
 
 # Plot the Kaplan-Meier curve
-ggsurvplot <- ggsurvplot(km_curve3, data = subset_df, conf.int = T, censor = F, ylim = c(0.95, 1), xlab = "Time in days", risk.table = "absolute", risk.table.title = "Number at risk (%)",  cumevents = TRUE, fontsize = 13, tables.height = 0.15, legend.labs = c("ICS", "LABA/LAMA"), legend.title = "", palette = c(palette[9], palette[4]), xlim = c(0, 185)) 
+ggsurvplot <- ggsurvplot(km_curve3, data = subset_df, conf.int = T, censor = F, ylim = c(0.95, 1), xlab = "Time in days", risk.table = "absolute", risk.table.title = "Number at risk",  cumevents = TRUE, fontsize = 13, tables.height = 0.15, legend.labs = c("ICS", "LABA/LAMA"), legend.title = "", palette = c(palette[9], palette[4]), xlim = c(0, 183)) 
 ggsurvplot$plot <- ggsurvplot$plot + scale_x_continuous(breaks = c(0, 50, 100, 150, 183))
 ggsurvplot$table$theme$axis.text.y$colour <- "black"
 ggsurvplot$table$theme$axis.text.y$size <- 40
@@ -129,7 +129,7 @@ surv4 <<- Surv(subset_df$timeinstudy_death_any, subset_df$any_death_present)
 km_curve4 <- survfit(surv4 ~ subset_df$treat, data = subset_df)
 
 # Plot the Kaplan-Meier curve
-ggsurvplot <- ggsurvplot(km_curve4, data = subset_df, conf.int = T, censor = F, ylim = c(0.95, 1), xlab = "Time in days", risk.table = "absolute", risk.table.title = "Number at risk (%)",  cumevents = TRUE, fontsize = 13, tables.height = 0.15, legend.labs = c("ICS", "LABA/LAMA"), legend.title = "", palette = c(palette[9], palette[4]), xlim = c(0, 185)) 
+ggsurvplot <- ggsurvplot(km_curve4, data = subset_df, conf.int = T, censor = F, ylim = c(0.95, 1), xlab = "Time in days", risk.table = "absolute", risk.table.title = "Number at risk",  cumevents = TRUE, fontsize = 13, tables.height = 0.15, legend.labs = c("ICS", "LABA/LAMA"), legend.title = "", palette = c(palette[9], palette[4]), xlim = c(0, 183)) 
 ggsurvplot$plot <- ggsurvplot$plot + scale_x_continuous(breaks = c(0, 50, 100, 150, 183))
 ggsurvplot$table$theme$axis.text.y$colour <- "black"
 ggsurvplot$table$theme$axis.text.y$size <- 40
@@ -226,7 +226,6 @@ ggplot(subset_df, aes(x = pos_covid_test_date)) +
 file_path <- file.path(Graphdir, "cox_regression", paste0("hist_pos_covid_test_date", output_ext, ".png"))
 ggsave(file_path, width = 10, height = 6, dpi = 300)
 
-
 #histogram of covid HES dates
 ggplot(subset_df, aes(x = covid_hes_date)) +
   geom_histogram(bins = 183, fill = palette[6], color = "black") +
@@ -263,17 +262,13 @@ ggplot(subset_df, aes(x = death_date)) +
 file_path <- file.path(Graphdir, "cox_regression", paste0("hist_any_death_date", output_ext, ".png"))
 ggsave(file_path, width = 10, height = 6, dpi = 300)
 
-print("check")
-
 }
 
-inputfile <- c("copd_wave1_60d.parquet", "copd_wave1_6m.parquet", "copd_wave1_60d_all.parquet", "copd_wave1_60d.parquet")
-output_ext <- c("_60d", "_6m", "_60d_all", "_60d_no_triple")
-
+inputfile <- c("copd_wave1_60d.parquet", "copd_wave1_6m.parquet", "copd_wave1_60d_all.parquet")
+output_ext <- c("", "_6m", "_all")
 
 #apply function
 mapply(create_plots, inputfile, output_ext)
-
 
 end_time <- Sys.time()
 run_time <- end_time - start_time

@@ -38,7 +38,8 @@ subset_df <- df[!is.na(df$treatgroup),]
 subset_df <- subset_df[subset_df$baseline_triple == 0,]
 
 #MAIN TABLE
-tab1 <- tbl_summary(subset_df %>% select(age_index, gender, bmicat, eth, smok, imd, diabetes_present, hypertension_present, cvd_present, allcancers_present, past_asthma_present, kidney_present, immunosuppression_present, flu_vacc_present, pneumo_vacc_present, exacerbations, exacerb_present, covid_present, covid_hes_present, covid_death_present, treat),
+#MAIN TABLE
+tab1 <- tbl_summary(subset_df %>%  dplyr::select(age_index, gender, bmicat, eth, smok, imd, diabetes_present, hypertension_present, cvd_present, allcancers_present, past_asthma_present, kidney_present, immunosuppression_present, flu_vacc_present, pneumo_vacc_present,  exacerb_present, treat),
                     by = treat,
                     label = list(age_index ~ "Age",
                                  gender ~ "Gender",
@@ -55,10 +56,6 @@ tab1 <- tbl_summary(subset_df %>% select(age_index, gender, bmicat, eth, smok, i
                                  imd ~ "Index of Multiple Deprivation",
                                  flu_vacc_present ~ "Influenza vaccine",
                                  pneumo_vacc_present ~ "Pneumococcal vaccine",
-                                 covid_present ~ "Positive COVID-19 test",
-                                 covid_hes_present ~ "COVID-19 hospitalisation",
-                                 covid_death_present ~ "COVID-19 death",
-                                 exacerbations ~ "Number of COPD exacerbations \n in past 12 months", 
                                  exacerb_present ~ "Any exacerbation in past 12 months"),
                     percent = "column",
                     digits = all_continuous() ~ 2,
@@ -71,7 +68,6 @@ tab1 <- tbl_summary(subset_df %>% select(age_index, gender, bmicat, eth, smok, i
                       all_categorical() ~ "{n} ({p}%)"),
                     type = list(
                       c(age_index) ~ "continuous2"))  %>% 
-  add_p() %>%
   modify_header(label ~ "", all_stat_cols() ~ "**{level}**  \n N = {n}")  %>%
   # modify_caption("Patient Characteristics") %>%
   modify_column_alignment(columns = c(stat_1, stat_2), align = "right") %>% 
@@ -93,7 +89,7 @@ tab1 %>%
   flextable::save_as_docx(path = paste0(Tables, "copd_baseline_w1_60d_no_triple.docx"), align = "left")
 
 #Table of outcomes
-tab2 <- tbl_summary(subset_df %>% select(covid_hes_present, covid_death_present, any_death_present, treat),
+tab2 <- tbl_summary(subset_df %>% dplyr::select(covid_hes_present, covid_death_present, any_death_present, treat),
                     by = treat,
                     label = list(covid_hes_present ~ "COVID-19 hospitalisation",
                                  covid_death_present ~ "COVID-19 death",

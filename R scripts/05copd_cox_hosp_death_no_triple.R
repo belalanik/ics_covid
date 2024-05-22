@@ -29,7 +29,7 @@ subset_df$treat <- relevel(subset_df$treat, ref = "LABA/LAMA")
 # Define the survival outcome variables
 outcomes <- c("covid_hes_present", "covid_death_present", "any_death_present")
 time_to_outcome_vars <- c("timeinstudy2", "timeinstudy3", "timeinstudy_death_any")
-weight_vars <- c("ate_weight_stab", "att_weight_stab", "ate_weight_unstab", "att_weight_unstab")
+weight_vars <- c("ate_weight_stab")
 
 km_weighted <- function(weight_var, outcome, time_to_outcome_var) {
   km_surv <<- Surv(subset_df[[time_to_outcome_var]], subset_df[[outcome]]) 
@@ -39,27 +39,27 @@ km_weighted <- function(weight_var, outcome, time_to_outcome_var) {
   # Round the number of events to 2 decimal places
   km_curve$n.event <- round(km_curve$n.event, 2)
   
-  ggsurvplot <- ggsurvplot(km_curve, data = subset_df, conf.int = T, censor = F, ylim = c(0.95, 1), xlab = "Time in days", risk.table = "abs_pct", risk.table.title = "Number at risk (%)", cumevents = TRUE, fontsize = 10, tables.height = 0.15, legend.labs = c("ICS", "LABA/LAMA"), legend.title = "", palette = c(palette[9], palette[4]), xlim = c(0, 185)) 
+  ggsurvplot <- ggsurvplot(km_curve, data = subset_df, conf.int = T, censor = F, ylim = c(0.95, 1), xlab = "Time in days", risk.table = "absolute", risk.table.title = "Number at risk",  cumevents = TRUE, fontsize = 13, tables.height = 0.15, legend.labs = c("ICS", "LABA/LAMA"), legend.title = "", palette = c(palette[9], palette[4]), xlim = c(0, 183)) 
   ggsurvplot$plot <- ggsurvplot$plot + scale_x_continuous(breaks = c(0, 50, 100, 150, 183))
   ggsurvplot$table$theme$axis.text.y$colour <- "black"
-  ggsurvplot$table$theme$axis.text.y$size <- 28
-  ggsurvplot$table$theme$axis.text.x$size <- 28
+  ggsurvplot$table$theme$axis.text.y$size <- 40
+  ggsurvplot$table$theme$axis.text.x$size <- 40
   ggsurvplot$table$labels$x <- ""
-  ggsurvplot$table$theme$plot.title$size <- 32
+  ggsurvplot$table$theme$plot.title$size <- 44
   ggsurvplot$cumevents$theme$axis.text.y$colour <- "black"
-  ggsurvplot$cumevents$theme$axis.text.y$size <- 28
-  ggsurvplot$cumevents$theme$axis.text.x$size <- 28
+  ggsurvplot$cumevents$theme$axis.text.y$size <- 40
+  ggsurvplot$cumevents$theme$axis.text.x$size <- 40
   ggsurvplot$cumevents$labels$x <- ""
-  ggsurvplot$cumevents$theme$plot.title$size <- 32
-  ggsurvplot$plot$theme$axis.title.x$size <- 32
-  ggsurvplot$plot$theme$axis.title.y$size <- 32
-  ggsurvplot$plot$theme$axis.text.x$size <- 32
-  ggsurvplot$plot$theme$axis.text.y$size <- 32
-  ggsurvplot$plot$theme$legend.text$size <- 32
+  ggsurvplot$cumevents$theme$plot.title$size <- 44
+  ggsurvplot$plot$theme$axis.title.x$size <- 44
+  ggsurvplot$plot$theme$axis.title.y$size <- 44
+  ggsurvplot$plot$theme$axis.text.x$size <- 44
+  ggsurvplot$plot$theme$axis.text.y$size <- 44
+  ggsurvplot$plot$theme$legend.text$size <- 44
   ggsurvplot$plot$theme$legend.key.size <- unit(4, "lines")
   
   # Define the file path
-  file_path <- file.path(Graphdir, "cox_regression", paste0("km_", outcome, "_", weight_var, ".png"))
+  file_path <- file.path(Graphdir, "cox_regression", paste0("km_", outcome, "_", weight_var, "_no_triple.png"))
   
   # Save the plot
   png(file_path, width = 2000, height = 1500)
@@ -90,9 +90,6 @@ for (i in 1:nrow(plots_list)) {
   # Apply km_weighted function to the current combination of variables
   km_weighted(weight_var, outcome, time_to_outcome_var)
 }
-
-
-
 
 # Loop through each outcome and fit the unadjusted and IPTW models
 for (j in seq_along(outcomes)){
@@ -131,7 +128,7 @@ for (j in seq_along(outcomes)){
   
   #plot schoenfeld residuals
   schoenfeld_resid <- cox.zph(model_unadj_cox)
-  file_path <- file.path(Graphdir, "cox_regression", paste0("schoenfeld_resid_",outcome_event,"_unadj",".png"))
+  file_path <- file.path(Graphdir, "cox_regression", paste0("schoenfeld_resid_",outcome_event,"_unadj_no_triple.png"))
   png(file_path)
   
   plot(schoenfeld_resid, main = paste("Schoenfeld residuals for", outcome_label, "(unadjusted)"))
@@ -161,13 +158,12 @@ for (j in seq_along(outcomes)){
   
   # Calculate the residuals
   residuals <- residuals(model_unadj_log)
-  file_path_resid <- file.path(Graphdir, "cox_regression", paste0("log_resid_", outcome_event, "_unadj.png"))
+  file_path_resid <- file.path(Graphdir, "cox_regression", paste0("log_resid_", outcome_event, "_unadj_no_triple.png"))
   png(file_path_resid)
   # Create a plot of the residuals versus the fitted values
-  plot(fitted.values(model_unadj_log), residuals, main = paste("Log residuals for", outcome_label, "(unadjusted)"), cex.main = 0.9)
+  plot(fitted.values(model_unadj_log), residuals, main = paste("Log residuals for", outcome_label, "(unadjusted)"), cex.main = 0.9, xlab = "Fitted values", ylab = "Residuals")
   abline(h = 0, lty = 2)
   dev.off()
-  
   
   # Extract coefficients, odds ratios, standard errors, and confidence intervals as shown in the previous example
   coef_unadj_log <- coef(model_unadj_log)[2]
@@ -175,8 +171,8 @@ for (j in seq_along(outcomes)){
   se_unadj_log <- summary(model_unadj_log)$coef[, "Std. Error"][2]
   z_value <- qnorm(0.975) # 95% confidence interval
   ci_unadj_log <- cbind(
-    coef_unadj_log - z_value * se_unadj_log,
-    coef_unadj_log + z_value * se_unadj_log)
+  coef_unadj_log - z_value * se_unadj_log,
+  coef_unadj_log + z_value * se_unadj_log)
   or_unadj_log_ci <- exp(ci_unadj_log)
   
   # Save results in the 'estimates' dataframe
@@ -228,9 +224,10 @@ for (j in seq_along(outcomes)){
     
     # Plot schoenfeld residuals for IPTW model
     schoenfeld_resid_iptw <- cox.zph(model_iptw_cox, transform = 'identity')
-    file_path_iptw <- file.path(Graphdir, "cox_regression", paste0("schoenfeld_resid_", outcome_event, "_IPTW_", weight_name, ".png"))
+    file_path_iptw <- file.path(Graphdir, "cox_regression", paste0("schoenfeld_resid_", outcome_event, "_IPTW_", weight_name, "_no_triple.png"))
     png(file_path_iptw)
-    plot(schoenfeld_resid_iptw, main = paste("Schoenfeld residuals for", outcome_label, "using", weight_label), cex.main = 0.9)
+    plot(schoenfeld_resid_iptw, main = paste("Schoenfeld residuals for", outcome_label, "using", weight_label),
+         cex.main = 0.9)
     dev.off()
     res_p_iptw <- cox.zph(model_iptw_cox)$table[, "p"]
     
@@ -260,7 +257,7 @@ for (j in seq_along(outcomes)){
     # Calculate the residuals
     residuals <- residuals(model_iptw_log, type = "response")
     fitted_values <- predict(model_iptw_log, type = "response")
-    file_path_resid <- file.path(Graphdir, "cox_regression", paste0("log_resid_", outcome_event, "_IPTW_", weight_name, ".png"))
+    file_path_resid <- file.path(Graphdir, "cox_regression", paste0("log_resid_", outcome_event, "_IPTW_", weight_name, "_no_triple.png"))
     
     png(file_path_resid)
     # Create a plot of the residuals versus the fitted values

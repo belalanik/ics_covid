@@ -114,23 +114,23 @@ km_weighted <- function(weight_var, outcome, time_to_outcome_var) {
   # Round the number of events to 2 decimal places
   km_curve$n.event <- round(km_curve$n.event, 2)
   
-  ggsurvplot <- ggsurvplot(km_curve, data = subset_df, conf.int = T, censor = F, ylim = c(0.95, 1), xlab = "Time in days", risk.table = "abs_pct", risk.table.title = "Number at risk (%)", cumevents = TRUE, fontsize = 10, tables.height = 0.15, legend.labs = c("ICS", "LABA/LAMA"), legend.title = "", palette = c(palette[9], palette[4]), xlim = c(0, 185)) 
+  ggsurvplot <- ggsurvplot(km_curve, data = subset_df, conf.int = T, censor = F, ylim = c(0.95, 1), xlab = "Time in days", risk.table = "absolute", risk.table.title = "Number at risk",  cumevents = TRUE, fontsize = 13, tables.height = 0.15, legend.labs = c("ICS", "LABA/LAMA"), legend.title = "", palette = c(palette[9], palette[4]), xlim = c(0, 183)) 
   ggsurvplot$plot <- ggsurvplot$plot + scale_x_continuous(breaks = c(0, 50, 100, 150, 183))
   ggsurvplot$table$theme$axis.text.y$colour <- "black"
-  ggsurvplot$table$theme$axis.text.y$size <- 28
-  ggsurvplot$table$theme$axis.text.x$size <- 28
+  ggsurvplot$table$theme$axis.text.y$size <- 40
+  ggsurvplot$table$theme$axis.text.x$size <- 40
   ggsurvplot$table$labels$x <- ""
-  ggsurvplot$table$theme$plot.title$size <- 32
+  ggsurvplot$table$theme$plot.title$size <- 44
   ggsurvplot$cumevents$theme$axis.text.y$colour <- "black"
-  ggsurvplot$cumevents$theme$axis.text.y$size <- 28
-  ggsurvplot$cumevents$theme$axis.text.x$size <- 28
+  ggsurvplot$cumevents$theme$axis.text.y$size <- 40
+  ggsurvplot$cumevents$theme$axis.text.x$size <- 40
   ggsurvplot$cumevents$labels$x <- ""
-  ggsurvplot$cumevents$theme$plot.title$size <- 32
-  ggsurvplot$plot$theme$axis.title.x$size <- 32
-  ggsurvplot$plot$theme$axis.title.y$size <- 32
-  ggsurvplot$plot$theme$axis.text.x$size <- 32
-  ggsurvplot$plot$theme$axis.text.y$size <- 32
-  ggsurvplot$plot$theme$legend.text$size <- 32
+  ggsurvplot$cumevents$theme$plot.title$size <- 44
+  ggsurvplot$plot$theme$axis.title.x$size <- 44
+  ggsurvplot$plot$theme$axis.title.y$size <- 44
+  ggsurvplot$plot$theme$axis.text.x$size <- 44
+  ggsurvplot$plot$theme$axis.text.y$size <- 44
+  ggsurvplot$plot$theme$legend.text$size <- 44
   ggsurvplot$plot$theme$legend.key.size <- unit(4, "lines")
   
   # Define the file path
@@ -243,14 +243,14 @@ for (j in seq_along(outcomes)){
   dev.off()
   
   # # Extract coefficients, odds ratios, standard errors, and confidence intervals as shown in the previous example
-  # coef_unadj_log <- coef(model_unadj_log)[2]
-  # or_unadj_log <- exp(coef_unadj_log)
-  # se_unadj_log <- summary(model_unadj_log)$coef[, "Std. Error"][2]
-  # z_value <- qnorm(0.975) # 95% confidence interval
-  # ci_unadj_log <- cbind(
-  #   coef_unadj_log - z_value * se_unadj_log,
-  #   coef_unadj_log + z_value * se_unadj_log)
-  # or_unadj_log_ci <- exp(ci_unadj_log)
+  coef_unadj_log <- coef(model_unadj_log)[2]
+  or_unadj_log <- exp(coef_unadj_log)
+  se_unadj_log <- summary(model_unadj_log)$coef[, "Std. Error"][2]
+  z_value <- qnorm(0.975) # 95% confidence interval
+  ci_unadj_log <- cbind(
+  coef_unadj_log - z_value * se_unadj_log,
+  coef_unadj_log + z_value * se_unadj_log)
+  or_unadj_log_ci <- exp(ci_unadj_log)
   
   # Save results in the 'estimates' dataframe
   result_position <- j  # Starting position for the outcome
@@ -262,11 +262,11 @@ for (j in seq_along(outcomes)){
   estimates[result_position, paste0("ci_lower_unadj_cox")] <- ci_unadj_cox[1]
   estimates[result_position, paste0("ci_upper_unadj_cox")] <- ci_unadj_cox[2]
   estimates[result_position, paste0("res_p")] <- res_p[1]
-  # estimates[result_position, paste0("coef_unadj_log")] <- coef_unadj_log
-  # estimates[result_position, paste0("or_unadj_log")] <- or_unadj_log
-  # estimates[result_position, paste0("se_unadj_log")] <- se_unadj_log
-  # estimates[result_position, paste0("ci_lower_unadj_log")] <- or_unadj_log_ci["treatICS/LABA", 1]
-  # estimates[result_position, paste0("ci_upper_unadj_log")] <- or_unadj_log_ci["treatICS/LABA", 2]
+  estimates[result_position, paste0("coef_unadj_log")] <- coef_unadj_log
+  estimates[result_position, paste0("or_unadj_log")] <- or_unadj_log
+  estimates[result_position, paste0("se_unadj_log")] <- se_unadj_log
+  estimates[result_position, paste0("ci_lower_unadj_log")] <- or_unadj_log_ci["treatICS", 1]
+  estimates[result_position, paste0("ci_upper_unadj_log")] <- or_unadj_log_ci["treatICS", 2]
   
   #adjusted models 
   for (w in seq_along(weight_vars)) {
@@ -313,7 +313,6 @@ for (j in seq_along(outcomes)){
     # Summary of the logistic regression model
     summary(model_iptw_log)
     
-    
     # Extract coefficients, odds ratios, standard errors, and confidence intervals as shown in the previous example
     coef_iptw_log <- coef(model_iptw_log)[2]
     or_iptw_log <- exp(coef_iptw_log)
@@ -344,11 +343,11 @@ for (j in seq_along(outcomes)){
     estimates[result_position, paste0("ci_lower_iptw_cox_", weight_name)] <- ci_iptw_cox[1]
     estimates[result_position, paste0("ci_upper_iptw_cox_", weight_name)] <- ci_iptw_cox[2]
     estimates[result_position, paste0("res_p_iptw_cox_", weight_name)] <- res_p_iptw[1]
-    # estimates[result_position, paste0("coef_iptw_log_", weight_name)] <- coef_iptw_log
-    # estimates[result_position, paste0("or_iptw_log_", weight_name)] <- or_iptw_log
-    # estimates[result_position, paste0("se_iptw_normal_log_", weight_name)] <- se_iptw_log
-    # estimates[result_position, paste0("ci_lower_iptw_log_", weight_name)] <- or_iptw_log_ci[1]
-    # estimates[result_position, paste0("ci_upper_iptw_log_", weight_name)] <- or_iptw_log_ci[2]
+    estimates[result_position, paste0("coef_iptw_log_", weight_name)] <- coef_iptw_log
+    estimates[result_position, paste0("or_iptw_log_", weight_name)] <- or_iptw_log
+    estimates[result_position, paste0("se_iptw_normal_log_", weight_name)] <- se_iptw_log
+    estimates[result_position, paste0("ci_lower_iptw_log_", weight_name)] <- or_iptw_log_ci[1]
+    estimates[result_position, paste0("ci_upper_iptw_log_", weight_name)] <- or_iptw_log_ci[2]
     
     rm(list = c("coef_iptw_cox", "hr_iptw_cox", "se_iptw_cox", "se_iptw_robust_cox", "ci_iptw_cox"))
   }

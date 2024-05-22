@@ -2,7 +2,7 @@
 # Date: 03/2023
 # Purpose: basic data formatting for analytic file, generate binary treatment group variable
 
-packages <- c("tidyverse", "dplyr", "arrow", "openxlsx")
+packages <- c("tidyverse", "dplyr", "openxlsx")
 installed_packages <- packages %in% rownames(installed.packages())
 if (any(installed_packages == FALSE)) {
   install.packages(packages[!installed_packages])
@@ -14,16 +14,17 @@ lapply(packages, library, character.only = TRUE)
 setwd(Datadir_copd)
 
 #read in csv dataset
+df <- read.csv("copd_analytic_file_hosp_w1_6m.csv", colClasses = c("patid" = "character"), header = T)
 
 file_path <- paste0(Projectdir_stata, "patients_missing_ons.csv")
 df_missing_ons <- read.csv(file_path, colClasses = c("patid" = "character"), header = T)
 
-process_file <- function(inputfile, outputfile, output_base_xlsx) {
-
-df <- read.csv(inputfile, colClasses = c("patid" = "character"), header = T)
-  
 # Create missing_ons variable indicating presence in df_missing_ons
 df$missing_ons <- ifelse(df$patid %in% df_missing_ons$patid, 1, 0)
+
+#merge in baseline exposures
+df_baseline <- read.xlsx("copd_baseline_exposure_6m.xlsx")
+df <- merge(df, df_baseline, by = "patid", all.x = TRUE)
 
 df$death_date_cprd <- df$deathdate
 df <- subset(df, select = -deathdate)
@@ -39,11 +40,8 @@ df$treatgroup <- ifelse(df$baseline_ics == 1, 1, NA)
 df$treatgroup[df$baseline_control == 1] <- 0
 df$treatgroup <- as.factor(df$treatgroup)
 
-df_baseline <- df %>% dplyr::select(c("patid", "treatgroup", "baseline_ics", "baseline_control", "baseline_triple"))
-write.xlsx(df_baseline, output_base_xlsx, rowNames = FALSE)
-
 #convert covariates coded as date variables to dates 
-date_cols <- c("regstart", "death_date_cprd", "death_date", "regend", "dob", "do35bday", "lcd", "enddate", "diabetes_date", "hypertension_date", "past_asthma_date", "current_asthma_date", "cvd_date", "allcancers_date", "kidney_date", "immunosuppression_date", "smokdate", "flu_vacc_date", "pneumo_vacc_date", "pos_covid_test_date", "covid_hes_date", "covid_death_date", "death_date_ons", "any_covid_hes_date")
+date_cols <- c("regstart", "death_date_cprd", "death_date", "regend", "dob", "do35bday", "lcd", "enddate", "diabetes_date", "hypertension_date", "past_asthma_date", "current_asthma_date", "cvd_date", "allcancers_date", "kidney_date", "immunosuppression_date", "smokdate", "flu_vacc_date", "pneumo_vacc_date", "pos_covid_test_date", "covid_hes_date", "covid_death_date", "death_date_ons", "hes_date", "any_covid_hes_date")
 
 for (col in date_cols) {
   if (col %in% colnames(df)) {
@@ -73,6 +71,7 @@ if ("current_asthma_date" %in% colnames(df)) {
   df$current_asthma_present <- factor(ifelse(!is.na(df$current_asthma_date), "Yes", "No"))
 }
 
+
 #recode smoking status
 df$smok <- recode(df$smokstatus,
                   "current smoker" = "Current smoking",
@@ -100,8 +99,7 @@ df$treat <- ifelse(df$treatgroup == 0, "LABA/LAMA",
                    ifelse(df$treatgroup == 1, "ICS", NA))
 df$gender <- factor(df$gender, levels = c(1,2), labels = labels_gender)
 #df$smok <- factor(df$smokstatus, labels = labels_smoking)
-df$ics_ever <- factor(df$ics_ever, labels = labels_ics_ever)
-df$control_ever <- factor(df$control_ever, labels = labels_control_ever)
+
 
 # Recode ethnicity 
 # create a new variable 'eth' in the data frame
@@ -158,10 +156,9 @@ df$timeout2 <- df$covid_hes_date
 df$timeout3 <- df$covid_death_date
 df$timeout_death_any <- df$death_date
 df$timeout_hes_any <- df$hes_date
-df$timeout_any_covid_hes <- df$any_covid_hes_date
 
 #WORK WITH OUTCOME DATES
-timeout_variables <- c("timeout1", "timeout2", "timeout3", "timeout_death_any", "timeout_any_covid_hes")
+timeout_variables <- c("timeout1", "timeout2", "timeout3", "timeout_death_any", "timeout_hes_any")
 
 for (var_name in timeout_variables) {
   
@@ -190,16 +187,18 @@ df$covid_death_present <- factor(ifelse(!is.na(df$covid_death_date), "Yes", "No"
 df$covid_death_present <- ifelse(is.na(df$covid_death_date), 0, 1)
 
 df$any_death_present <- ifelse(df$death_date < as.Date("2020-09-01"), 1, 0)
-df$any_death_present <- ifelse(df$covid_death_present == 1, 1, df$any_death_present)
+df$any_death_present <- ifelse(df$covid_death_present ==1, 1, df$any_death_present)
 df$any_death_present <- ifelse(is.na(df$any_death_present), 0, df$any_death_present)
 
-df$any_covid_hes_present <- ifelse(df$any_covid_hes_date < as.Date("2020-09-01"), 1, 0)
-df$any_covid_hes_present <- ifelse(df$any_covid_hes_present == 1, 1, df$any_covid_hes_present)
-df$any_covid_hes_present <- ifelse(is.na(df$any_covid_hes_present), 0, df$any_covid_hes_present)
-
+df$any_hes_present <- ifelse(df$hes_date < as.Date("2020-09-01"), 1, 0)
+df$any_hes_present <- ifelse(df$covid_hes_present ==1, 1, df$any_hes_present)
+df$any_hes_present <- ifelse(is.na(df$any_hes_present), 0, df$any_hes_present)
 
 #assert that there are more all cause deaths than covid deaths
 sum(df$any_death_present == 1 & df$death_date_ons < as.Date("2020-09-01"), na.rm = TRUE) > sum(df$covid_death_present == 1 & df$death_date_ons < as.Date("2020-09-01"), na.rm = TRUE)
+
+#assert that there are more all cause hospitalisations than covid hospitalisations
+sum(df$any_hes_present == 1 & df$hes_date < as.Date("2020-09-01"), na.rm = TRUE) > sum(df$covid_hes_present == 1 & df$hes_date < as.Date("2020-09-01"), na.rm = TRUE)
 
 # Set the time origin to 01 Mar 2020
 df$time_origin <- as.Date("2020-03-01")
@@ -213,7 +212,7 @@ df$timeinstudy1 <- df$timeout1 - df$time_origin
 df$timeinstudy2 <- df$timeout2 - df$time_origin
 df$timeinstudy3 <- df$timeout3 - df$time_origin
 df$timeinstudy_death_any <- df$timeout_death_any - df$time_origin
-df$timeinstudy_covid_hes_any <- df$timeout_any_covid_hes - df$time_origin
+df$timeinstudy_hes_any <- df$timeout_hes_any - df$time_origin
 
 df <- df %>% dplyr::select(-c("yob", "mob", "day", "dob", "yo35bday", "do35bday", "lcd", "diabetes_date", "hypertension_date", "past_asthma_date", "cvd_date", "allcancers_date", "kidney_date", "immunosuppression_date", "smokdate", "flu_vacc_date", "pneumo_vacc_date", "dobmi"))
 
@@ -234,10 +233,26 @@ surv_laba <- df %>%
   filter(missing_ons == 0 & any_death_present == 0  & treat == "LABA/LAMA") %>%
   summarise(unique_patids = n_distinct(patid))
 
+# View the count of unique patids
+surv_laba$unique_patids
+
 # Filter the dataframe based on conditions
 surv_ics <- df %>%
   filter(missing_ons == 0 & any_death_present == 0  & treat == "ICS") %>%
   summarise(unique_patids = n_distinct(patid))
+
+# View the count of unique patids
+surv_ics$unique_patids
+
+length(unique((df$patid[df$treat=="ICS"])))
+length(unique((df$patid[df$treat=="LABA/LAMA"])))
+
+df <- df %>%
+  mutate(
+    infection_pre_hosp = ifelse(
+      !is.na(pos_covid_test_date) &
+        !is.na(hes_date) &
+        pos_covid_test_date < hes_date, 1, 0))
 
 df <- df %>%
   mutate(
@@ -247,18 +262,8 @@ df <- df %>%
         covid_hes_date < death_date, 1, 0))
 
 #export as parquet file
-arrow::write_parquet(df, outputfile)
+arrow::write_parquet(df, "copd_wave1_6m_hosp.parquet")
 
-}
+df <- df %>% dplyr::select(patid, enddate, treat, treatgroup, timeinstudy2, timeinstudy3, covid_hes_date, covid_hes_present, covid_hosp, hes_date, hosp_num, any_hes_present)
 
-#run the function
-inputfile <- c("copd_analytic_file_w1_60d.csv", "copd_analytic_file_w1_6m.csv", "copd_analytic_file_w1_60d_all.csv")
-outputfile <- c("copd_wave1_60d.parquet", "copd_wave1_6m.parquet", "copd_wave1_60d_all.parquet")
-output_base_xlsx <- c("copd_baseline_exposure_60d.xlsx", "copd_baseline_exposure_6m.xlsx", "copd_baseline_exposure_60d_all.xlsx")
-
-# inputfile <- "copd_analytic_file_w1_60d_all.csv"
-# outputfile <- "copd_wave1_60d_all.parquet"
-# output_base_xlsx <- "copd_baseline_exposure_60d_all.xlsx"
-
-mapply(process_file, inputfile, outputfile, output_base_xlsx)
-
+arrow::write_parquet(df, "copd_wave1_6m_hosp_subset.parquet")

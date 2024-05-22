@@ -12,12 +12,21 @@ if (any(installed_packages == FALSE)) {
 lapply(packages, library, character.only = TRUE)
 
 setwd(Datadir_copd)
+palette <- met.brewer("Cassatt2")
 
 #read in parquet dataset
 df <- read_parquet("copd_wave1_60d_iptw.parquet")
-subset_df <- df[!is.na(df$treatgroup),]
 
-palette <- met.brewer("Cassatt2")
+df$covid_death_present <- as.numeric(df$covid_death_present)
+
+#code no missing deaths as covid
+df$all_missing_covid <- as.numeric(df$covid_death_present)
+df$all_missing_covid[df$missing_ons == 1] <- 1
+df$covid_death_present <- df$all_missing_covid
+
+df$treat <- factor(df$treat)
+df$treat <- relevel(df$treat, ref = "LABA/LAMA")
+subset_df <- df[!is.na(df$treatgroup),]
 
 #summarize the weights by treatment group
 subset_df %>%
@@ -28,53 +37,47 @@ subset_df %>%
             mean_att_weight_unstab = mean(att_weight_unstab))
 #median follow up times for whole cohort
 followup_total <- subset_df %>%
-  summarise(median_timeinstudy2 = median(timeinstudy2),
-            median_timeinstudy3 = median(timeinstudy3),
+  summarise(median_timeinstudy3 = median(timeinstudy3),
             median_timeinstudy_death_any = median(timeinstudy_death_any))
 
 #median follow up times for each treatment group
 followup <- data.frame(subset_df %>%
-  group_by(treat) %>%
-  summarise(median_timeinstudy2 = median(timeinstudy2),
-            median_timeinstudy3 = median(timeinstudy3),
-            median_timeinstudy_death_any = median(timeinstudy_death_any)))
+                         group_by(treat) %>%
+                         summarise(median_timeinstudy3 = median(timeinstudy3),
+                                   median_timeinstudy_death_any = median(timeinstudy_death_any)))
 
-followup <- add_row(followup, treat = "Total", median_timeinstudy2 = followup_total$median_timeinstudy2,
+followup <- add_row(followup, treat = "Total",
                     median_timeinstudy3 = followup_total$median_timeinstudy3,
                     median_timeinstudy_death_any = followup_total$median_timeinstudy_death_any)
-colnames(followup) <- c("Treatment group", "Median follow-up COVID-19 hospitalisation", "Median follow-up COVID-19 death", "Median follow-up all-cause death")
+colnames(followup) <- c("Treatment group", "Median follow-up COVID-19 death", "Median follow-up all-cause death")
 
 followup <- t(followup)
 
 #proportion of people censored in each treatment group
 
 total_censored <- subset_df %>%
-  summarise(prop_censored_timeinstudy2 = 1 - sum(timeinstudy2 == 183) / n(),
-            prop_censored_timeinstudy3 = 1 - sum(timeinstudy3 == 183) / n(),
+  summarise(prop_censored_timeinstudy3 = 1 - sum(timeinstudy3 == 183) / n(),
             prop_censored_timeinstudy_death_any = 1 - sum(timeinstudy_death_any == 183) / n())
 
 censored <- subset_df %>%
   group_by(treat) %>%
-  summarise(prop_censored_timeinstudy2 = 1 - sum(timeinstudy2 == 183) / n(),
-            prop_censored_timeinstudy3 = 1 - sum(timeinstudy3 == 183) / n(),
+  summarise(prop_censored_timeinstudy3 = 1 - sum(timeinstudy3 == 183) / n(),
             prop_censored_timeinstudy_death_any = 1 - sum(timeinstudy_death_any == 183) / n())
 
-censored <- add_row(censored, treat = "Total", prop_censored_timeinstudy2 = total_censored$prop_censored_timeinstudy2,
+censored <- add_row(censored, treat = "Total",
                     prop_censored_timeinstudy3 = total_censored$prop_censored_timeinstudy3,
                     prop_censored_timeinstudy_death_any = total_censored$prop_censored_timeinstudy_death_any)
 
 
 #rename columns in censored
-colnames(censored) <- c("Treatment group", "% censored COVID-19 hospitalisation", "% censored COVID-19 death", "% censored all-cause death")
+colnames(censored) <- c("Treatment group", "% censored COVID-19 death", "% censored all-cause death")
 
 #convert numeric variables to percentages 
 # Multiply the columns and store them in new variables
-censored_hospitalisation <- censored[,"% censored COVID-19 hospitalisation"] * 100
 censored_death <- censored[,"% censored COVID-19 death"] * 100
 censored_all_cause_death <- censored[,"% censored all-cause death"] * 100
 
 # Or add them as new columns in the existing dataframe
-censored$"% censored COVID-19 hospitalisation" <- censored[,"% censored COVID-19 hospitalisation"] * 100
 censored$"% censored COVID-19 death" <- censored[,"% censored COVID-19 death"] * 100
 censored$"% censored all-cause death" <- censored[,"% censored all-cause death"] * 100
 
@@ -92,7 +95,7 @@ censored <- censored[-4,]
 censored <- as.data.frame(censored)
 #export censored table, inclusing the rownames as a column
 
-write.xlsx(censored, file.path(Tables, "censored_table.xlsx"), rowNames = T)
+write.xlsx(censored, file.path(Tables, "censored_table_all_missing_covid.xlsx"), rowNames = T)
 # COX AND LOGISTIC REGRESSION --------------------------------------------------------
 
 #create object to save results
@@ -101,9 +104,9 @@ subset_df$treat <- factor(subset_df$treat)
 subset_df$treat <- relevel(subset_df$treat, ref = "LABA/LAMA")
 
 # Define the survival outcome variables
-outcomes <- c("covid_hes_present", "covid_death_present", "any_death_present")
-time_to_outcome_vars <- c("timeinstudy2", "timeinstudy3", "timeinstudy_death_any")
-weight_vars <- c("ate_weight_stab", "att_weight_stab")
+outcomes <- c("all_missing_covid", "any_death_present")
+time_to_outcome_vars <- c("timeinstudy3", "timeinstudy_death_any")
+weight_vars <- c("ate_weight_stab")
 
 km_weighted <- function(weight_var, outcome, time_to_outcome_var) {
   km_surv <<- Surv(subset_df[[time_to_outcome_var]], subset_df[[outcome]]) 
@@ -132,7 +135,7 @@ km_weighted <- function(weight_var, outcome, time_to_outcome_var) {
   ggsurvplot$plot$theme$legend.key.size <- unit(4, "lines")
   
   # Define the file path
-  file_path <- file.path(Graphdir, "cox_regression", paste0("km_", outcome, "_", weight_var, ".png"))
+  file_path <- file.path(Graphdir, "cox_regression", paste0("km_", outcome, "_", weight_var, "_all_missing_covid.png"))
   
   # Save the plot
   png(file_path, width = 2000, height = 1500)
@@ -161,7 +164,7 @@ for (i in 1:nrow(plots_list)) {
   
   # Apply km_weighted function to the current combination of variables
   km_weighted(weight_var, outcome, time_to_outcome_var)
-
+  
 }
 
 # COX MODELS --------------------------------------------------------------
@@ -176,19 +179,16 @@ for (j in seq_along(outcomes)){
   
   # Use the 'switch' function to select the appropriate time-in-study variable
   timeinstudy_var <- switch(outcome_position,
-                            as.name("timeinstudy2"),
                             as.name("timeinstudy3"),
                             as.name("timeinstudy_death_any"))
   print(timeinstudy_var)
   
   outcome_label <- switch(outcome_position,
-                          as.name("COVID-19 hospitalisation"),
                           as.name("COVID-19 death"),
                           as.name("all-cause mortality"))
   
   print(outcome_label)
   
-  stopifnot(outcome_label != "COVID-19 hospitalisation" || timeinstudy_var == "timeinstudy2")
   stopifnot(outcome_label != "COVID-19 death" || timeinstudy_var == "timeinstudy3")
   stopifnot(outcome_label != "all-cause mortality" || timeinstudy_var == "timeinstudy_death_any")
   
@@ -204,7 +204,7 @@ for (j in seq_along(outcomes)){
   
   #plot schoenfeld residuals
   schoenfeld_resid <- cox.zph(model_unadj_cox)
-  file_path <- file.path(Graphdir, "cox_regression", paste0("schoenfeld_resid_",outcome_event,"_unadj",".png"))
+  file_path <- file.path(Graphdir, "cox_regression", paste0("schoenfeld_resid_",outcome_event,"_unadj_all_missing_covid.png"))
   png(file_path)
   
   plot(schoenfeld_resid, main = paste("Schoenfeld residuals for", outcome_label, "(unadjusted)"))
@@ -234,7 +234,7 @@ for (j in seq_along(outcomes)){
   
   # Calculate the residuals
   residuals <- residuals(model_unadj_log)
-  file_path_resid <- file.path(Graphdir, "cox_regression", paste0("log_resid_", outcome_event, "_unadj.png"))
+  file_path_resid <- file.path(Graphdir, "cox_regression", paste0("log_resid_", outcome_event, "_unadj_all_missing_covid.png"))
   png(file_path_resid)
   # Create a plot of the residuals versus the fitted values
   plot(fitted.values(model_unadj_log), residuals, main = paste("Log residuals for", outcome_label, "(unadjusted)"), cex.main = 0.9, xlab = "Fitted values", ylab = "Residuals")
@@ -247,8 +247,8 @@ for (j in seq_along(outcomes)){
   se_unadj_log <- summary(model_unadj_log)$coef[, "Std. Error"][2]
   z_value <- qnorm(0.975) # 95% confidence interval
   ci_unadj_log <- cbind(
-  coef_unadj_log - z_value * se_unadj_log,
-  coef_unadj_log + z_value * se_unadj_log)
+    coef_unadj_log - z_value * se_unadj_log,
+    coef_unadj_log + z_value * se_unadj_log)
   or_unadj_log_ci <- exp(ci_unadj_log)
   
   # Save results in the 'estimates' dataframe
@@ -273,19 +273,17 @@ for (j in seq_along(outcomes)){
     
     weight_name <- weight_vars[w]
     print(weight_name)
-
+    
     # Determine the position of the current outcome in the 'outcomes' vector
     outcome_position <- which(weight_vars == weight_name)
     
     # Use the 'switch' function to select the appropriate time-in-study variable
     weight_var <- switch(weight_name,
-                         "ate_weight_stab" = as.name("ate_weight_stab"),
-                         "att_weight_stab" = as.name("att_weight_stab"))
+                         as.name("ate_weight_stab"))
     print(weight_var)
     
     weight_label <- switch(outcome_position,
-                            as.name("stabilised ATE weights"),
-                            as.name("stabilised ATT weights"))
+                           as.name("stabilised ATE weights"))
     print(weight_label)
     
     # Formula for IPTW model using the selected time-in-study variable
@@ -295,7 +293,7 @@ for (j in seq_along(outcomes)){
     
     # Plot schoenfeld residuals for IPTW model
     schoenfeld_resid_iptw <- cox.zph(model_iptw_cox, transform = 'identity')
-    file_path_iptw <- file.path(Graphdir, "cox_regression", paste0("schoenfeld_resid_", outcome_event, "_IPTW_", weight_name, ".png"))
+    file_path_iptw <- file.path(Graphdir, "cox_regression", paste0("schoenfeld_resid_", outcome_event, "_IPTW_", weight_name, "_all_missing_covid.png"))
     png(file_path_iptw)
     plot(schoenfeld_resid_iptw, main = paste("Schoenfeld residuals for", outcome_label, "using", weight_label), cex.main = 0.9)
     dev.off()
@@ -320,14 +318,14 @@ for (j in seq_along(outcomes)){
     se_iptw_log <- summary(model_iptw_log)$coef[, "Std. Error"][2]
     z_value <- qnorm(0.975) # 95% confidence interval
     ci_iptw_log <- cbind(
-    coef_iptw_log - z_value * se_iptw_log,
-    coef_iptw_log + z_value * se_iptw_log)
+      coef_iptw_log - z_value * se_iptw_log,
+      coef_iptw_log + z_value * se_iptw_log)
     or_iptw_log_ci <- exp(ci_iptw_log)
-
+    
     # Calculate the residuals
     residuals <- residuals(model_iptw_log, type = "response")
     fitted_values <- predict(model_iptw_log, type = "response")
-    file_path_resid <- file.path(Graphdir, "cox_regression", paste0("log_resid_", outcome_event, "_IPTW_", weight_name, ".png"))
+    file_path_resid <- file.path(Graphdir, "cox_regression", paste0("log_resid_", outcome_event, "_IPTW_", weight_name, "_all_missing_covid.png"))
     
     png(file_path_resid)
     # Create a plot of the residuals versus the fitted values
@@ -360,5 +358,5 @@ for (j in seq_along(outcomes)){
 estimates <- as.data.frame(estimates)
 
 # Write the modified data frame to Parquet
-arrow::write_parquet(estimates, file.path(Tables, "QBA", "cox_log_regression_estimates.parquet"))
+arrow::write_parquet(estimates, file.path(Tables, "QBA", "cox_log_regression_estimates_all_missing_covid.parquet"))
 

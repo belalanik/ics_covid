@@ -24,23 +24,24 @@ subset_df <- df[!is.na(df$treatgroup),]
 
 subset_df <- subset_df[, c("patid", "age_index", "gender", "death_date", "imd", "bmicat", "eth", "diabetes_present", "hypertension_present", "cvd_present", "allcancers_present", "past_asthma_present", "kidney_present", "immunosuppression_present", "flu_vacc_present", "pneumo_vacc_present", "exacerb_present", "smokstatus","timeinstudy1", "timeinstudy2", "timeinstudy3", "timeinstudy_death_any", "timeinstudy_covid_hes_any", "timeout1", "timeout2", "timeout3", "timeout_death_any", "timeout_any_covid_hes", "pos_covid_test_present", "covid_hes_present", "covid_death_present", "any_death_present", "any_covid_hes_present", "treat", "treatgroup", "missing_ons")]
 
-#check missingness patterns
-md.pattern(subset_df, rotate.names = TRUE)
+#check missingness pattern
+#md.pattern(subset_df, rotate.names = TRUE)
 
 #check number of missings per variable in model
 missing_counts <- colSums(is.na(subset_df[, c("age_index", "gender", "imd", "bmicat","eth", "diabetes_present", "hypertension_present", "cvd_present", "allcancers_present", "past_asthma_present", "kidney_present", "immunosuppression_present", "flu_vacc_present", "pneumo_vacc_present", "exacerb_present", "smokstatus")]))
 missing_counts 
 
+#set reference levels for ethnicity and bmi
 subset_df$eth <- relevel(subset_df$eth, ref = "White")
 subset_df$bmicat <- relevel(subset_df$bmicat, ref = "Normal (18.5-24.9)")
 
 # Define the propensity score formula
-ps_formula <- treat ~ age_index + gender + eth + imd + bmicat + diabetes_present + hypertension_present + cvd_present + allcancers_present + past_asthma_present + kidney_present + immunosuppression_present + flu_vacc_present + pneumo_vacc_present + exacerb_present + smokstatus
+ps_formula <- treatgroup ~ age_index + gender + eth + imd + bmicat + diabetes_present + hypertension_present + cvd_present + allcancers_present + past_asthma_present + kidney_present + immunosuppression_present + flu_vacc_present + pneumo_vacc_present + exacerb_present + smokstatus
 
 # Generating propensity scores as specified in Austin (2011)
-ps1 <- glm(treatgroup ~ age_index + gender + eth + imd + bmicat + diabetes_present + hypertension_present + cvd_present + allcancers_present + past_asthma_present + kidney_present + immunosuppression_present + flu_vacc_present + pneumo_vacc_present + exacerb_present + smokstatus,
+ps1 <- glm(formula = ps_formula,
                     data = subset_df,
-                    family = "binomial")
+                    family = "binomial") #for logistic regression
 
 subset_df$ps <- ps1$fitted.values
 
@@ -75,6 +76,7 @@ file_path <- file.path(Graphdir, "iptw_diagnostics", "ps_model_results.xlsx")
 write.xlsx(model_summary, file_path, rowNames = FALSE)
 rm("model_summary")
 
+# Create a table of the propensity score model
 tbl_ps <- ps1 %>%
   tbl_regression(exponentiate = TRUE,
                  label = list(
@@ -120,6 +122,11 @@ ps_trim <- subset_df %>%
 subset_df <- subset_df %>% 
   filter(ps >= ps_trim$min & ps <= ps_trim$max)
 
+
+
+# IPTW --------------------------------------------------------------------
+#generate IPTW weights
+
 # generate ATE weights
 ate_stabilised <- weightit(formula = ps_formula,
                            data = subset_df,
@@ -139,14 +146,14 @@ att_unstabilised <- weightit(formula = ps_formula,
                              method = "glm",
                              estimand = "ATT",
                              stabilize = FALSE,
-                             focal = "ICS")
+                             focal = "1")
 
 att_stabilised <- weightit(formula = ps_formula,
                              data = subset_df,
                              method = "glm",
                              estimand = "ATT",
                              stabilize = TRUE,
-                             focal = "ICS")
+                             focal = "1")
 
 # add ATE and ATT weights to dataset
 subset_df$ate_weight_stab <- ate_stabilised[[1]]
@@ -160,8 +167,9 @@ write_parquet(subset_df, "copd_wave1_60d_iptw.parquet")
 weight_df <- subset_df %>% dplyr::select(patid, ate_weight_stab, ate_weight_unstab, att_weight_unstab, att_weight_stab)
 
 write_parquet(weight_df, "copd_wave1_60d_iptw_weights.parquet")
-# IPTW Diagnostics --------------------------------------------------------
 
+# IPTW Diagnostics --------------------------------------------------------
+# Density plot of propensity scores
 plot <- ggplot(subset_df, aes(x = ps, color = factor(treatgroup))) +
    geom_density(size = 0.8) +
   labs(x = "Propensity Score",
@@ -169,9 +177,9 @@ plot <- ggplot(subset_df, aes(x = ps, color = factor(treatgroup))) +
        title = "Propensity score distribution (unweighted)",
        color = NULL) +
   scale_x_continuous(limits = c(0, 1)) +
-  scale_color_manual(values = c(palette[6], palette[9]), labels = c("LABA/LAMA", "ICS/LABA")) +
+  scale_color_manual(values = c(palette[4], palette[9]), labels = c("LABA/LAMA", "ICS/LABA")) +
   theme_minimal() +
-  guides(color = guide_legend(override.aes = list(fill = c(palette[6], palette[9]))))
+  guides(color = guide_legend(override.aes = list(fill = c(palette[4], palette[9]))))
 
 file_path <- file.path(Graphdir, "iptw_diagnostics", "ps_dist_unweighted.png")
 ggsave(file_path, plot, width = 8, height = 4)
@@ -185,9 +193,9 @@ generate_density_plot <- function(data, weight, title, file_name) {
          title = title,
          color = NULL) +
     scale_x_continuous(limits = c(0, 3)) +
-    scale_color_manual(values = c(palette[6], palette[9]), labels = c("LABA/LAMA", "ICS/LABA")) +
+    scale_color_manual(values = c(palette[4], palette[9]), labels = c("LABA/LAMA", "ICS/LABA")) +
     theme_minimal() +
-    guides(color = guide_legend(override.aes = list(fill = c(palette[6], palette[9]))))
+    guides(color = guide_legend(override.aes = list(fill = c(palette[4], palette[9]))))
   
   file_path <- file.path(Graphdir, "iptw_diagnostics", file_name)
   ggsave(file_path, plot, width = 8, height = 4)
@@ -210,9 +218,9 @@ generate_density_plot <- function(data, weight, title, file_name) {
          title = title,
          color = NULL) +
     scale_x_continuous(limits = c(0, 1)) +
-    scale_color_manual(values = c(palette[6], palette[9]), labels = c("LABA/LAMA", "ICS/LABA")) +
+    scale_color_manual(values = c(palette[4], palette[9]), labels = c("LABA/LAMA", "ICS/LABA")) +
     theme_minimal() +
-    guides(color = guide_legend(override.aes = list(fill = c(palette[6], palette[9]))))
+    guides(color = guide_legend(override.aes = list(fill = c(palette[4], palette[9]))))
   
   file_path <- file.path(Graphdir, "iptw_diagnostics", file_name)
   ggsave(file_path, plot, width = 8, height = 4)
@@ -309,16 +317,16 @@ smd_data$abs_smd_ate_stab <- abs(smd_data$ate_stab)
 # Create plot of SMDs
 ggplot(smd_data, aes(x = abs_smd_ate_stab, y = variable)) +
   geom_point(aes(shape = "ATE", fill = "ATE"), color = palette[9], size = 3) +
-  geom_point(data = smd_data, aes(x = abs_smd_att_stab, shape = "ATT", fill = "ATT"), color = palette[6], size = 2) +
+  geom_point(data = smd_data, aes(x = abs_smd_att_stab, shape = "ATT", fill = "ATT"), color = palette[4], size = 2) +
   geom_point(data = smd_data, aes(x = abs_smd_unweighted, shape = "unweighted", fill = "unweighted"), color = palette[7], size = 2) +
   scale_shape_manual(values = c("ATE" = 23, "ATT" = 21, "unweighted" = 24)) +
-  scale_fill_manual(values = c("ATE" = palette[9], "ATT" = palette[6], "unweighted" = palette[7])) +
+  scale_fill_manual(values = c("ATE" = palette[9], "ATT" = palette[4], "unweighted" = palette[7])) +
   labs(title = "Comparison of Absolute SMDs",
        x = "Absolute Standardized Mean Difference (SMD)",
        y = "Variable") +
-  scale_y_discrete(labels = c("smok_Former smoking" = "Former smoking", "pneumo_vacc_present_Yes" = "Pneumococcal vaccine (past 5 years)", "kidney_present_Yes" = "Chronic kidney disease", "immunosuppression_present_Yes" = "Immunosuppression", "imd_Missing" = "Missing IMD", "imd_5" = "IMD 5", "imd_4" = "IMD 4", "imd_3" = "IMD 3", "imd_2" = "IMD 2", "imd_1" = "IMD 1", "hypertension_present_Yes" = "Hypertension", "gender_Female" = "Female gender", "flu_vacc_present_Yes" = "Influenza vaccine (past year)", "exacerb_present_Yes" = "COPD exacerbation (past 12 months)", "diabetes_present_Yes" = "Diabetes", "cvd_present_Yes" = "Cardiovascular disease", "eth_White" = "Ethnicity: White", "eth_Unknown" = "Ethnicity: Unknown", "eth_South Asian" = "Ethnicity: South Asian", "eth_Mixed" = "Ethnicity: Mixed", "eth_Black" = "Ethnicity: Black", "bmicat_Underweight (<18.5)" = "BMI: Underweight (< 18.5)", "bmicat_Overweight (25-29.9)" = "BMI: Overweight (25-29.9)", "bmicat_Obese (>=30)" = "BMI: Obese (>=30)", "bmicat_Normal (18.5-24.9)" = "BMI: Normal (18.5-24.9)", "asthma_present_Yes" = "Past asthma", "allcancers_present_Yes" = "Cancer", "age_index" = "Age at index")) + 
+  scale_y_discrete(labels = c("smokstatus_ex-smoker" = "Former smoking", "pneumo_vacc_present_Yes" = "Pneumococcal vaccine (past 5 years)", "kidney_present_Yes" = "Chronic kidney disease", "immunosuppression_present_Yes" = "Immunosuppression", "imd_Missing" = "Missing IMD", "imd_5" = "IMD 5", "imd_4" = "IMD 4", "imd_3" = "IMD 3", "imd_2" = "IMD 2", "imd_1" = "IMD 1", "hypertension_present_Yes" = "Hypertension", "gender_Female" = "Female gender", "flu_vacc_present_Yes" = "Influenza vaccine (past year)", "exacerb_present_Yes" = "COPD exacerbation (past 12 months)", "diabetes_present_Yes" = "Diabetes", "cvd_present_Yes" = "Cardiovascular disease", "eth_White" = "Ethnicity: White", "eth_Unknown" = "Ethnicity: Unknown", "eth_South Asian" = "Ethnicity: South Asian", "eth_Mixed" = "Ethnicity: Mixed", "eth_Black" = "Ethnicity: Black", "bmicat_Underweight (<18.5)" = "BMI: Underweight (< 18.5)", "bmicat_Overweight (25-29.9)" = "BMI: Overweight (25-29.9)", "bmicat_Obese (>=30)" = "BMI: Obese (>=30)", "bmicat_Normal (18.5-24.9)" = "BMI: Normal (18.5-24.9)", "past_asthma_present_Yes" = "Past asthma", "allcancers_present_Yes" = "Cancer", "age_index" = "Age at index")) + 
   theme_minimal() +
-  guides(fill = guide_legend(override.aes = list(color = c(palette[9], palette[6], palette[7])))) +
+  guides(fill = guide_legend(override.aes = list(color = c(palette[9], palette[4], palette[7])))) +
   labs(fill = NULL, shape = NULL)
 
 file_path <- file.path(Graphdir, "iptw_diagnostics", "SMD_plot.png")
@@ -326,7 +334,6 @@ ggsave(file_path, width = 8, height = 4)
 
 # Specify the weight variables
 weight_vars <- c("ate_weight_stab", "ate_weight_unstab", "att_weight_unstab", "att_weight_stab")
-
 #recode smokstatus to Current smoking, Former smoking
 subset_df$smokstatus <- recode(subset_df$smokstatus, "current smoker" = "Current smoking", "ex-smoker" = "Former smoking")
 
@@ -334,10 +341,10 @@ subset_df$smokstatus <- recode(subset_df$smokstatus, "current smoker" = "Current
 for (weight_var in weight_vars) {
   # Subset the data and select the columns
   tab_data <- subset_df %>% dplyr::select(c("age_index", "gender", "bmicat", "eth", "imd", "diabetes_present", "hypertension_present","cvd_present", "allcancers_present", "past_asthma_present", "kidney_present", "immunosuppression_present", "flu_vacc_present",  "pneumo_vacc_present",  "exacerb_present", "smokstatus", "treat", weight_var))
-  
+
   # Create the survey design
   design <- svydesign(ids = ~1, weights = as.formula(paste0("~", weight_var)), data = tab_data)
-  
+
   # Generate the table
   tab <- tbl_svysummary(data = design,
                         by = treat,
@@ -367,21 +374,21 @@ for (weight_var in weight_vars) {
                           age_index ~ c("{mean} ({sd})", "{median}  \n ({p25}-{p75})"),
                           all_categorical() ~ "{n} ({p}%)"),
                         type = list(
-                          c(age_index) ~ "continuous2"))  %>% 
+                          c(age_index) ~ "continuous2"))  %>%
     modify_header(label ~ "", all_stat_cols() ~ "**{level}**  \n N = {n}")  %>%
     modify_caption("Patient Characteristics") %>%
-    modify_column_alignment(columns = c(stat_1, stat_2), align = "right") %>% 
-    italicize_levels() 
-  
+    modify_column_alignment(columns = c(stat_1, stat_2), align = "right") %>%
+    italicize_levels()
+
   # Export the table to Word
   file_path <- file.path(Graphdir, "iptw_diagnostics", paste0("baseline_table_", weight_var, ".docx"))
-  
+
   # Check if the file exists
   if (file.exists(file_path)) {
     # If the file exists, delete it
     file.remove(file_path)
   }
-  
+
   tab %>%
     as_flex_table() %>%
     flextable::save_as_docx(path = file_path, align = "left")
@@ -486,13 +493,13 @@ for (weight_var in weight_vars) {
   cat("IQR (75th percentile):", q75, "\n\n")
   
   # Call the plot function with the correct argument name
-  print(plot_weight_distribution(weights))
+  #print(plot_weight_distribution(weights))
   
   # Remove temporary variables
   rm(list = c("weights", "mean_weight", "sd_weight", "median_weight", "q25", "q75", "min_weight", "max_weight"))
 }
 # Print the summary statistics
-print(iptw_dist)
+#print(iptw_dist)
 
 # check ps model ----------------------------------------------------------
 
@@ -546,4 +553,4 @@ print(iptw_dist)
 
 
 ####check SMDs manually
-smd_result <- tidy_smd(.df = subset_df, .vars = diabetes_present, .group = treat, .wts = c("ate_weight_stab", "ate_weight_unstab"))
+#smd_result <- tidy_smd(.df = subset_df, .vars = diabetes_present, .group = treat, .wts = c("ate_weight_stab", "ate_weight_unstab"))

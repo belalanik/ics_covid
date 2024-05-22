@@ -36,9 +36,10 @@ df$treatgroup <- ifelse(df$baseline_ics == 1, 1, NA)
 df$treatgroup[df$baseline_control == 1] <- 0
 df$treatgroup <- as.factor(df$treatgroup)
 
-df_baseline <- df %>% select(c("patid", "treatgroup", "baseline_ics", "baseline_control"))
+df_baseline <- df %>% dplyr::select(c("patid", "treatgroup", "baseline_ics", "baseline_control", "baseline_triple"))
 sum(df_baseline$baseline_ics == 1, na.rm = TRUE)
 sum(df_baseline$baseline_control == 1, na.rm = TRUE)
+sum(df_baseline$baseline_triple == 1, na.rm = TRUE)
 sum(df_baseline$baseline_ics == 1 & df_baseline$baseline_control == 1)
 
 write.xlsx(df_baseline, "copd_baseline_exposure.xlsx")
@@ -157,6 +158,9 @@ for (var_name in timeout_variables) {
   
   df[[var_name]][is.na(df[[var_name]])] <- df$enddate[is.na(df[[var_name]])]
   
+  #replace the timeout variables with the end date if the timeout is after the end date
+  df[[var_name]][df[[var_name]] > df$enddate] <- df$enddate[df[[var_name]] > df$enddate]
+  
   # Replace values greater than "2020-08-31" with "2020-08-31"
   df[[var_name]][df[[var_name]] > as.Date("2020-08-31")] <- as.Date("2020-08-31")
   
@@ -177,7 +181,7 @@ df$covid_death_present <- factor(ifelse(!is.na(df$covid_death_date), "Yes", "No"
 df$covid_death_present <- ifelse(is.na(df$covid_death_date), 0, 1)
 
 df$any_death_present <- ifelse(df$death_date < as.Date("2020-09-01"), 1, 0)
-df$any_death_present <- ifelse(df$covid_death_present ==1, 1, df$any_death_present)
+df$any_death_present <- ifelse(df$covid_death_present == 1, 1, df$any_death_present)
 df$any_death_present <- ifelse(is.na(df$any_death_present), 0, df$any_death_present)
 
 #assert that there are more all cause deaths than covid deaths
@@ -196,7 +200,7 @@ df$timeinstudy2 <- df$timeout2 - df$time_origin
 df$timeinstudy3 <- df$timeout3 - df$time_origin
 df$timeinstudy_death_any <- df$timeout_death_any - df$time_origin
 
-df <- df %>% dplyr::select(-c("yob", "mob", "day", "dob", "yo35bday", "do35bday", "lcd", "smoking_date","diabetes_date", "hypertension_date", "past_asthma_date", "cvd_date", "allcancers_date", "kidney_date", "immunosuppression_date", "smokdate", "flu_vacc_date", "pneumo_vacc_date", "dobmi"))
+df <- df %>% dplyr::select(-c("yob", "mob", "day", "dob", "yo35bday", "do35bday", "lcd", "diabetes_date", "hypertension_date", "past_asthma_date", "cvd_date", "allcancers_date", "kidney_date", "immunosuppression_date", "smokdate", "flu_vacc_date", "pneumo_vacc_date", "dobmi"))
 
 #if these columns exist, remove them
 
@@ -241,15 +245,15 @@ df <- df %>%
 #export as parquet file
 arrow::write_parquet(df, "copd_wave1_60d.parquet")
 
-#drop variables aside from regend, treatgroup, treat, patid, and timeinstudy1, timeinstudy2, timeinstudy3, timeinstudy_death_any, pos_covid_test_present, covid_hes_present, covid_death_present, any_death_present, hos_pre_death, death_date, death_date_cprd, death_date_ons, death, baseline_ics, baseline_control, baseline_triple
-
-df <- df %>% dplyr::select(c("patid", "enddate", "regend", "treatgroup", "treat", "timeinstudy1", "timeinstudy2", "timeinstudy3", "timeinstudy_death_any", "pos_covid_test_present", "covid_hes_present", "covid_death_present", "any_death_present", "hos_pre_death", "death_date", "death_date_cprd", "death_date_ons", "death", "baseline_ics", "baseline_control", "baseline_triple"))
-
-df2 <- read_parquet("copd_wave1_60d_hosp.parquet")
-
-#drop variables aside from regend, treatgroup, treat, patid, and timeinstudy1, timeinstudy2, timeinstudy3, timeinstudy_death_any, pos_covid_test_present, covid_hes_present, covid_death_present, any_death_present, hos_pre_death, death_date, death_date_cprd, death_date_ons, death, baseline_ics, baseline_control, baseline_triple
-
-df2 <- df2 %>% dplyr::select(c("patid", "enddate", "regend", "treatgroup", "treat", "timeinstudy1", "timeinstudy2", "timeinstudy3", "timeinstudy_death_any", "pos_covid_test_present", "covid_hes_present", "covid_death_present", "any_death_present", "hos_pre_death", "death_date", "death_date_cprd", "death_date_ons", "baseline_ics", "baseline_control"))
-
-df <- merge(df, df2[, c("patid", "treatgroup")], by = "patid", all.x = TRUE)
+# #drop variables aside from regend, treatgroup, treat, patid, and timeinstudy1, timeinstudy2, timeinstudy3, timeinstudy_death_any, pos_covid_test_present, covid_hes_present, covid_death_present, any_death_present, hos_pre_death, death_date, death_date_cprd, death_date_ons, death, baseline_ics, baseline_control, baseline_triple
+# 
+# df <- df %>% dplyr::select(c("patid", "enddate", "regend", "treatgroup", "treat", "timeinstudy1", "timeinstudy2", "timeinstudy3", "timeinstudy_death_any", "pos_covid_test_present", "covid_hes_present", "covid_death_present", "any_death_present", "hos_pre_death", "death_date", "death_date_cprd", "death_date_ons", "death", "baseline_ics", "baseline_control", "baseline_triple"))
+# 
+# df2 <- read_parquet("copd_wave1_60d_hosp.parquet")
+# 
+# #drop variables aside from regend, treatgroup, treat, patid, and timeinstudy1, timeinstudy2, timeinstudy3, timeinstudy_death_any, pos_covid_test_present, covid_hes_present, covid_death_present, any_death_present, hos_pre_death, death_date, death_date_cprd, death_date_ons, death, baseline_ics, baseline_control, baseline_triple
+# 
+# df2 <- df2 %>% dplyr::select(c("patid", "enddate", "regend", "treatgroup", "treat", "timeinstudy1", "timeinstudy2", "timeinstudy3", "timeinstudy_death_any", "pos_covid_test_present", "covid_hes_present", "covid_death_present", "any_death_present", "hos_pre_death", "death_date", "death_date_cprd", "death_date_ons", "baseline_ics", "baseline_control"))
+# 
+# df <- merge(df, df2[, c("patid", "treatgroup")], by = "patid", all.x = TRUE)
 
