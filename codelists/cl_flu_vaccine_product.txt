@@ -1,0 +1,96 @@
+"1043841000033118"
+"pasteur merieux inactivated influenza vaccine 0.5 ml"
+       1
+"596541000033119"
+"fluzone vaccine 0.5 ml"
+       1
+"770341000033117"
+"influenza vaccine (split virion, inactivated) suspension for injection 0.5ml pre-filled syringes"
+       1
+"2189441000033118"
+"influenza vaccine (split virion, inactivated) suspension for injection 0.5ml pre-filled syringes (sanofi pasteur)"
+       1
+"596641000033118"
+"fluarix vaccine suspension for injection 0.5ml pre-filled syringes (glaxosmithkline uk ltd)"
+       1
+"9702041000033119"
+"influenza vaccine (split virion, inactivated) suspension for injection 0.5ml pre-filled syringes (pfizer ltd)"
+       1
+"6453341000033116"
+"preflucel vaccine suspension for injection 0.5ml pre-filled syringes (baxter healthcare ltd)"
+       1
+"8563041000033113"
+"fluarix tetra vaccine suspension for injection 0.5ml pre-filled syringes (glaxosmithkline uk ltd)"
+       1
+"12364041000033116"
+"quadrivalent influenza vaccine (split virion, inactivated) suspension for injection 0.5ml pre-filled syringes (sanofi pasteur)"
+       1
+"8534741000033118"
+"influvac desu vaccine suspension for injection 0.5ml pre-filled syringes (abbott healthcare products ltd)"
+       1
+"8123441000033119"
+"optaflu vaccine suspension for injection 0.5ml pre-filled syringes (seqirus vaccines ltd)"
+       1
+"588341000033111"
+"fluvirin vaccine suspension for injection 0.5ml pre-filled syringes (novartis vaccines and diagnostics ltd)"
+       1
+"759741000033113"
+"influvac sub-unit vaccine suspension for injection 0.5ml pre-filled syringes (mylan)"
+       1
+"2890941000033111"
+"mastaflu vaccine suspension for injection 0.5ml pre-filled syringes (masta ltd)"
+       1
+"762141000033114"
+"influenza vaccine (surface antigen, inactivated) suspension for injection 0.5ml pre-filled syringes"
+       1
+"12599041000033117"
+"influenza tetra myl vaccine suspension for injection 0.5ml pre-filled syringes (mylan)"
+       1
+"12598941000033114"
+"influvac sub-unit tetra vaccine suspension for injection 0.5ml pre-filled syringes (mylan)"
+       1
+"12605941000033110"
+"influenza myl vaccine suspension for injection 0.5ml pre-filled syringes (mylan)"
+       1
+"12884141000033117"
+"flucelvax tetra vaccine suspension for injection 0.5ml pre-filled syringes (seqirus vaccines ltd)"
+       1
+"3347241000033118"
+"influenza vaccine (split virion, inactivated) suspension for injection 0.25ml pre-filled syringes"
+       1
+"3954341000033113"
+"influenza vaccine (surface antigen, inactivated, virosome) suspension for injection 0.5ml pre-filled syringes"
+       1
+"3954241000033115"
+"viroflu vaccine suspension for injection 0.5ml pre-filled syringes (janssen-cilag ltd)"
+       1
+"5415841000033118"
+"influenza vaccine (split virion, inactivated) 9microgram strain suspension for injection 0.1ml pre-filled syringes"
+       1
+"5093141000033117"
+"influenza vaccine (split virion, inactivated) 15microgram strain suspension for injection 0.1ml pre-filled syringes"
+       1
+"5208541000033111"
+"pandemrix vaccine emulsion and suspension for emulsion for injection (glaxosmithkline uk ltd)"
+       1
+"6494541000033116"
+"influenza vaccine (live attenuated) nasal suspension 0.2ml unit dose"
+       1
+"6494641000033115"
+"fluenz vaccine nasal suspension 0.2ml unit dose (astrazeneca uk ltd)"
+       1
+"10647441000033112"
+"flumist quadrivalent vaccine nasal suspension 0.2ml unit dose (astrazeneca uk ltd)"
+       1
+"9306941000033116"
+"fluenz tetra vaccine nasal suspension 0.2ml unit dose (astrazeneca uk ltd)"
+       1
+"13011941000033111"
+"trivalent influenza vaccine (split virion, inactivated) high dose suspension for injection 0.5ml pre-filled syringes (sanofi pasteur)"
+       1
+"13133041000033114"
+"adjuvanted trivalent influenza vaccine (surface antigen, inactivated) suspension for injection 0.5ml pre-filled syringes (seqirus vaccines ltd)"
+       1
+"12593041000033119"
+"fluad vaccine suspension for injection 0.5ml pre-filled syringes (seqirus vaccines ltd)"
+       1

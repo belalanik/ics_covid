@@ -1,0 +1,168 @@
+"1724271000006111"
+"pandemrix - first influenza a (h1n1v) 2009 vaccination given"
+       1
+"1724231000006113"
+"celvapan - first influenza a (h1n1v) 2009 vaccination given"
+       1
+"1724281000006114"
+"pandemrix - second influenza a (h1n1v) 2009 vaccination give"
+       1
+"1724241000006115"
+"celvapan - second influenza a (h1n1v) 2009 vaccination given"
+       1
+"1724251000006118"
+"celvapan - 1st flu a (h1n1v) 2009 vacc by othr hlth provider"
+       1
+"1724291000006112"
+"pandemrix - 1st flu a (h1n1v) 2009 vac by othr hlth provider"
+       1
+"1724261000006116"
+"celvapan - 2nd flu a (h1n1v) 2009 vacc by othr hlth provider"
+       1
+"1724301000006113"
+"pandemrix - 2nd flu a (h1n1v) 2009 vac by othr hlth provider"
+       1
+"11934921000006113"
+"administration of first quadrivalent (qiv) inactivated seasonal influenza vaccination"
+       1
+"11934931000006111"
+"administration of first non adjuvanted trivalent (tiv) inactivated seasonal influenza vaccination"
+       1
+"11934951000006116"
+"administration of second non adjuvanted trivalent (tiv) inactivated seasonal influenza vaccination"
+       1
+"11934961000006119"
+"administration of adjuvanted trivalent (ativ) inactivated seasonal influenza vaccination"
+       1
+"11934971000006114"
+"first quadrivalent (qiv) inactivated seasonal influenza vaccination given by pharmacist"
+       1
+"11934981000006112"
+"first non adjuvanted trivalent (tiv) inactivated seasonal influenza vaccination given by pharmacist"
+       1
+"11935001000006115"
+"second non adjuvanted trivalent (tiv) inactivated seasonal influenza vaccination given by pharmacist"
+       1
+"11935021000006113"
+"administration of first quadrivalent (qiv) inactivated seasonal influenza vaccination given by other healthcare provider"
+       1
+"11935031000006111"
+"administration of first non adjuvanted trivalent (tiv) inactivated seasonal influenza vaccination given by other healthcare provider"
+       1
+"11935061000006119"
+"administration of adjuvanted trivalent (ativ) inactivated seasonal influenza vaccination given by other healthcare provider"
+       1
+"11935071000006114"
+"administration of second quadrivalent (qiv) inactivated seasonal influenza vaccination given by other healthcare provider"
+       1
+"11935081000006112"
+"adjuvanted trivalent (ativ) inactivated seasonal influenza vaccination given by pharmacist"
+       1
+"11935091000006110"
+"administration of second non adjuvanted trivalent (tiv) inactivated seasonal influenza vaccination given by other healthcare provider"
+       1
+"11935101000006116"
+"second quadrivalent (qiv) inactivated seasonal influenza vaccination given by pharmacist"
+       1
+"11935111000006118"
+"administration of second quadrivalent (qiv) inactivated seasonal influenza vaccination"
+       1
+"12715991000006110"
+"[x]influenza vaccine causing adverse effects in therapeutic use"
+       1
+"1854681000006113"
+"influenza vaccination can be given by healthcare assistant"
+       1
+"1857041000006115"
+"gsk flu d-qiv vaccination given"
+       1
+"2244031000000119"
+"administration of intranasal influenza vaccination"
+       1
+"2252131000000112"
+"administration of first intranasal influenza vaccination"
+       1
+"2252191000000113"
+"administration of second intranasal influenza vaccination"
+       1
+"1884411000006110"
+"administration of first intranasal pandemic influenza vacc"
+       1
+"1884421000006119"
+"administration of second intranasal pandemic influenza vacc"
+       1
+"1884471000006118"
+"administration of first intranasal seasonal influenza vacc"
+       1
+"1884491000006117"
+"administration of second intranasal seasonal influenza vacc"
+       1
+"1884451000006111"
+"first intranasal pndmc influenza vcc gvn othr hlthcare prvdr"
+       1
+"1884461000006113"
+"scnd intrnsl pndmc flu vacc gvn by other healthcare provider"
+       1
+"1943471000006117"
+"1st intramuscular seasonal influenza vacc given by other hcp"
+       1
+"753841000000112"
+"influenza vaccination given by other healthcare provider"
+       1
+"1811611000006112"
+"seasonal influenza vaccin given by other healthcare provider"
+       1
+"1884431000006116"
+"first intranasal seasonal flu vacc gvn by othr hlthcare prov"
+       1
+"1943461000006112"
+"2nd intramuscular seasonal influenza vacc given by other hcp"
+       1
+"1884441000006114"
+"secnd intranasal seasonal flu vacc gvn by othr hlthcare prov"
+       1
+"2200881000000110"
+"seasonal influenza vaccination given by pharmacist"
+       1
+"1884481000006115"
+"seasonal influenza vaccination given while hospital inpt"
+       1
+"1966261000006111"
+"administration of first inactivated seasonal influenza vacc"
+       1
+"1966271000006116"
+"administration of second inactivated seasonal influenza vacc"
+       1
+"931801000006112"
+"[x]influenza vaccine causing adverse effects therapeutic use"
+       1
+"1986631000006119"
+"first intranasal seasonal influenza vacc given by pharmacist"
+       1
+"1986641000006112"
+"second intranasal seasonal influenza vacc givn by pharmacist"
+       1
+"1986651000006114"
+"first inactivated seasonal influenza vacc gvn by pharmacist"
+       1
+"1986661000006111"
+"second inactivated seasonal influenza vacc gvn by pharmacist"
+       1
+"8439011000006112"
+"seasonal influenza vaccination given by midwife"
+       1
+"8439021000006116"
+"first inactivated seasonal influenza vaccination given by midwife"
+       1
+"8439031000006118"
+"second inactivated seasonal influenza vaccination given by midwife"
+       1
+"296887012"
+"post influenza vaccination encephalitis"
+       1
+"1700971000006119"
+"1st pandemic influenza vacc give by other healthcare providr"
+       1
+"1700981000006116"
+"2nd pandemic influenza vacc give by other healthcare providr"
+       1

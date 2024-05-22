@@ -1,0 +1,504 @@
+"11925881000006119"           6
+"Malignant tumor of lung"
+"1219789016"               1000
+"[M]Bronchiolo-alveolar adenocarcinoma"
+"1222626017"                200
+"[M]Small cell-large cell carcinoma"
+"1231976013"                200
+"[M]Small cell carcinoma, intermediate cell"
+"155287019"                2000
+"Malignant neoplasm of hilus of lung"
+"155361017"               20000
+"Malignant neoplasm of main bronchus"
+"1773111000006111"        30000
+"Primary malignant neoplasm of lung"
+"1773121000006115"         6000
+"Small cell lung cancer"
+"1773131000006117"         6000
+"Non-small cell lung cancer"
+"1773141000006110"         6000
+"Squamous cell carcinoma of lung"
+"1773151000006112"        10000
+"Adenocarcinoma of lung"
+"1773161000006114"           90
+"Large cell carcinoma of lung"
+"1870381000006113"         2000
+"Non-small cell carcinoma"
+"2594581000006117"            3
+"Small cell carcinoma, intermediate cell"
+"2839081000006115"            1
+"Small cell-large cell carcinoma"
+"2839111000006114"            1
+"Combined small cell-adenocarcinoma"
+"288808013"              100000
+"Malignant neoplasm of lower respiratory tract"
+"288813012"                2000
+"Malignant neoplasm of carina of bronchus"
+"288815017"                1000
+"Malignant neoplasm of main bronchus NOS"
+"288819011"                4000
+"Malignant neoplasm of upper lobe bronchus"
+"288820017"               20000
+"Malignant neoplasm of upper lobe of lung"
+"288821018"                2000
+"Malignant neoplasm of upper lobe, bronchus or lung NOS"
+"288822013"                4000
+"Malignant neoplasm of middle lobe, bronchus or lung"
+"288823015"                 500
+"Malignant neoplasm of middle lobe bronchus"
+"288824014"                2000
+"Malignant neoplasm of middle lobe of lung"
+"288825010"                 100
+"Malignant neoplasm of middle lobe, bronchus or lung NOS"
+"288826011"               10000
+"Malignant neoplasm of lower lobe, bronchus or lung"
+"288827019"                1000
+"Malignant neoplasm of lower lobe bronchus"
+"288828012"               10000
+"Malignant neoplasm of lower lobe of lung"
+"288829016"                 500
+"Malignant neoplasm of lower lobe, bronchus or lung NOS"
+"288832018"                2000
+"Malignant neoplasm of other sites of bronchus or lung"
+"291332019"               20000
+"Small cell carcinoma"
+"292105018"                3000
+"Malignant neoplasm of bronchus or lung"
+"305181000006113"           200
+"[M]Alveolar adenocarcinoma"
+"305201000006114"           500
+"[M]Alveolar cell carcinoma"
+"306131000006118"          2000
+"[M]Bronchiolar carcinoma"
+"307291000006113"            20
+"[M]Cylindroid bronchial adenoma"
+"3085201000006117"            1
+"Alveolar adenocarcinoma"
+"314111000006116"           800
+"Oat cell carcinoma"
+"316591000006111"            10
+"[M]Small cell carcinoma, fusiform cell type"
+"4026111000006112"           60
+"Primary malignant neoplasm of hilus of lung"
+"403688010"               20000
+"Malignant neoplasm of upper lobe, bronchus or lung"
+"403689019"              200000
+"Malignant tumour of lung"
+"4213101000006115"           20
+"Bronchiolo-alveolar adenocarcinoma"
+"5347161000006117"           50
+"Small cell carcinoma of lung"
+"5347171000006112"            2
+"SCLC - Small cell lung cancer"
+"5347301000006115"            5
+"NSCLC - Non-small cell lung cancer"
+"6243261000006112"          100
+"CA - Lung cancer"
+"723301000006110"           400
+"Malignant neoplasm of overlapping lesion of bronchus and lung"
+"733371000006119"        300000
+"Lung cancer"
+"880031000006118"          2000
+"Ca trachea/bronchus/lung NOS"
+"880041000006111"          7000
+"Ca trachea/bronchus/lung"
+"880051000006113"          2000
+"Ca upper lobe bronchus/lung"
+"880061000006110"           300
+"Ca middle lobe bronchus/lung"
+"880071000006115"          1000
+"Ca lower lobe bronchus/lung"
+"907111000006118"          3000
+"[RFC] Lung cancer"
+"128792019"                 600
+"congenital bronchiectasis"
+"21163015"               800000
+"bronchiectasis"
+"2806691000006111"            8
+"traction bronchiectasis"
+"2867041000006113"            9
+"post-tuberculous bronchiectasis"
+"301524014"                8000
+"recurrent bronchiectasis"
+"301525010"                2000
+"post-infective bronchiectasis"
+"301526011"               30000
+"bronchiectasis nos"
+"3327421000006113"            1
+"adult bronchiectasis"
+"3858081000006116"           10
+"cylindrical bronchiectasis"
+"38677017"                 2000
+"tuberculous bronchiectasis"
+"5053671000006110"           20
+"acquired bronchiectasis"
+"5053681000006113"            2
+"idiopathic bronchiectasis"
+"5053691000006111"            2
+"obstructive bronchiectasis"
+"7307141000006111"         2000
+"acute exacerbation of bronchiectasis"
+"7715861000006113"            1
+"acute bronchitis co-occurrent with bronchiectasis"
+"101749012"                   6
+"silo-fillers' disease"
+"107470010"                5000
+"Interstitial pneumonia"
+"111723011"                   2
+"Bagassosis"
+"113506011"                   3
+"furriers' lung"
+"11878901000006118"          20
+"Eosinophilic granulomatosis with polyangiitis"
+"11878911000006115"           7
+"EGPA - eosinophilic granulomatosis with polyangiitis"
+"121482015"                  20
+"Talc pneumoconiosis"
+"121968010"                   3
+"Fish-meal workers' lung"
+"1223250017"              10000
+"Sarcoidosis of lung"
+"1224939016"                  3
+"Malt workers' lung"
+"1233152013"               2000
+"Bird-fancier's lung"
+"1235159019"                 10
+"Maple bark strippers' lung"
+"124281000006119"             1
+"Suberosis ( cork-handlers' lung )"
+"130626012"                 200
+"cannabinosis"
+"141566014"                2000
+"Pigeon-fanciers' lung"
+"141591000006118"           300
+"Silica and silicate pneumoconiosis"
+"142162019"                 800
+"byssinosis"
+"144521016"                 100
+"Pulmonary alveolar microlithiasis"
+"14610012"                  100
+"Berylliosis"
+"1495490013"                200
+"meconium ileus in cystic fibrosis"
+"150191018"                   1
+"aluminosis of lung"
+"1566351000006110"          400
+"lymphangioleiomyomatosis"
+"1591221000006115"          500
+"Birt Hogg Dube syndrome"
+"162301000006117"           900
+"Rheumatoid lung"
+"1711491000006119"           20
+"post-transplant bronchiolitis obliterans syndrome"
+"1747711000000111"          600
+"Interstitial lung disease due to connective tissue disease"
+"1772931000006114"           80
+"desquamative interstitial pneumonia"
+"1772941000006116"          100
+"lymphoid interstitial pneumonitis"
+"1773251000006116"          700
+"nonspecific interstitial pneumonia"
+"1773261000006119"          300
+"fibrotic nonspecific interstitial pneumonia"
+"1773271000006114"           40
+"cellular nonspecific interstitial pneumonia"
+"1778239014"                800
+"Rheumatoid lung disease"
+"178500017"               10000
+"Extrinsic allergic alveolitis"
+"1786131000006116"        20000
+"Idiopathic pulmonary fibrosis"
+"1786171000006118"          900
+"Respiratory bronchiolitis associated interstitial lung dis"
+"1786505011"                 20
+"Caplan's syndrome"
+"1786545019"                400
+"Rheumatoid lung"
+"1800881000000119"           20
+"post-transplant bronchiolitis obliterans syndrome"
+"18259012"                  300
+"Pulmonary alveolar proteinosis"
+"189221016"                5000
+"Hypersensitivity pneumonitis"
+"196654011"               10000
+"Cryptogenic fibrosing alveolitis"
+"207831000006116"           300
+"Prematurity with interstitial pulmonary fibrosis"
+"20833017"                  100
+"Budgerigar-fanciers' lung"
+"211391000006118"          3000
+"Postinflammatory pulmonary fibrosis"
+"2156690018"                 60
+"Cheese-washers' lung"
+"219651000006116"          1000
+"Pneumoconioses"
+"22508019"                    1
+"flax-dressers' disease"
+"2411019"                    60
+"Silicosis"
+"2475606014"               3000
+"Usual interstitial pneumonitis"
+"24973018"                  100
+"Bauxite fibrosis of lung"
+"2511231000006117"            1
+"Pneumoconiosis due to silica"
+"254002014"               10000
+"O/E - fibrosis of lung"
+"254003016"                5000
+"O/E - fibrosis of lung present"
+"2676188013"                 30
+"Interstitial lung disease due to collagen vascular disease"
+"2692491000006117"            2
+"Budgerigar-fanciers' disease"
+"269761000006112"            20
+"Obliterative bronchiolitis due to chemical fumes"
+"2732761000006118"            2
+"Bauxite fibrosis of lung"
+"28128015"                    5
+"Coffee-workers' lung"
+"2860341000006111"            1
+"Asbestos pneumoconiosis"
+"2860351000006113"            4
+"Pulmonary asbestosis"
+"287930013"                 400
+"Sarcoidosis of lung with sarcoidosis of lymph nodes"
+"293530017"                3000
+"fibrocystic disease"
+"29395011"                   10
+"Graphite fibrosis of lung"
+"2955624019"               5000
+"Granulomatosis with polyangiitis"
+"2973161000006118"            1
+"Coal worker's lung"
+"300579010"               30000
+"Wegener's granulomatosis"
+"301127010"                 900
+"Obliterating fibrous bronchiolitis"
+"301527019"                 200
+"Bird-fancier's lung NOS"
+"301528012"                 500
+"Other allergic alveolitis"
+"301529016"                   4
+"Pituitary snuff-takers' disease"
+"301530014"                  20
+"Air-conditioner and humidifier lung"
+"301531013"                 200
+"Other allergic alveolitis NOS"
+"301532018"                 100
+"Allergic alveolitis and pneumonitis NOS"
+"301533011"                 500
+"Allergic extrinsic alveolitis NOS"
+"301534017"                3000
+"Hypersensitivity pneumonitis NOS"
+"301552017"                1000
+"Asbestosis NOS"
+"301555015"                  20
+"Massive silicotic fibrosis"
+"301556019"                  60
+"Silica pneumoconiosis NOS"
+"301557011"                1000
+"Pneumoconiosis due to other inorganic dust"
+"301558018"                 200
+"Pneumoconiosis due to inorganic dust NOS"
+"301559014"                  80
+"Pneumopathy due to inhalation of other dust"
+"301561017"                  20
+"Pneumopathy due to inhalation of other dust NOS"
+"301562012"                3000
+"Pneumoconiosis NOS"
+"301565014"                  50
+"Bronchitis and pneumonitis due to chemical fumes"
+"301567018"                 300
+"Acute pneumonitis due to chemical fumes"
+"301568011"                  10
+"Bronchitis and pneumonitis due to chemical fumes NOS"
+"301575012"                 400
+"Chronic pulmonary fibrosis due to chemical fumes"
+"301606016"                   9
+"Acute pulmonary radiation disease"
+"301607013"                 800
+"Acute radiation pneumonitis"
+"301608015"                   1
+"Acute pulmonary radiation disease NOS"
+"301609011"                  20
+"Chronic pulmonary radiation disease"
+"301610018"                  10
+"Chronic pulmonary radiation disease NOS"
+"301611019"                 300
+"Drug-induced interstitial lung disorders"
+"301612014"                  70
+"Acute drug-induced interstitial lung disorders"
+"301613016"                 400
+"Chronic drug-induced interstitial lung disorders"
+"301705013"                   7
+"Alveolar capillary block"
+"301709019"                3000
+"Idiopathic fibrosing alveolitis NOS"
+"301714015"                 100
+"Lung involvement in diseases EC"
+"301716018"                 100
+"Lung disease with systemic sclerosis"
+"301718017"                 200
+"Pulmonary amyloidosis"
+"301719013"                 300
+"Lung disease with polymyositis"
+"301720019"                 500
+"Lung disease with Sjogren's disease"
+"301721015"                 200
+"Lung disease with systemic lupus erythematosus"
+"301758015"               80000
+"Interstitial lung disease NEC"
+"301838012"                  10
+"[X]Pneumoconiosis due to other dust containing silica"
+"301839016"                  10
+"[X]Pneumoconiosis due to other specified inorganic dusts"
+"301841015"                 500
+"[X]Hypersensitivity pneumonitis due to other organic dusts"
+"301845012"                  80
+"[X]Pneumonitis due to inhalation of other solids and liquids"
+"301852014"                4000
+"[X]Other interstitial pulmonary diseases with fibrosis"
+"301853016"                 200
+"[X]Other specified interstitial pulmonary diseases"
+"3103601000006113"            1
+"Allergic alveolitis"
+"311291000006119"           500
+"[M]Lymphangiomyomatosis"
+"311496011"                2000
+"Fibrosing alveolitis associated with rheumatoid arthritis"
+"3145221000006111"          400
+"Obliterative bronchiolitis"
+"31510012"                 2000
+"Farmers' lung"
+"3154151000006111"            1
+"Massive silicotic fibrosis of lung"
+"3213191000006112"            1
+"lymphoid interstitial pneumonia"
+"3213201000006110"            1
+"lymphocytic interstitial pneumonia"
+"32511014"                    1
+"grain-handlers' disease"
+"3282201000006119"           20
+"Humidifier lung"
+"3336391000006117"        10000
+"Fibrosis of lung"
+"350121013"               20000
+"pleural plaque disease due to asbestosis"
+"350255018"                 300
+"Progressive massive fibrosis"
+"3513691000006110"            9
+"Pulmonary siderosis"
+"3513801000006119"            3
+"Iron pneumoconiosis"
+"3551861000006113"            5
+"Interstitial pneumonitis"
+"3553221000006116"          100
+"Lymph node sarcoidosis"
+"3556351000006112"            1
+"Acute eosinophilic pneumonia"
+"3657901000006117"           50
+"Fibrosis of lung following radiation"
+"3687771000006118"            1
+"Lymphangioleiomyomatosis"
+"3689711000006118"            2
+"Pneumoconiosis due to talc"
+"378182015"                  10
+"Ayala's disease (This is LCH a cystic lung disease)"
+"37941013"                20000
+"Asbestosis"
+"3888281000006116"            7
+"Pigeon-fanciers' disease"
+"3888321000006110"           20
+"Pigeon breeders' lung"
+"40879015"                20000
+"Pulmonary sarcoidosis"
+"413231000006111"            20
+"[X]Other resp diseases principally affecting interstitium"
+"4189171000006111"            2
+"Birt-Hogg-Dube syndrome"
+"424981000006114"            30
+"[X]Rheumatoid arthritis+involvement/other organs or systems"
+"4309871000006113"            2
+"Acute progressive histiocytosis X"
+"4426671000006115"            1
+"Bronchiolitis with interstitial lung disease"
+"474819014"                3000
+"Cryptogenic organising pneumonia"
+"474828010"                1000
+"Bronchiolitis obliterans organising pneumonia"
+"477131000006116"           600
+"Allergic alveolitis and pneumonitis NOS"
+"4779041000006116"            1
+"Wegener granulomatosis"
+"4781831000006111"            1
+"Toxic bronchiolitis obliterans"
+"4782051000006118"           30
+"Drug-induced interstitial lung disorder"
+"4782081000006114"            6
+"Acute drug-induced interstitial lung disorder"
+"4782341000006118"            8
+"Fibrosing alveolitis"
+"4782361000006119"           50
+"UIP - Usual interstitial pneumonitis"
+"4782401000006112"            1
+"Scleroderma lung disease"
+"4782481000006115"            1
+"Lung disease with SjÃÂ¶gren disease"
+"49227017"                 2000
+"Coal workers' pneumoconiosis"
+"492443010"                2000
+"Bronchiolitis obliterans"
+"499259012"                1000
+"Siderosis"
+"499987010"                 100
+"Loeffler's syndrome"
+"502519018"                  40
+"fibrothorax"
+"5054591000006110"          200
+"ILD - Interstitial lung disease"
+"5055241000006116"           20
+"Complicated pneumoconiosis"
+"556271000006115"           700
+"Chronic pulmonary fibrosis following radiation"
+"621121000006112"         90000
+"Diffuse pulmonary fibrosis"
+"6608781000006113"            1
+"Caplan's syndrome"
+"71209014"                   30
+"Endogenous lipoid pneumonia"
+"75302014"                30000
+"Idiopathic fibrosing alveolitis"
+"7532701000006115"            5
+"Usual interstitial pneumonia"
+"7783511000006114"            1
+"COP - Cryptogenic organising pneumonitis"
+"79212010"                  400
+"Simple silicosis"
+"815341000006115"            30
+"Hamman - Rich syndrome"
+"8258171000006110"            6
+"bronchiolitis obliterans syndrome after lung transplantation"
+"83019014"                   70
+"Complicated silicosis"
+"85415012"                  500
+"stannosis"
+"85960018"                40000
+"Pulmonary fibrosis"
+"87088014"                   90
+"Mushroom workers' lung"
+"885331000006110"            80
+"Coalworker's pneumoconiosis"
+"885411000006114"            60
+"Radiation pneumonitis"
+"885431000006115"            10
+"Radiation lung fibrosis"
+"885481000006119"          1000
+"idiopath. fibrosing alveolitis"
+"885491000006116"          5000
+"Pulmonary fibrosis"
+"907501000006111"           100
+"[rfc] pneumoconiosis"
+"909731000006117"         10000
+"[rfc] pulmonary fibrosis"
+"99508014"                  900
+"acute obliterating bronchiolitis"
