@@ -1,552 +1,184 @@
-"301485011"             20000000  "195967001"           "301485011"
-"asthma"
-"Matched (3)"                    1          9
-"1488421017"            10000000  "394700004"           "1488421017"
-"asthma annual review"
-"Matched (3)"                    1          9
-"1488436019"             5000000  "394720003"           "1488436019"
-"asthma medication review"
-"Matched (3)"                    1          9
-"264550017"              5000000  "406162001"           "2157868010"
-"asthma management"
-"Matched (3)"                    1          9
-"405055018"              4000000  "270442000"           "405055018"
-"asthma monitoring check done"
-"Matched (3)"                    1          9
-"1208960011"             4000000  "370208006"           "1208960011"
-"asthma never causes daytime symptoms"
-"Matched (3)"                    1          9
-"1208954011"             2000000  "370202007"           "1208954011"
-"asthma causes daytime symptoms 1 to 2 times per month"
-"Matched (3)"                    1          9
-"1208955012"             2000000  "370203002"           "1208955012"
-"asthma causes daytime symptoms 1 to 2 times per week"
-"Matched (3)"                    1          9
-"264545011"              2000000  "170636007"           "264545011"
-"asthma never disturbs sleep"
-"Matched (3)"                    1          9
-"419211018"              2000000  "708038006"           "3032747019"
-"acute exacerbation of asthma"
-"Matched (3)"                    1          9
-"411877015"              2000000  "275908000"           "411877015"
-"asthma monitoring"
-"Matched (3)"                    1          9
-"1780378019"             2000000  "401182001"           "1780378019"
-"asthma monitoring by nurse"
-"Matched (3)"                    1          9
-"1208956013"             2000000  "370204008"           "1208956013"
-"asthma causes daytime symptoms most days"
-"Matched (3)"                    1          9
-"2117771000000117"       2000000  "811921000000103"     "2117771000000117"
-"asthma self-management plan agreed"
-"Matched (3)"                    1          9
-"1212342016"             1000000  "373899003"           "1212342016"
-"asthma daytime symptoms"
-"Matched (3)"                    1          9
-"1488422012"             1000000  "394701000"           "1488422012"
-"asthma follow-up"
-"Matched (3)"                    1          9
-"216186011"              1000000  "708373002"           "3034176014"
-"emergency asthma patient visit since last encounter"
-"Matched (3)"                    1          9
-"264569010"              1000000  "170658009"           "264569010"
-"asthma never restricts exercise"
-"Matched (3)"                    1          9
-"264567012"              1000000  "170656008"           "264567012"
-"asthma sometimes restricts exercise"
-"Matched (3)"                    1          9
-"264546012"              1000000  "170637003"           "264546012"
-"asthma limiting activities"
-"Matched (3)"                    1          9
-"1208962015"             1000000  "366874008"           "490425015"
-"number of asthma exacerbations in past year"
-"Matched (3)"                    1          9
-"264540018"              1000000  "170631002"           "264540018"
-"asthma disturbing sleep"
-"Matched (3)"                    1          9
-"282490011"               900000  "182728008"           "282490011"
-"asthma control step 2"
-"Matched (3)"                    1          9
-"1780379010"              800000  "401183006"           "1780379010"
-"asthma monitoring by doctor"
-"Matched (3)"                    1          9
-"1208977011"              700000  "370226009"           "1208977011"
-"asthma treatment compliance satisfactory"
-"Matched (3)"                    1          9
-"396120014"               700000  "195967001"           "301485011"
-"asthma nos"
-"Matched (3)"                    1          9
-"282491010"               600000  "182729000"           "282491010"
-"asthma control step 3"
-"Matched (3)"                    1          9
-"2115631000000117"        500000  "810901000000102"     "2115631000000117"
-"asthma self-management plan review"
-"Matched (3)"                    1          9
-"655601000006113"         400000  "31387002"            "52467014"
-"exercise-induced asthma"
-"Matched (3)"                    1          9
-"282489019"               400000  "182727003"           "282489019"
-"asthma control step 1"
-"Matched (3)"                    1          9
-"1176461000000114"        400000  "527171000000103"     "1176461000000114"
-"patient has a written asthma personal action plan"
-"Matched (3)"                    1          9
-"1753401000006117"        400000  "754061000000100"     "1658781000000113"
-"asthma review using royal college of physicians three questions"
-"Matched (3)"                    1          9
-"264541019"               300000  "170632009"           "264541019"
-"asthma causing night waking"
-"Matched (3)"                    1          9
-"636291000000118"         300000  "201031000000108"     "305571000000112"
-"asthma trigger - respiratory infection"
-"Matched (3)"                    1          9
-"396114013"               300000  "266361008"           "396114013"
-"intrinsic asthma"
-"Matched (3)"                    1          9
-"660351000006118"         300000  "389145006"           "1493645010"
-"allergic atopic asthma"
-"Matched (3)"                    1          9
-"1739141000000119"        200000  "340901000000107"     "1739141000000119"
-"asthma trigger - exercise"
-"Matched (3)"                    1          9
-"1768981000000110"        200000  "473391009"           "2956621015"
-"asthma never causes night symptoms"
-"Matched (3)"                    1          9
-"396119015"               200000  "708038006"           "3032734012"
-"asthma attack"
-"Matched (3)"                    1          9
-"1208957016"              200000  "370205009"           "1208957016"
-"asthma causes night symptoms 1 to 2 times per month"
-"Matched (3)"                    1          9
-"1484910014"              200000  "390877003"           "1484910014"
-"step up change in asthma management plan"
-"Matched (3)"                    1          9
-"264543016"               200000  "170634005"           "264543016"
-"asthma disturbs sleep frequently"
-"Matched (3)"                    1          9
-"636231000000119"         200000  "201191000000108"     "305961000000113"
-"asthma trigger - cold air"
-"Matched (3)"                    1          9
-"1484953014"              200000  "390921001"           "1484953014"
-"absent from work or school due to asthma"
-"Matched (3)"                    1          9
-"1722421000000110"        200000  "771901000000100"     "1722421000000110"
-"asthma causes night time symptoms 1 to 2 times per week"
-"Matched (3)"                    1          9
-"264566015"               200000  "170655007"           "264566015"
-"asthma restricts exercise"
-"Matched (3)"                    1          9
-"264542014"               200000  "170633004"           "264542014"
-"asthma disturbs sleep weekly"
-"Matched (3)"                    1          9
-"1739151000000116"        200000  "340911000000109"     "1739151000000116"
-"asthma trigger - pollen"
-"Matched (3)"                    1          9
-"1739131000000111"        100000  "340891000000106"     "1739131000000111"
-"asthma trigger - airborne dust"
-"Matched (3)"                    1          9
-"1488722011"              100000  "395022009"           "1488722011"
-"asthma night-time symptoms"
-"Matched (3)"                    1          9
-"1208976019"              100000  "370225008"           "1208976019"
-"asthma treatment compliance unsatisfactory"
-"Matched (3)"                    1          9
-"283550015"               100000  "183478001"           "3082895019"
-"emergency hospital admission for asthma"
-"Matched (3)"                    1          9
-"1722651000000119"        100000  "772011000000107"     "1722651000000119"
-"asthma limits activities 1 to 2 times per week"
-"Matched (3)"                    1          9
-"305611000000115"         100000  "201051000000101"     "636211000000110"
-"asthma trigger: animals"
-"Matched (3)"                    1          9
-"1722501000000119"        100000  "771941000000102"     "1722501000000119"
-"asthma causes symptoms most nights"
-"Matched (3)"                    1          9
-"1208959018"              100000  "370207001"           "1208959018"
-"asthma limits walking up hills or stairs"
-"Matched (3)"                    1          9
-"1722581000000112"        100000  "771981000000105"     "1722581000000112"
-"asthma limits activities 1 to 2 times per month"
-"Matched (3)"                    1          9
-"636311000000117"         100000  "201041000000104"     "305591000000111"
-"asthma trigger - seasonal"
-"Matched (3)"                    1          9
-"1722731000000116"        100000  "772051000000106"     "1722731000000116"
-"asthma limits activities most days"
-"Matched (3)"                    1          9
-"264551018"               100000  "170642006"           "264551018"
-"asthma severity"
-"Matched (3)"                    1          9
-"285727014"               100000  "185728001"           "285727014"
-"attends asthma monitoring"
-"Matched (3)"                    1          9
-"1208969012"              100000  "370218001"           "1208969012"
-"mild asthma"
-"Matched (3)"                    1          9
-"2474332015"              100000  "736056000"           "3516216012"
-"asthma clinical management plan"
-"Matched (3)"                    1          9
-"264565016"               100000  "708358003"           "3033971010"
-"emergency asthma admission since last encounter"
-"Matched (3)"                    1          9
-"1484911013"               90000  "390878008"           "1484911013"
-"step down change in asthma management plan"
-"Matched (3)"                    1          9
-"301511014"                90000  "195967001"           "301485011"
-"asthma unspecified"
-"Matched (3)"                    1          9
-"301480018"                90000  "195967001"           "301480018"
-"bronchial asthma"
-"Matched (3)"                    1          9
-"1780388018"               70000  "401193004"           "1780388018"
-"asthma confirmed"
-"Matched (3)"                    1          9
-"264568019"                70000  "170657004"           "264568019"
-"asthma severely restricts exercise"
-"Matched (3)"                    1          9
-"636251000000114"          70000  "201201000000105"     "305981000000116"
-"asthma trigger - damp"
-"Matched (3)"                    1          9
-"282492015"                60000  "182730005"           "282492015"
-"asthma control step 4"
-"Matched (3)"                    1          9
-"1208971012"               60000  "370220003"           "1208971012"
-"occasional asthma"
-"Matched (3)"                    1          9
-"456163018"                60000  "312453004"           "456163018"
-"asthma - currently active"
-"Matched (3)"                    1          9
-"1208970013"               60000  "370219009"           "1208970013"
-"moderate asthma"
-"Matched (3)"                    1          9
-"817361000006114"          50000  "233683003"           "350153016"
-"hay fever with asthma"
-"Matched (3)"                    1          9
-"636271000000117"          50000  "201211000000107"     "306001000000115"
-"asthma trigger - emotion"
-"Matched (3)"                    1          9
-"1739171000000113"         50000  "340931000000101"     "1739171000000113"
-"asthma trigger - warm air"
-"Matched (3)"                    1          9
-"1739161000000118"         40000  "340921000000103"     "1739161000000118"
-"asthma trigger - tobacco smoke"
-"Matched (3)"                    1          9
-"1483199016"               40000  "389145006"           "1483199016"
-"allergic asthma"
-"Matched (3)"                    1          9
-"1208958014"               30000  "370206005"           "1208958014"
-"asthma limits walking on the flat"
-"Matched (3)"                    1          9
-"145961000006117"          30000  "708090002"           "3033029011"
-"acute severe exacerbation of asthma"
-"Matched (3)"                    1          9
-"405054019"                30000  "270442000"           "405054019"
-"asthma monitored"
-"Matched (3)"                    1          9
-"797211000006117"          30000  "182724005"           "282486014"
-"further asthma - drug prevention"
-"Matched (3)"                    1          9
-"1484905010"               30000  "390872009"           "1484905010"
-"change in asthma management plan"
-"Matched (3)"                    1          9
-"1811901000006116"         20000  "811151000000105"     "2116171000000118"
-"number of days absent from school due to asthma in past 6 months"
-"Matched (3)"                    1          9
-"350148014"                20000  "233679003"           "350148014"
-"late onset asthma"
-"Matched (3)"                    1          9
-"350154010"                20000  "233683003"           "350154010"
-"pollen asthma"
-"Matched (3)"                    1          9
-"655611000006111"          20000  "31387002"            "52467014"
-"exercise induced asthma"
-"Matched (3)"                    1          9
-"396118011"                10000  "734904007"           "3511368015"
-"life threatening acute exacerbation of asthma"
-"Matched (3)"                    1          9
-"1208972017"               10000  "370221004"           "1208972017"
-"severe asthma"
-"Matched (3)"                    1          9
-"338238011"                10000  "225057002"           "338238011"
-"brittle asthma"
-"Matched (3)"                    1          9
-"282493013"                10000  "182731009"           "282493013"
-"asthma control step 5"
-"Matched (3)"                    1          9
-"409865018"                10000  "708038006"           "3032734012"
-"asthma attack nos"
-"Matched (3)"                    1          9
-"350149018"                10000  "233679003"           "350148014"
-"late-onset asthma"
-"Matched (3)"                    1          9
-"350153016"                10000  "233683003"           "350153016"
-"hay fever with asthma"
-"Matched (3)"                    1          9
-"301499010"                10000  "424643009"           "2648327010"
-"extrinsic asthma"
-"Matched (3)"                    1          9
-"104872017"                 9000  "63088003"            "104872017"
-"extrinsic asthma without status asthmaticus"
-"Matched (3)"                    1          9
-"301450011"                 9000  "195949008"           "301450011"
-"chronic asthmatic bronchitis"
-"Matched (3)"                    1          9
-"2240591000000119"          7000  "866881000000101"     "2240591000000119"
-"chronic asthma with fixed airflow obstruction"
-"Matched (3)"                    1          9
-"350152014"                 6000  "389145006"           "1483199016"
-"allergic asthma nec"
-"Matched (3)"                    1          9
-"95786019"                  5000  "57607007"            "95786019"
-"occupational asthma"
-"Matched (3)"                    1          9
-"21390015"                  5000  "12428000"            "21390015"
-"intrinsic asthma without status asthmaticus"
-"Matched (3)"                    1          9
-"301508013"                 4000  "266361008"           "396114013"
-"intrinsic asthma nos"
-"Matched (3)"                    1          9
-"151338014"                 2000  "1086701000000102"    "2722231000000112"
-"life threatening acute exacerbation of allergic asthma"
-"Matched (3)"                    1          9
-"350151019"                 2000  "708093000"           "3083642013"
-"acute exacerbation of allergic asthma"
-"Matched (3)"                    1          9
-"1139131000000117"           900  "698509001"           "2974554010"
-"under care of asthma specialist nurse"
-"Matched (3)"                    1          9
-"98546013"                   900  "1086711000000100"    "2722261000000119"
-"life threatening acute exacerbation of intrinsic asthma"
-"Matched (3)"                    1          9
-"929091000006111"            800  "407674008"           "2159273015"
-"aspirin-induced asthma"
-"Matched (3)"                    1          9
-"350156012"                  200  "708094006"           "3032866010"
-"acute exacerbation of intrinsic asthma"
-"Matched (3)"                    1          9
-"983771000006118"            100  "57607007"            "95786019"
-"work aggravated asthma"
-"Matched (3)"                    1          9
-"69311016"                    70  "41553006"            "69311016"
-"detergent asthma"
-"Matched (3)"                    1          9
-"94731013"                    10  "56968009"            "497732010"
-"wood asthma"
-"Matched (3)"                    1          9
-"149741000006116"              2  "23315001"            "39131015"
-"sequoiosis (red-cedar asthma)"
-"Matched (3)"                    1          9
-"1118291000000110"       2000000  "443117005"           "2839948011"
-"asthma control test score"
-"Matched (3)"                    1          .
-"1766051000006114"        100000  "448003001"           "2900370011"
-"royal college of physicians asthma assessment three questions score"
-"Matched (3)"                    1          .
-"536221000000110"          70000  "302331000000106"     "536221000000110"
-"royal college of physicians asthma assessment"
-"Matched (3)"                    1          .
-"1176501000000114"         60000  "527191000000104"     "1176501000000114"
-"health education - asthma self management"
-"Matched (3)"                    1          .
-"1139011000000112"         60000  "763077003"           "3637798014"
-"asthma control questionnaire score"
-"Matched (3)"                    1          .
-"1176541000000112"         30000  "527211000000100"     "1176541000000112"
-"health education - structured asthma discussion"
-"Matched (3)"                    1          .
-"1739871000006114"         20000  "527231000000108"     "1176581000000116"
-"health education - structured patient focused asthma discussion"
-"Matched (3)"                    1          .
-"1139051000000111"           300  "763695004"           "3643315013"
-"mini aqlq (asthma quality of life questionnaire) score"
-"Matched (3)"                    1          .
-"264544010"              7000000  "170635006"           "264544010"
-"asthma not disturbing sleep"
-"Master only (1)"                .          9
-"264547015"              7000000  "170638008"           "264547015"
-"asthma not limiting activities"
-"Master only (1)"                .          9
-"285239019"               400000  "185242005"           "285239019"
-"seen in asthma clinic"
-"Master only (1)"                .          9
-"1780194017"              400000  "400987003"           "1780194017"
-"asthma trigger"
-"Master only (1)"                .          9
-"21611000000113"          300000  "713701000000108"     "1564941000000112"
-"asthma monitoring administration"
-"Master only (1)"                .          9
-"264556011"               200000  "170647000"           "264556011"
-"asthma prophylactic medication used"
-"Master only (1)"                .          9
-"2297651000000118"        100000  "892301000000100"     "2297651000000118"
-"asthma management plan declined"
-"Master only (1)"                .          9
-"282488010"               100000  "182726007"           "282488010"
-"asthma control step 0"
-"Master only (1)"                .          9
-"285729012"                90000  "185730004"           "285729012"
-"asthma monitor offer default"
-"Master only (1)"                .          9
-"1484970018"               50000  "390940007"           "1484970018"
-"asthma monitoring due"
-"Master only (1)"                .          9
-"16091000000110"           50000  "713701000000108"     "1564941000000112"
-"asthma monitoring admin.nos"
-"Master only (1)"                .          9
-"8109041000006116"         40000  "340911000000109"     "635021000000115"
-"asthma trigger - pollen"
-"Master only (1)"                .          9
-"8061011000006113"         40000  "201191000000108"     "636231000000119"
-"asthma trigger - cold air"
-"Master only (1)"                .          9
-"8109021000006111"         40000  "340901000000107"     "635001000000112"
-"asthma trigger - exercise"
-"Master only (1)"                .          9
-"1880001000006114"         40000  "1880001000006105"    "1880001000006114"
-"no change in asthma management plan"
-"Master only (1)"                .          9
-"8060791000006112"         30000  "201031000000108"     "636291000000118"
-"asthma trigger - respiratory infection"
-"Master only (1)"                .          9
-"285891014"                30000  "185940009"           "285891014"
-"patient in asthma study"
-"Master only (1)"                .          9
-"26101000000112"           20000  "713711000000105"     "1564951000000110"
-"asthma clinic administration"
-"Master only (1)"                .          9
-"8109001000006118"         20000  "340891000000106"     "634981000000119"
-"asthma trigger - airborne dust"
-"Master only (1)"                .          9
-"885291000006115"          20000  "389145006"           "885291000006115"
-"extrinsic asthma - atopy"
-"Master only (1)"                .          9
-"5649191000006110"         20000  "281239006"           "419210017"
-"exacerbation of asthma"
-"Master only (1)"                .          9
-"8060811000006111"         20000  "201041000000104"     "636311000000117"
-"asthma trigger - seasonal"
-"Master only (1)"                .          9
-"2131281000000114"         10000  "818161000000104"     "2131281000000114"
-"asthma trigger - perfume"
-"Master only (1)"                .          9
-"8061031000006119"         10000  "201201000000105"     "636251000000114"
-"asthma trigger - damp"
-"Master only (1)"                .          9
-"301509017"                10000  "195977004"           "301509017"
-"mixed asthma"
-"Master only (1)"                .          9
-"8109091000006113"         10000  "340931000000101"     "635061000000111"
-"asthma trigger - warm air"
-"Master only (1)"                .          9
-"2010031000006116"          9000  "2010031000006100"    "2010031000006116"
-"acute infective exacerbation of asthma"
-"Master only (1)"                .          9
-"8061051000006114"          8000  "201211000000107"     "636271000000117"
-"asthma trigger - emotion"
-"Master only (1)"                .          9
-"235661000000118"           7000  "176711000000100"     "235661000000118"
-"does not have asthma management plan"
-"Master only (1)"                .          9
-"7309651000006111"          6000  "445531003"           "1641601000000118"
-"acq - asthma control questionnaire"
-"Master only (1)"                .          9
-"8109071000006112"          6000  "340921000000103"     "635041000000110"
-"asthma trigger - tobacco smoke"
-"Master only (1)"                .          9
-"2423691000000114"          3000  "715191006"           "3301824014"
-"telehealth asthma monitoring"
-"Master only (1)"                .          9
-"6720721000006111"          3000  "405944004"           "2157699014"
-"asthmatic bronchitis"
-"Master only (1)"                .          9
-"856051000006115"           3000  "856051000006104"     "856051000006115"
-"asthma control unsatisfactory"
-"Master only (1)"                .          9
-"856041000006117"           3000  "856041000006101"     "856041000006117"
-"asthma stable > 3 months"
-"Master only (1)"                .          9
-"856031000006110"           2000  "856031000006106"     "856031000006110"
-"asthma stable < 3 months"
-"Master only (1)"                .          9
-"1855521000006111"          2000  "1855521000006107"    "1855521000006111"
-"asthma monitoring in primary care"
-"Master only (1)"                .          9
-"1859261000006117"          2000  "1859261000006101"    "1859261000006117"
-"date of asthma diagnosis"
-"Master only (1)"                .          9
-"11922851000006115"         2000  "304527002"           "446841017"
-"acute asthma"
-"Master only (1)"                .          9
-"13620311000006117"         1000  "782559003"           "3754550015"
-"asthma never causes night symptoms"
-"Master only (1)"                .          9
-"908841000006111"           1000  "908841000006107"     "908841000006111"
-"[rfc] asthma"
-"Master only (1)"                .          9
-"5979441000006111"          1000  "308500005"           "451860019"
-"asthma monitoring call"
-"Master only (1)"                .          9
-"2010041000006114"           900  "2010041000006105"    "2010041000006114"
-"acute non-infective exacerbation of asthma"
-"Master only (1)"                .          9
-"11929171000006110"          800  "445531003"           "2872440018"
-"asthma control questionnaire"
-"Master only (1)"                .          9
-"6514741000006118"           700  "390798007"           "1484832016"
-"asthma finding"
-"Master only (1)"                .          9
-"1495417010"                 600  "71892000"            "119456014"
-"cardiac asthma"
-"Master only (1)"                .          9
-"11639701000006115"          500  "11639701000006104"   "11639701000006115"
-"asthma nurse specialist telephone encounter"
-"Master only (1)"                .          9
-"12734761000006113"          400  "143931000000102"     "1629441000000119"
-"declined to register for access to online asthma self-management application"
-"Master only (1)"                .          9
-"5979451000006113"           400  "308501009"           "451861015"
-"asthma monitoring status"
-"Master only (1)"                .          9
-"7307941000006113"           400  "445427006"           "2872543019"
-"seasonal asthma"
-"Master only (1)"                .          9
-"8263631000006115"           300  "815631000000106"     "2125531000000112"
-"asthma trigger - wind"
-"Master only (1)"                .          9
-"8301271000006112"           300  "867171000000106"     "2241191000000116"
-"no asthma trigger identified by subject"
-"Master only (1)"                .          9
-"5054431000006112"           300  "233691007"           "350166016"
-"asthmatic pulmonary eosinophilia"
-"Master only (1)"                .          9
-"7688501000006112"           200  "711442001"           "3078609015"
-"recent asthma management"
-"Master only (1)"                .          9
-"3511374015"                 200  "734905008"           "3511374015"
-"moderate acute exacerbation of asthma"
-"Master only (1)"                .          9
-"7030311000006117"           200  "424643009"           "2644386013"
-"ige-mediated allergic asthma"
-"Master only (1)"                .          9
-"1855531000006114"           200  "1855531000006105"    "1855531000006114"
-"asthma monitoring in secondary care"
-"Master only (1)"                .          9
-"7966291000006118"           200  "641000119106"        "3041227011"
-"intermittent asthma well controlled"
-"Master only (1)"                .          9
-"13619961000006119"          100  "782520007"           "3754350016"
-"exacerbation of allergic asthma due to infection"
-"Master only (1)"                .          9
-"6298421000006116"           100  "367542003"           "492714018"
-"eosinophilic asthma"
-"Master only (1)"                .          9
-"5904331000006116"           100  "302220000"           "443801018"
-"asthma control steps"
-"Master only (1)"                .          9
-"2446671000000118"           100  "959901000000107"     "2446671000000118"
-"asthma action plan"
-"Master only (1)"                .          9
-"905331000006118"            100  "905331000006102"     "905331000006118"
-"[rfc] asthma"
-"Master only (1)"                .          9
+"301485011"             20000000  "195967001"           "301485011"           "asthma"                                                                                                                                                                                                                                     "Matched (3)"                    1          9  
+"1488421017"            10000000  "394700004"           "1488421017"          "asthma annual review"                                                                                                                                                                                                                       "Matched (3)"                    1          9  
+"1488436019"             5000000  "394720003"           "1488436019"          "asthma medication review"                                                                                                                                                                                                                   "Matched (3)"                    1          9  
+"264550017"              5000000  "406162001"           "2157868010"          "asthma management"                                                                                                                                                                                                                          "Matched (3)"                    1          9  
+"405055018"              4000000  "270442000"           "405055018"           "asthma monitoring check done"                                                                                                                                                                                                               "Matched (3)"                    1          9  
+"1208960011"             4000000  "370208006"           "1208960011"          "asthma never causes daytime symptoms"                                                                                                                                                                                                       "Matched (3)"                    1          9  
+"1208954011"             2000000  "370202007"           "1208954011"          "asthma causes daytime symptoms 1 to 2 times per month"                                                                                                                                                                                      "Matched (3)"                    1          9  
+"1208955012"             2000000  "370203002"           "1208955012"          "asthma causes daytime symptoms 1 to 2 times per week"                                                                                                                                                                                       "Matched (3)"                    1          9  
+"264545011"              2000000  "170636007"           "264545011"           "asthma never disturbs sleep"                                                                                                                                                                                                                "Matched (3)"                    1          9  
+"419211018"              2000000  "708038006"           "3032747019"          "acute exacerbation of asthma"                                                                                                                                                                                                               "Matched (3)"                    1          9  
+"411877015"              2000000  "275908000"           "411877015"           "asthma monitoring"                                                                                                                                                                                                                          "Matched (3)"                    1          9  
+"1780378019"             2000000  "401182001"           "1780378019"          "asthma monitoring by nurse"                                                                                                                                                                                                                 "Matched (3)"                    1          9  
+"1208956013"             2000000  "370204008"           "1208956013"          "asthma causes daytime symptoms most days"                                                                                                                                                                                                   "Matched (3)"                    1          9  
+"2117771000000117"       2000000  "811921000000103"     "2117771000000117"    "asthma self-management plan agreed"                                                                                                                                                                                                         "Matched (3)"                    1          9  
+"1212342016"             1000000  "373899003"           "1212342016"          "asthma daytime symptoms"                                                                                                                                                                                                                    "Matched (3)"                    1          9  
+"1488422012"             1000000  "394701000"           "1488422012"          "asthma follow-up"                                                                                                                                                                                                                           "Matched (3)"                    1          9  
+"216186011"              1000000  "708373002"           "3034176014"          "emergency asthma patient visit since last encounter"                                                                                                                                                                                        "Matched (3)"                    1          9  
+"264569010"              1000000  "170658009"           "264569010"           "asthma never restricts exercise"                                                                                                                                                                                                            "Matched (3)"                    1          9  
+"264567012"              1000000  "170656008"           "264567012"           "asthma sometimes restricts exercise"                                                                                                                                                                                                        "Matched (3)"                    1          9  
+"264546012"              1000000  "170637003"           "264546012"           "asthma limiting activities"                                                                                                                                                                                                                 "Matched (3)"                    1          9  
+"1208962015"             1000000  "366874008"           "490425015"           "number of asthma exacerbations in past year"                                                                                                                                                                                                "Matched (3)"                    1          9  
+"264540018"              1000000  "170631002"           "264540018"           "asthma disturbing sleep"                                                                                                                                                                                                                    "Matched (3)"                    1          9  
+"282490011"               900000  "182728008"           "282490011"           "asthma control step 2"                                                                                                                                                                                                                      "Matched (3)"                    1          9  
+"1780379010"              800000  "401183006"           "1780379010"          "asthma monitoring by doctor"                                                                                                                                                                                                                "Matched (3)"                    1          9  
+"1208977011"              700000  "370226009"           "1208977011"          "asthma treatment compliance satisfactory"                                                                                                                                                                                                   "Matched (3)"                    1          9  
+"396120014"               700000  "195967001"           "301485011"           "asthma nos"                                                                                                                                                                                                                                 "Matched (3)"                    1          9  
+"282491010"               600000  "182729000"           "282491010"           "asthma control step 3"                                                                                                                                                                                                                      "Matched (3)"                    1          9  
+"2115631000000117"        500000  "810901000000102"     "2115631000000117"    "asthma self-management plan review"                                                                                                                                                                                                         "Matched (3)"                    1          9  
+"655601000006113"         400000  "31387002"            "52467014"            "exercise-induced asthma"                                                                                                                                                                                                                    "Matched (3)"                    1          9  
+"282489019"               400000  "182727003"           "282489019"           "asthma control step 1"                                                                                                                                                                                                                      "Matched (3)"                    1          9  
+"1176461000000114"        400000  "527171000000103"     "1176461000000114"    "patient has a written asthma personal action plan"                                                                                                                                                                                          "Matched (3)"                    1          9  
+"1753401000006117"        400000  "754061000000100"     "1658781000000113"    "asthma review using royal college of physicians three questions"                                                                                                                                                                            "Matched (3)"                    1          9  
+"264541019"               300000  "170632009"           "264541019"           "asthma causing night waking"                                                                                                                                                                                                                "Matched (3)"                    1          9  
+"636291000000118"         300000  "201031000000108"     "305571000000112"     "asthma trigger - respiratory infection"                                                                                                                                                                                                     "Matched (3)"                    1          9  
+"396114013"               300000  "266361008"           "396114013"           "intrinsic asthma"                                                                                                                                                                                                                           "Matched (3)"                    1          9  
+"660351000006118"         300000  "389145006"           "1493645010"          "allergic atopic asthma"                                                                                                                                                                                                                     "Matched (3)"                    1          9  
+"1739141000000119"        200000  "340901000000107"     "1739141000000119"    "asthma trigger - exercise"                                                                                                                                                                                                                  "Matched (3)"                    1          9  
+"1768981000000110"        200000  "473391009"           "2956621015"          "asthma never causes night symptoms"                                                                                                                                                                                                         "Matched (3)"                    1          9  
+"396119015"               200000  "708038006"           "3032734012"          "asthma attack"                                                                                                                                                                                                                              "Matched (3)"                    1          9  
+"1208957016"              200000  "370205009"           "1208957016"          "asthma causes night symptoms 1 to 2 times per month"                                                                                                                                                                                        "Matched (3)"                    1          9  
+"1484910014"              200000  "390877003"           "1484910014"          "step up change in asthma management plan"                                                                                                                                                                                                   "Matched (3)"                    1          9  
+"264543016"               200000  "170634005"           "264543016"           "asthma disturbs sleep frequently"                                                                                                                                                                                                           "Matched (3)"                    1          9  
+"636231000000119"         200000  "201191000000108"     "305961000000113"     "asthma trigger - cold air"                                                                                                                                                                                                                  "Matched (3)"                    1          9  
+"1484953014"              200000  "390921001"           "1484953014"          "absent from work or school due to asthma"                                                                                                                                                                                                   "Matched (3)"                    1          9  
+"1722421000000110"        200000  "771901000000100"     "1722421000000110"    "asthma causes night time symptoms 1 to 2 times per week"                                                                                                                                                                                    "Matched (3)"                    1          9  
+"264566015"               200000  "170655007"           "264566015"           "asthma restricts exercise"                                                                                                                                                                                                                  "Matched (3)"                    1          9  
+"264542014"               200000  "170633004"           "264542014"           "asthma disturbs sleep weekly"                                                                                                                                                                                                               "Matched (3)"                    1          9  
+"1739151000000116"        200000  "340911000000109"     "1739151000000116"    "asthma trigger - pollen"                                                                                                                                                                                                                    "Matched (3)"                    1          9  
+"1739131000000111"        100000  "340891000000106"     "1739131000000111"    "asthma trigger - airborne dust"                                                                                                                                                                                                             "Matched (3)"                    1          9  
+"1488722011"              100000  "395022009"           "1488722011"          "asthma night-time symptoms"                                                                                                                                                                                                                 "Matched (3)"                    1          9  
+"1208976019"              100000  "370225008"           "1208976019"          "asthma treatment compliance unsatisfactory"                                                                                                                                                                                                 "Matched (3)"                    1          9  
+"283550015"               100000  "183478001"           "3082895019"          "emergency hospital admission for asthma"                                                                                                                                                                                                    "Matched (3)"                    1          9  
+"1722651000000119"        100000  "772011000000107"     "1722651000000119"    "asthma limits activities 1 to 2 times per week"                                                                                                                                                                                             "Matched (3)"                    1          9  
+"305611000000115"         100000  "201051000000101"     "636211000000110"     "asthma trigger: animals"                                                                                                                                                                                                                    "Matched (3)"                    1          9  
+"1722501000000119"        100000  "771941000000102"     "1722501000000119"    "asthma causes symptoms most nights"                                                                                                                                                                                                         "Matched (3)"                    1          9  
+"1208959018"              100000  "370207001"           "1208959018"          "asthma limits walking up hills or stairs"                                                                                                                                                                                                   "Matched (3)"                    1          9  
+"1722581000000112"        100000  "771981000000105"     "1722581000000112"    "asthma limits activities 1 to 2 times per month"                                                                                                                                                                                            "Matched (3)"                    1          9  
+"636311000000117"         100000  "201041000000104"     "305591000000111"     "asthma trigger - seasonal"                                                                                                                                                                                                                  "Matched (3)"                    1          9  
+"1722731000000116"        100000  "772051000000106"     "1722731000000116"    "asthma limits activities most days"                                                                                                                                                                                                         "Matched (3)"                    1          9  
+"264551018"               100000  "170642006"           "264551018"           "asthma severity"                                                                                                                                                                                                                            "Matched (3)"                    1          9  
+"285727014"               100000  "185728001"           "285727014"           "attends asthma monitoring"                                                                                                                                                                                                                  "Matched (3)"                    1          9  
+"1208969012"              100000  "370218001"           "1208969012"          "mild asthma"                                                                                                                                                                                                                                "Matched (3)"                    1          9  
+"2474332015"              100000  "736056000"           "3516216012"          "asthma clinical management plan"                                                                                                                                                                                                            "Matched (3)"                    1          9  
+"264565016"               100000  "708358003"           "3033971010"          "emergency asthma admission since last encounter"                                                                                                                                                                                            "Matched (3)"                    1          9  
+"1484911013"               90000  "390878008"           "1484911013"          "step down change in asthma management plan"                                                                                                                                                                                                 "Matched (3)"                    1          9  
+"301511014"                90000  "195967001"           "301485011"           "asthma unspecified"                                                                                                                                                                                                                         "Matched (3)"                    1          9  
+"301480018"                90000  "195967001"           "301480018"           "bronchial asthma"                                                                                                                                                                                                                           "Matched (3)"                    1          9  
+"1780388018"               70000  "401193004"           "1780388018"          "asthma confirmed"                                                                                                                                                                                                                           "Matched (3)"                    1          9  
+"264568019"                70000  "170657004"           "264568019"           "asthma severely restricts exercise"                                                                                                                                                                                                         "Matched (3)"                    1          9  
+"636251000000114"          70000  "201201000000105"     "305981000000116"     "asthma trigger - damp"                                                                                                                                                                                                                      "Matched (3)"                    1          9  
+"282492015"                60000  "182730005"           "282492015"           "asthma control step 4"                                                                                                                                                                                                                      "Matched (3)"                    1          9  
+"1208971012"               60000  "370220003"           "1208971012"          "occasional asthma"                                                                                                                                                                                                                          "Matched (3)"                    1          9  
+"456163018"                60000  "312453004"           "456163018"           "asthma - currently active"                                                                                                                                                                                                                  "Matched (3)"                    1          9  
+"1208970013"               60000  "370219009"           "1208970013"          "moderate asthma"                                                                                                                                                                                                                            "Matched (3)"                    1          9  
+"817361000006114"          50000  "233683003"           "350153016"           "hay fever with asthma"                                                                                                                                                                                                                      "Matched (3)"                    1          9  
+"636271000000117"          50000  "201211000000107"     "306001000000115"     "asthma trigger - emotion"                                                                                                                                                                                                                   "Matched (3)"                    1          9  
+"1739171000000113"         50000  "340931000000101"     "1739171000000113"    "asthma trigger - warm air"                                                                                                                                                                                                                  "Matched (3)"                    1          9  
+"1739161000000118"         40000  "340921000000103"     "1739161000000118"    "asthma trigger - tobacco smoke"                                                                                                                                                                                                             "Matched (3)"                    1          9  
+"1483199016"               40000  "389145006"           "1483199016"          "allergic asthma"                                                                                                                                                                                                                            "Matched (3)"                    1          9  
+"1208958014"               30000  "370206005"           "1208958014"          "asthma limits walking on the flat"                                                                                                                                                                                                          "Matched (3)"                    1          9  
+"145961000006117"          30000  "708090002"           "3033029011"          "acute severe exacerbation of asthma"                                                                                                                                                                                                        "Matched (3)"                    1          9  
+"405054019"                30000  "270442000"           "405054019"           "asthma monitored"                                                                                                                                                                                                                           "Matched (3)"                    1          9  
+"797211000006117"          30000  "182724005"           "282486014"           "further asthma - drug prevention"                                                                                                                                                                                                           "Matched (3)"                    1          9  
+"1484905010"               30000  "390872009"           "1484905010"          "change in asthma management plan"                                                                                                                                                                                                           "Matched (3)"                    1          9  
+"1811901000006116"         20000  "811151000000105"     "2116171000000118"    "number of days absent from school due to asthma in past 6 months"                                                                                                                                                                           "Matched (3)"                    1          9  
+"350148014"                20000  "233679003"           "350148014"           "late onset asthma"                                                                                                                                                                                                                          "Matched (3)"                    1          9  
+"350154010"                20000  "233683003"           "350154010"           "pollen asthma"                                                                                                                                                                                                                              "Matched (3)"                    1          9  
+"655611000006111"          20000  "31387002"            "52467014"            "exercise induced asthma"                                                                                                                                                                                                                    "Matched (3)"                    1          9  
+"396118011"                10000  "734904007"           "3511368015"          "life threatening acute exacerbation of asthma"                                                                                                                                                                                              "Matched (3)"                    1          9  
+"1208972017"               10000  "370221004"           "1208972017"          "severe asthma"                                                                                                                                                                                                                              "Matched (3)"                    1          9  
+"338238011"                10000  "225057002"           "338238011"           "brittle asthma"                                                                                                                                                                                                                             "Matched (3)"                    1          9  
+"282493013"                10000  "182731009"           "282493013"           "asthma control step 5"                                                                                                                                                                                                                      "Matched (3)"                    1          9  
+"409865018"                10000  "708038006"           "3032734012"          "asthma attack nos"                                                                                                                                                                                                                          "Matched (3)"                    1          9  
+"350149018"                10000  "233679003"           "350148014"           "late-onset asthma"                                                                                                                                                                                                                          "Matched (3)"                    1          9  
+"350153016"                10000  "233683003"           "350153016"           "hay fever with asthma"                                                                                                                                                                                                                      "Matched (3)"                    1          9  
+"301499010"                10000  "424643009"           "2648327010"          "extrinsic asthma"                                                                                                                                                                                                                           "Matched (3)"                    1          9  
+"104872017"                 9000  "63088003"            "104872017"           "extrinsic asthma without status asthmaticus"                                                                                                                                                                                                "Matched (3)"                    1          9  
+"301450011"                 9000  "195949008"           "301450011"           "chronic asthmatic bronchitis"                                                                                                                                                                                                               "Matched (3)"                    1          9  
+"2240591000000119"          7000  "866881000000101"     "2240591000000119"    "chronic asthma with fixed airflow obstruction"                                                                                                                                                                                              "Matched (3)"                    1          9  
+"350152014"                 6000  "389145006"           "1483199016"          "allergic asthma nec"                                                                                                                                                                                                                        "Matched (3)"                    1          9  
+"95786019"                  5000  "57607007"            "95786019"            "occupational asthma"                                                                                                                                                                                                                        "Matched (3)"                    1          9  
+"21390015"                  5000  "12428000"            "21390015"            "intrinsic asthma without status asthmaticus"                                                                                                                                                                                                "Matched (3)"                    1          9  
+"301508013"                 4000  "266361008"           "396114013"           "intrinsic asthma nos"                                                                                                                                                                                                                       "Matched (3)"                    1          9  
+"151338014"                 2000  "1086701000000102"    "2722231000000112"    "life threatening acute exacerbation of allergic asthma"                                                                                                                                                                                     "Matched (3)"                    1          9  
+"350151019"                 2000  "708093000"           "3083642013"          "acute exacerbation of allergic asthma"                                                                                                                                                                                                      "Matched (3)"                    1          9  
+"1139131000000117"           900  "698509001"           "2974554010"          "under care of asthma specialist nurse"                                                                                                                                                                                                      "Matched (3)"                    1          9  
+"98546013"                   900  "1086711000000100"    "2722261000000119"    "life threatening acute exacerbation of intrinsic asthma"                                                                                                                                                                                    "Matched (3)"                    1          9  
+"929091000006111"            800  "407674008"           "2159273015"          "aspirin-induced asthma"                                                                                                                                                                                                                     "Matched (3)"                    1          9  
+"350156012"                  200  "708094006"           "3032866010"          "acute exacerbation of intrinsic asthma"                                                                                                                                                                                                     "Matched (3)"                    1          9  
+"983771000006118"            100  "57607007"            "95786019"            "work aggravated asthma"                                                                                                                                                                                                                     "Matched (3)"                    1          9  
+"69311016"                    70  "41553006"            "69311016"            "detergent asthma"                                                                                                                                                                                                                           "Matched (3)"                    1          9  
+"94731013"                    10  "56968009"            "497732010"           "wood asthma"                                                                                                                                                                                                                                "Matched (3)"                    1          9  
+"149741000006116"              2  "23315001"            "39131015"            "sequoiosis (red-cedar asthma)"                                                                                                                                                                                                              "Matched (3)"                    1          9  
+"1118291000000110"       2000000  "443117005"           "2839948011"          "asthma control test score"                                                                                                                                                                                                                  "Matched (3)"                    1          .  
+"1766051000006114"        100000  "448003001"           "2900370011"          "royal college of physicians asthma assessment three questions score"                                                                                                                                                                        "Matched (3)"                    1          .  
+"536221000000110"          70000  "302331000000106"     "536221000000110"     "royal college of physicians asthma assessment"                                                                                                                                                                                              "Matched (3)"                    1          .  
+"1176501000000114"         60000  "527191000000104"     "1176501000000114"    "health education - asthma self management"                                                                                                                                                                                                  "Matched (3)"                    1          .  
+"1139011000000112"         60000  "763077003"           "3637798014"          "asthma control questionnaire score"                                                                                                                                                                                                         "Matched (3)"                    1          .  
+"1176541000000112"         30000  "527211000000100"     "1176541000000112"    "health education - structured asthma discussion"                                                                                                                                                                                            "Matched (3)"                    1          .  
+"1739871000006114"         20000  "527231000000108"     "1176581000000116"    "health education - structured patient focused asthma discussion"                                                                                                                                                                            "Matched (3)"                    1          .  
+"1139051000000111"           300  "763695004"           "3643315013"          "mini aqlq (asthma quality of life questionnaire) score"                                                                                                                                                                                     "Matched (3)"                    1          .  
+"264544010"              7000000  "170635006"           "264544010"           "asthma not disturbing sleep"                                                                                                                                                                                                                "Master only (1)"                .          9  
+"264547015"              7000000  "170638008"           "264547015"           "asthma not limiting activities"                                                                                                                                                                                                             "Master only (1)"                .          9  
+"285239019"               400000  "185242005"           "285239019"           "seen in asthma clinic"                                                                                                                                                                                                                      "Master only (1)"                .          9  
+"1780194017"              400000  "400987003"           "1780194017"          "asthma trigger"                                                                                                                                                                                                                             "Master only (1)"                .          9  
+"21611000000113"          300000  "713701000000108"     "1564941000000112"    "asthma monitoring administration"                                                                                                                                                                                                           "Master only (1)"                .          9  
+"264556011"               200000  "170647000"           "264556011"           "asthma prophylactic medication used"                                                                                                                                                                                                        "Master only (1)"                .          9  
+"2297651000000118"        100000  "892301000000100"     "2297651000000118"    "asthma management plan declined"                                                                                                                                                                                                            "Master only (1)"                .          9  
+"282488010"               100000  "182726007"           "282488010"           "asthma control step 0"                                                                                                                                                                                                                      "Master only (1)"                .          9  
+"285729012"                90000  "185730004"           "285729012"           "asthma monitor offer default"                                                                                                                                                                                                               "Master only (1)"                .          9  
+"1484970018"               50000  "390940007"           "1484970018"          "asthma monitoring due"                                                                                                                                                                                                                      "Master only (1)"                .          9  
+"16091000000110"           50000  "713701000000108"     "1564941000000112"    "asthma monitoring admin.nos"                                                                                                                                                                                                                "Master only (1)"                .          9  
+"8109041000006116"         40000  "340911000000109"     "635021000000115"     "asthma trigger - pollen"                                                                                                                                                                                                                    "Master only (1)"                .          9  
+"8061011000006113"         40000  "201191000000108"     "636231000000119"     "asthma trigger - cold air"                                                                                                                                                                                                                  "Master only (1)"                .          9  
+"8109021000006111"         40000  "340901000000107"     "635001000000112"     "asthma trigger - exercise"                                                                                                                                                                                                                  "Master only (1)"                .          9  
+"1880001000006114"         40000  "1880001000006105"    "1880001000006114"    "no change in asthma management plan"                                                                                                                                                                                                        "Master only (1)"                .          9  
+"8060791000006112"         30000  "201031000000108"     "636291000000118"     "asthma trigger - respiratory infection"                                                                                                                                                                                                     "Master only (1)"                .          9  
+"285891014"                30000  "185940009"           "285891014"           "patient in asthma study"                                                                                                                                                                                                                    "Master only (1)"                .          9  
+"26101000000112"           20000  "713711000000105"     "1564951000000110"    "asthma clinic administration"                                                                                                                                                                                                               "Master only (1)"                .          9  
+"8109001000006118"         20000  "340891000000106"     "634981000000119"     "asthma trigger - airborne dust"                                                                                                                                                                                                             "Master only (1)"                .          9  
+"885291000006115"          20000  "389145006"           "885291000006115"     "extrinsic asthma - atopy"                                                                                                                                                                                                                   "Master only (1)"                .          9  
+"5649191000006110"         20000  "281239006"           "419210017"           "exacerbation of asthma"                                                                                                                                                                                                                     "Master only (1)"                .          9  
+"8060811000006111"         20000  "201041000000104"     "636311000000117"     "asthma trigger - seasonal"                                                                                                                                                                                                                  "Master only (1)"                .          9  
+"2131281000000114"         10000  "818161000000104"     "2131281000000114"    "asthma trigger - perfume"                                                                                                                                                                                                                   "Master only (1)"                .          9  
+"8061031000006119"         10000  "201201000000105"     "636251000000114"     "asthma trigger - damp"                                                                                                                                                                                                                      "Master only (1)"                .          9  
+"301509017"                10000  "195977004"           "301509017"           "mixed asthma"                                                                                                                                                                                                                               "Master only (1)"                .          9  
+"8109091000006113"         10000  "340931000000101"     "635061000000111"     "asthma trigger - warm air"                                                                                                                                                                                                                  "Master only (1)"                .          9  
+"2010031000006116"          9000  "2010031000006100"    "2010031000006116"    "acute infective exacerbation of asthma"                                                                                                                                                                                                     "Master only (1)"                .          9  
+"8061051000006114"          8000  "201211000000107"     "636271000000117"     "asthma trigger - emotion"                                                                                                                                                                                                                   "Master only (1)"                .          9  
+"235661000000118"           7000  "176711000000100"     "235661000000118"     "does not have asthma management plan"                                                                                                                                                                                                       "Master only (1)"                .          9  
+"7309651000006111"          6000  "445531003"           "1641601000000118"    "acq - asthma control questionnaire"                                                                                                                                                                                                         "Master only (1)"                .          9  
+"8109071000006112"          6000  "340921000000103"     "635041000000110"     "asthma trigger - tobacco smoke"                                                                                                                                                                                                             "Master only (1)"                .          9  
+"2423691000000114"          3000  "715191006"           "3301824014"          "telehealth asthma monitoring"                                                                                                                                                                                                               "Master only (1)"                .          9  
+"6720721000006111"          3000  "405944004"           "2157699014"          "asthmatic bronchitis"                                                                                                                                                                                                                       "Master only (1)"                .          9  
+"856051000006115"           3000  "856051000006104"     "856051000006115"     "asthma control unsatisfactory"                                                                                                                                                                                                              "Master only (1)"                .          9  
+"856041000006117"           3000  "856041000006101"     "856041000006117"     "asthma stable > 3 months"                                                                                                                                                                                                                   "Master only (1)"                .          9  
+"856031000006110"           2000  "856031000006106"     "856031000006110"     "asthma stable < 3 months"                                                                                                                                                                                                                   "Master only (1)"                .          9  
+"1855521000006111"          2000  "1855521000006107"    "1855521000006111"    "asthma monitoring in primary care"                                                                                                                                                                                                          "Master only (1)"                .          9  
+"1859261000006117"          2000  "1859261000006101"    "1859261000006117"    "date of asthma diagnosis"                                                                                                                                                                                                                   "Master only (1)"                .          9  
+"11922851000006115"         2000  "304527002"           "446841017"           "acute asthma"                                                                                                                                                                                                                               "Master only (1)"                .          9  
+"13620311000006117"         1000  "782559003"           "3754550015"          "asthma never causes night symptoms"                                                                                                                                                                                                         "Master only (1)"                .          9  
+"908841000006111"           1000  "908841000006107"     "908841000006111"     "[rfc] asthma"                                                                                                                                                                                                                               "Master only (1)"                .          9  
+"5979441000006111"          1000  "308500005"           "451860019"           "asthma monitoring call"                                                                                                                                                                                                                     "Master only (1)"                .          9  
+"2010041000006114"           900  "2010041000006105"    "2010041000006114"    "acute non-infective exacerbation of asthma"                                                                                                                                                                                                 "Master only (1)"                .          9  
+"11929171000006110"          800  "445531003"           "2872440018"          "asthma control questionnaire"                                                                                                                                                                                                               "Master only (1)"                .          9  
+"6514741000006118"           700  "390798007"           "1484832016"          "asthma finding"                                                                                                                                                                                                                             "Master only (1)"                .          9  
+"1495417010"                 600  "71892000"            "119456014"           "cardiac asthma"                                                                                                                                                                                                                             "Master only (1)"                .          9  
+"11639701000006115"          500  "11639701000006104"   "11639701000006115"   "asthma nurse specialist telephone encounter"                                                                                                                                                                                                "Master only (1)"                .          9  
+"12734761000006113"          400  "143931000000102"     "1629441000000119"    "declined to register for access to online asthma self-management application"                                                                                                                                                               "Master only (1)"                .          9  
+"5979451000006113"           400  "308501009"           "451861015"           "asthma monitoring status"                                                                                                                                                                                                                   "Master only (1)"                .          9  
+"7307941000006113"           400  "445427006"           "2872543019"          "seasonal asthma"                                                                                                                                                                                                                            "Master only (1)"                .          9  
+"8263631000006115"           300  "815631000000106"     "2125531000000112"    "asthma trigger - wind"                                                                                                                                                                                                                      "Master only (1)"                .          9  
+"8301271000006112"           300  "867171000000106"     "2241191000000116"    "no asthma trigger identified by subject"                                                                                                                                                                                                    "Master only (1)"                .          9  
+"5054431000006112"           300  "233691007"           "350166016"           "asthmatic pulmonary eosinophilia"                                                                                                                                                                                                           "Master only (1)"                .          9  
+"7688501000006112"           200  "711442001"           "3078609015"          "recent asthma management"                                                                                                                                                                                                                   "Master only (1)"                .          9  
+"3511374015"                 200  "734905008"           "3511374015"          "moderate acute exacerbation of asthma"                                                                                                                                                                                                      "Master only (1)"                .          9  
+"7030311000006117"           200  "424643009"           "2644386013"          "ige-mediated allergic asthma"                                                                                                                                                                                                               "Master only (1)"                .          9  
+"1855531000006114"           200  "1855531000006105"    "1855531000006114"    "asthma monitoring in secondary care"                                                                                                                                                                                                        "Master only (1)"                .          9  
+"7966291000006118"           200  "641000119106"        "3041227011"          "intermittent asthma well controlled"                                                                                                                                                                                                        "Master only (1)"                .          9  
+"13619961000006119"          100  "782520007"           "3754350016"          "exacerbation of allergic asthma due to infection"                                                                                                                                                                                           "Master only (1)"                .          9  
+"6298421000006116"           100  "367542003"           "492714018"           "eosinophilic asthma"                                                                                                                                                                                                                        "Master only (1)"                .          9  
+"5904331000006116"           100  "302220000"           "443801018"           "asthma control steps"                                                                                                                                                                                                                       "Master only (1)"                .          9  
+"2446671000000118"           100  "959901000000107"     "2446671000000118"    "asthma action plan"                                                                                                                                                                                                                         "Master only (1)"                .          9  
+"905331000006118"            100  "905331000006102"     "905331000006118"     "[rfc] asthma"                                                                                                                                                                                                                               "Master only (1)"                .          9  
