@@ -26,25 +26,51 @@ subset_df %>%
             mean_att_weight_stab = mean(att_weight_stab),
             mean_ate_weight_unstab = mean(ate_weight_unstab),
             mean_att_weight_unstab = mean(att_weight_unstab))
-#median follow up times for whole cohort
+
+# Median follow-up times for the whole cohort
 followup_total <- subset_df %>%
   summarise(median_timeinstudy2 = median(timeinstudy2),
+            p25_timeinstudy2 = quantile(timeinstudy2, 0.25),
+            p75_timeinstudy2 = quantile(timeinstudy2, 0.75),
             median_timeinstudy3 = median(timeinstudy3),
-            median_timeinstudy_death_any = median(timeinstudy_death_any))
+            p25_timeinstudy3 = quantile(timeinstudy3, 0.25),
+            p75_timeinstudy3 = quantile(timeinstudy3, 0.75),
+            median_timeinstudy_death_any = median(timeinstudy_death_any),
+            p25_timeinstudy_death_any = quantile(timeinstudy_death_any, 0.25),
+            p75_timeinstudy_death_any = quantile(timeinstudy_death_any, 0.75))
 
-#median follow up times for each treatment group
-followup <- data.frame(subset_df %>%
+# Median follow-up times for each treatment group
+followup_grouped <- subset_df %>%
   group_by(treat) %>%
   summarise(median_timeinstudy2 = median(timeinstudy2),
+            p25_timeinstudy2 = quantile(timeinstudy2, 0.25),
+            p75_timeinstudy2 = quantile(timeinstudy2, 0.75),
             median_timeinstudy3 = median(timeinstudy3),
-            median_timeinstudy_death_any = median(timeinstudy_death_any)))
+            p25_timeinstudy3 = quantile(timeinstudy3, 0.25),
+            p75_timeinstudy3 = quantile(timeinstudy3, 0.75),
+            median_timeinstudy_death_any = median(timeinstudy_death_any),
+            p25_timeinstudy_death_any = quantile(timeinstudy_death_any, 0.25),
+            p75_timeinstudy_death_any = quantile(timeinstudy_death_any, 0.75))
 
-followup <- add_row(followup, treat = "Total", median_timeinstudy2 = followup_total$median_timeinstudy2,
-                    median_timeinstudy3 = followup_total$median_timeinstudy3,
-                    median_timeinstudy_death_any = followup_total$median_timeinstudy_death_any)
-colnames(followup) <- c("Treatment group", "Median follow-up COVID-19 hospitalisation", "Median follow-up COVID-19 death", "Median follow-up all-cause death")
+# Create the table
+followup_table <- data.frame(
+  Outcome = c("COVID-19 hospitalisation", "COVID-19 death", "All-cause death"),
+  ICS = c(paste0(followup_grouped$median_timeinstudy2[followup_grouped$treat == "ICS"], " (", followup_grouped$p25_timeinstudy2[followup_grouped$treat == "ICS"], "-", followup_grouped$p75_timeinstudy2[followup_grouped$treat == "ICS"], ")"),
+          paste0(followup_grouped$median_timeinstudy3[followup_grouped$treat == "ICS"], " (", followup_grouped$p25_timeinstudy3[followup_grouped$treat == "ICS"], "-", followup_grouped$p75_timeinstudy3[followup_grouped$treat == "ICS"], ")"),
+          paste0(followup_grouped$median_timeinstudy_death_any[followup_grouped$treat == "ICS"], " (", followup_grouped$p25_timeinstudy_death_any[followup_grouped$treat == "ICS"], "-", followup_grouped$p75_timeinstudy_death_any[followup_grouped$treat == "ICS"], ")")),
+  LABA_LAMA = c(paste0(followup_grouped$median_timeinstudy2[followup_grouped$treat == "LABA/LAMA"], " (", followup_grouped$p25_timeinstudy2[followup_grouped$treat == "LABA/LAMA"], "-", followup_grouped$p75_timeinstudy2[followup_grouped$treat == "LABA/LAMA"], ")"),
+                paste0(followup_grouped$median_timeinstudy3[followup_grouped$treat == "LABA/LAMA"], " (", followup_grouped$p25_timeinstudy3[followup_grouped$treat == "LABA/LAMA"], "-", followup_grouped$p75_timeinstudy3[followup_grouped$treat == "LABA/LAMA"], ")"),
+                paste0(followup_grouped$median_timeinstudy_death_any[followup_grouped$treat == "LABA/LAMA"], " (", followup_grouped$p25_timeinstudy_death_any[followup_grouped$treat == "LABA/LAMA"], "-", followup_grouped$p75_timeinstudy_death_any[followup_grouped$treat == "LABA/LAMA"], ")")),
+  Total = c(paste0(followup_total$median_timeinstudy2, " (", followup_total$p25_timeinstudy2, "-", followup_total$p75_timeinstudy2, ")"),
+            paste0(followup_total$median_timeinstudy3, " (", followup_total$p25_timeinstudy3, "-", followup_total$p75_timeinstudy3, ")"),
+            paste0(followup_total$median_timeinstudy_death_any, " (", followup_total$p25_timeinstudy_death_any, "-", followup_total$p75_timeinstudy_death_any, ")"))
+)
 
-followup <- t(followup)
+# Print the table
+followup_table
+#turn first column into row names
+rownames(followup_table) <- followup_table$Outcome
+followup_table <- followup_table[, -1]
 
 #proportion of people censored in each treatment group
 
@@ -78,16 +104,18 @@ censored$"% censored COVID-19 hospitalisation" <- censored[,"% censored COVID-19
 censored$"% censored COVID-19 death" <- censored[,"% censored COVID-19 death"] * 100
 censored$"% censored all-cause death" <- censored[,"% censored all-cause death"] * 100
 
-#transpose censored but turn column names into the first variable
+#transpose censored, use outcome variable as row names and treatment group as column names
 censored <- t(censored)
+censored <- as.data.frame(censored)
 
-censored <- rbind(censored, followup)
-
-#make first row the column names
 colnames(censored) <- censored[1,]
-#remove the first row of data
 censored <- censored[-1,]
-censored <- censored[-4,]
+
+# Rename the columns of followup_table to match censored
+colnames(followup_table) <- colnames(censored)
+
+# Combine censored and followup_table
+censored <- rbind(censored, followup_table)
 
 censored <- as.data.frame(censored)
 #export censored table, inclusing the rownames as a column
