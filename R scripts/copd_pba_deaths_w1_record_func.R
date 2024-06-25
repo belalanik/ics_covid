@@ -301,7 +301,7 @@ death_record_qba <- function(inputfile, samples, output_ext) {
 
   # Add the suffix to each variable name
   qba_df <- rename_with(qba_df, ~paste0(., "_death_record"))
-  #write_parquet(qba_df, file.path(Tables, "QBA", paste0("qba_death_record_results", output_ext, ".parquet")))
+  write_parquet(qba_df, file.path(Tables, "QBA", paste0("qba_death_record_results", output_ext, ".parquet")))
 
   # add stats to excel file to save the number of iterations, date, time, outcome, summary level vs record level
   # import runtime.xlsx
@@ -326,15 +326,15 @@ death_record_qba <- function(inputfile, samples, output_ext) {
   # Plotting results --------------------------------------------------------
   sims <- qba_df["sims", 1]
   median_value_or <- median(output_df$or_tot_ate, na.rm = TRUE)
-  pal <- c("ATE-weighted OR (no QBA)" = palette[4], "Median OR after QBA" = palette[10])
-  pal2 <- c("ATE-weighted OR (no QBA)" = "dashed", "Median OR after QBA" = "dotted")
+  pal <- c("IPT-weighted OR (no QBA)" = palette[4], "Median OR after QBA" = palette[10])
+  pal2 <- c("IPT-weighted OR (no QBA)" = "dashed", "Median OR after QBA" = "dotted")
   plot <- ggplot(data = output_df, aes(x = or_tot_ate)) +
     geom_histogram(binwidth = 0.002, fill = palette[6]) +
-    geom_vline(aes(xintercept = or_ate_conventional, color = "ATE-weighted OR (no QBA)", linetype = "ATE-weighted OR (no QBA)"), size = 0.9) +
+    geom_vline(aes(xintercept = or_ate_conventional, color = "IPT-weighted OR (no QBA)", linetype = "IPT-weighted OR (no QBA)"), size = 0.9) +
     geom_vline(aes(xintercept = median_value_or, color = "Median OR after QBA", linetype = "Median OR after QBA"), size = 0.9) +
     xlab("Odds Ratio") +
     ylab("Frequency") +
-    ggtitle(paste0("Odds ratios adjusted for outcome misclassification, ATE-weighted (n = ", sims, ")")) +
+    ggtitle(paste0("Odds ratios adjusted for outcome misclassification, IPT-weighted (n = ", sims, ")")) +
     xlim(0, 3) +
     theme_classic() +
     scale_color_manual(values = pal) +
@@ -347,7 +347,7 @@ death_record_qba <- function(inputfile, samples, output_ext) {
           axis.title.y = element_text(size = 14),
           legend.text = element_text(size = 11),
           legend.key.size = unit(1, "cm"))
-  file_path <- file.path(Graphdir, "QBA", "copd_death_w1",  paste0("adjusted_OR_ate_RL_pba_death", output_ext, ".png"))
+  file_path <- file.path(Graphdir, "QBA", "copd_death_w1",  paste0("adjusted_OR_ipt_RL_pba_death", output_ext, ".png"))
   ggsave(file_path, plot, width = 8, height = 4)
   
   median_value_or <- median(output_df$or_tot, na.rm = TRUE)
@@ -377,15 +377,15 @@ death_record_qba <- function(inputfile, samples, output_ext) {
   
   
   median_value_hr <- median(output_df$hr_tot_ate, na.rm = TRUE)
-  pal <- c("ATE-weighted HR (no QBA)" = palette[4], "Median HR after QBA" = palette[10])
-  pal2 <- c("ATE-weighted HR (no QBA)" = "dashed", "Median HR after QBA" = "dotted")
+  pal <- c("IPT-weighted HR (no QBA)" = palette[4], "Median HR after QBA" = palette[10])
+  pal2 <- c("IPT-weighted HR (no QBA)" = "dashed", "Median HR after QBA" = "dotted")
   plot <- ggplot(data = output_df, aes(x = hr_tot_ate)) +
     geom_histogram(binwidth = 0.002, fill = palette[6]) +
-    geom_vline(aes(xintercept = hr_ate_conventional, color = "ATE-weighted HR (no QBA)", linetype = "ATE-weighted HR (no QBA)"), size = 0.9) +
+    geom_vline(aes(xintercept = hr_ate_conventional, color = "IPT-weighted HR (no QBA)", linetype = "IPT-weighted HR (no QBA)"), size = 0.9) +
     geom_vline(aes(xintercept = median_value_hr, color = "Median HR after QBA", linetype = "Median HR after QBA"), size = 0.9) +
     xlab("Hazard Ratio") +
     ylab("Frequency") +
-    ggtitle(paste0("Hazard ratios adjusted for outcome misclassification, ATE-weighted (n = ", sims, ")")) +
+    ggtitle(paste0("Hazard ratios adjusted for outcome misclassification, IPT-weighted (n = ", sims, ")")) +
     xlim(0, 3) +
     theme_classic() +
     scale_color_manual(values = pal) +
@@ -398,7 +398,7 @@ death_record_qba <- function(inputfile, samples, output_ext) {
           axis.title.y = element_text(size = 14),
           legend.text = element_text(size = 11),
           legend.key.size = unit(1, "cm"))
-  file_path <- file.path(Graphdir, "QBA", "copd_death_w1",  paste0("adjusted_HR_ate_RL_pba_death", output_ext, ".png"))
+  file_path <- file.path(Graphdir, "QBA", "copd_death_w1",  paste0("adjusted_HR_ipt_RL_pba_death", output_ext, ".png"))
   ggsave(file_path, plot, width = 8, height = 4)
   
   median_value_hr <- median(output_df$hr_tot, na.rm = TRUE)
@@ -520,14 +520,14 @@ death_record_qba <- function(inputfile, samples, output_ext) {
 }
 
 #list inputfiles
-# inputfile <- c("copd_wave1_60d_iptw.parquet", "SA_copd_wave1_60d_iptw_no_triple.parquet", "SA_copd_wave1_6m_iptw.parquet", "SA_copd_wave1_60d_iptw_all.parquet")
-# samples <- c("qba_death_record_full_sample.parquet", "SA_qba_death_record_full_sample_no_triple.parquet", "SA_qba_death_record_full_sample_6m.parquet", "SA_qba_death_record_full_sample_all.parquet")
-# output_ext <- c("", "_no_triple",  "_6m", "_all")
+inputfile <- c("copd_wave1_60d_iptw.parquet", "SA_copd_wave1_60d_iptw_no_triple.parquet", "SA_copd_wave1_6m_iptw.parquet", "SA_copd_wave1_60d_iptw_all.parquet")
+samples <- c("qba_death_record_full_sample.parquet", "SA_qba_death_record_full_sample_no_triple.parquet", "SA_qba_death_record_full_sample_6m.parquet", "SA_qba_death_record_full_sample_all.parquet")
+output_ext <- c("", "_no_triple",  "_6m", "_all")
 
 #run funciton for 6m and all
-inputfile <- c("SA_copd_wave1_6m_iptw.parquet", "SA_copd_wave1_60d_iptw_all.parquet")
-samples <- c("SA_qba_death_record_full_sample_6m.parquet", "SA_qba_death_record_full_sample_all.parquet")
-output_ext <- c("_6m", "_all")
+# inputfile <- c("SA_copd_wave1_6m_iptw.parquet", "SA_copd_wave1_60d_iptw_all.parquet")
+# samples <- c("SA_qba_death_record_full_sample_6m.parquet", "SA_qba_death_record_full_sample_all.parquet")
+# output_ext <- c("_6m", "_all")
 
 
 #run the function
