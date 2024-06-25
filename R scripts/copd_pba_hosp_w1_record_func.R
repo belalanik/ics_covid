@@ -24,9 +24,10 @@ palette <- met.brewer("Cassatt2")
 samp = 10000
 set.seed(123)
 setwd(Datadir_copd)
+gc()
 
 hosp_record_qba <- function(inputfile_cohort, inputfile_iptw, samples, output_ext) {
-  
+
   #read in parquet datasets
   df_hosp <- read_parquet("copd_wave1_60d_hosp.parquet") #this file is 1 row per hospitalisation
   
@@ -45,7 +46,7 @@ hosp_record_qba <- function(inputfile_cohort, inputfile_iptw, samples, output_ex
   unique_patid_iptw <- dplyr::n_distinct(df_iptw$patid)
   unique_patid_D <- dplyr::n_distinct(D$patid)
   
-  
+
   D <- D %>% dplyr::select(patid, enddate, treat, treatgroup, timeinstudy2, timeinstudy3, ate_weight_stab, covid_hes_date, covid_hes_present, covid_hosp, hes_date, hosp_num, any_hes_present)
   
   D$covid_hes_present <- as.numeric(D$covid_hes_present)
@@ -380,19 +381,19 @@ hosp_record_qba <- function(inputfile_cohort, inputfile_iptw, samples, output_ex
   runtime_df <- rbind(runtime_df, time_stats)
   #add this line to runtime.xlsx
   write.xlsx(runtime_df, file.path(Tables, "QBA", "runtime.xlsx"))
-  
+ 
   # Plotting results --------------------------------------------------------
   sims <- qba_df["sims", 1]
   median_value_or <- median(output_df$or_tot_ate, na.rm = TRUE)
-  pal <- c("ATE-weighted OR (no QBA)" = palette[4], "Median OR after QBA" = palette[10])
-  pal2 <- c("ATE-weighted OR (no QBA)" = "dashed", "Median OR after QBA" = "dotted")
+  pal <- c("IPT-weighted OR (no QBA)" = palette[4], "Median OR after QBA" = palette[10])
+  pal2 <- c("IPT-weighted OR (no QBA)" = "dashed", "Median OR after QBA" = "dotted")
   plot <- ggplot(data = output_df, aes(x = or_tot_ate)) +
     geom_histogram(binwidth = 0.002, fill = palette[6]) +
-    geom_vline(aes(xintercept = or_ate_conventional, color = "ATE-weighted OR (no QBA)", linetype = "ATE-weighted OR (no QBA)"), size = 0.9) +
+    geom_vline(aes(xintercept = or_ate_conventional, color = "IPT-weighted OR (no QBA)", linetype = "IPT-weighted OR (no QBA)"), size = 0.9) +
     geom_vline(aes(xintercept = median_value_or, color = "Median OR after QBA", linetype = "Median OR after QBA"), size = 0.9) +
     xlab("Odds Ratio") +
     ylab("Frequency") +
-    ggtitle(paste0("Odds ratios adjusted for outcome misclassification, ATE-weighted (n = ", sims, ")")) +
+    ggtitle(paste0("Odds ratios adjusted for outcome misclassification, IPT-weighted (n = ", sims, ")")) +
     xlim(0, 3) +
     theme_classic() +
     scale_color_manual(values = pal) +
@@ -405,7 +406,7 @@ hosp_record_qba <- function(inputfile_cohort, inputfile_iptw, samples, output_ex
           axis.title.y = element_text(size = 14),
           legend.text = element_text(size = 10),
           legend.key.size = unit(1, "cm"))
-  file_path <- file.path(Graphdir, "QBA", "copd_hosp_w1",  paste0("adjusted_OR_ate_RL_pba_hosp", output_ext, ".png"))
+  file_path <- file.path(Graphdir, "QBA", "copd_hosp_w1",  paste0("adjusted_OR_ipt_RL_pba_hosp", output_ext, ".png"))
   ggsave(file_path, plot, width = 8, height = 4)
   
   median_value_or <- median(output_df$or_tot, na.rm = TRUE)
@@ -434,15 +435,15 @@ hosp_record_qba <- function(inputfile_cohort, inputfile_iptw, samples, output_ex
   ggsave(file_path, plot, width = 8, height = 4)
   
   median_value_hr <- median(output_df$hr_tot_ate, na.rm = TRUE)
-  pal <- c("ATE-weighted HR (no QBA)" = palette[4], "Median HR after QBA" = palette[10])
-  pal2 <- c("ATE-weighted HR (no QBA)" = "dashed", "Median HR after QBA" = "dotted")
+  pal <- c("IPT-weighted HR (no QBA)" = palette[4], "Median HR after QBA" = palette[10])
+  pal2 <- c("IPT-weighted HR (no QBA)" = "dashed", "Median HR after QBA" = "dotted")
   plot <- ggplot(data = output_df, aes(x = hr_tot_ate)) +
     geom_histogram(binwidth = 0.002, fill = palette[6]) +
-    geom_vline(aes(xintercept = hr_ate_conventional, color = "ATE-weighted HR (no QBA)", linetype = "ATE-weighted HR (no QBA)"), size = 0.9) +
+    geom_vline(aes(xintercept = hr_ate_conventional, color = "IPT-weighted HR (no QBA)", linetype = "IPT-weighted HR (no QBA)"), size = 0.9) +
     geom_vline(aes(xintercept = median_value_hr, color = "Median HR after QBA", linetype = "Median HR after QBA"), size = 0.9) +
     xlab("Hazard Ratio") +
     ylab("Frequency") +
-    ggtitle(paste0("Hazard ratios adjusted for outcome misclassification, ATE-weighted (n = ", sims, ")")) +
+    ggtitle(paste0("Hazard ratios adjusted for outcome misclassification, IPT-weighted (n = ", sims, ")")) +
     xlim(0, 3) +
     theme_classic() +
     scale_color_manual(values = pal) +
@@ -455,7 +456,7 @@ hosp_record_qba <- function(inputfile_cohort, inputfile_iptw, samples, output_ex
           axis.title.y = element_text(size = 14),
           legend.text = element_text(size = 10),
           legend.key.size = unit(1, "cm"))
-  file_path <- file.path(Graphdir, "QBA", "copd_hosp_w1",  paste0("adjusted_HR_ate_RL_pba_hosp", output_ext, ".png"))
+  file_path <- file.path(Graphdir, "QBA", "copd_hosp_w1",  paste0("adjusted_HR_ipt_RL_pba_hosp", output_ext, ".png"))
   ggsave(file_path, plot, width = 8, height = 4)
   
   median_value_hr <- median(output_df$hr_tot, na.rm = TRUE)
@@ -583,10 +584,15 @@ hosp_record_qba <- function(inputfile_cohort, inputfile_iptw, samples, output_ex
 # output_ext <- c("", "_no_triple")
 
 #list inputfiles
-inputfile_cohort <- c("copd_wave1_60d_hosp_all.parquet", "copd_wave1_6m_hosp.parquet")
-inputfile_iptw <- c("SA_copd_wave1_60d_iptw_all.parquet", "SA_copd_wave1_6m_iptw.parquet")
-samples <- c("qba_hosp_record_full_sample_all.parquet", "SA_qba_hosp_record_full_sample_6m.parquet")
-output_ext <- c("_all", "6m")
+inputfile_cohort <- c("copd_wave1_60d_hosp.parquet", "copd_wave1_60d_hosp.parquet", "copd_wave1_60d_hosp_all.parquet", "copd_wave1_6m_hosp.parquet")
+inputfile_iptw <- c("copd_wave1_60d_iptw.parquet", "SA_copd_wave1_60d_iptw_no_triple.parquet", "SA_copd_wave1_60d_iptw_all.parquet", "SA_copd_wave1_6m_iptw.parquet")
+samples <- c("qba_hosp_record_full_sample.parquet", "SA_qba_hosp_record_full_sample_no_triple.parquet", "qba_hosp_record_full_sample_all.parquet", "SA_qba_hosp_record_full_sample_6m.parquet")
+output_ext <- c("", "_no_triple", "_all", "_6m")
+
+# inputfile_cohort <- c("copd_wave1_60d_hosp_all.parquet")
+# inputfile_iptw <- c("SA_copd_wave1_60d_iptw_all.parquet")
+# samples <- c("SA_qba_hosp_record_full_sample_all.parquet")
+# output_ext <- c("_all")
 
 #run the function
 mapply(hosp_record_qba, inputfile_cohort, inputfile_iptw, samples, output_ext)
