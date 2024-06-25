@@ -55,7 +55,7 @@ tab1 <- tbl_summary(subset_df %>%  dplyr::select(age_index, gender, bmicat, eth,
                          pneumo_vacc_present ~ "Pneumococcal vaccine",
                          exacerb_present ~ "Any exacerbation in past 12 months"),
             percent = "column",
-            digits = all_continuous() ~ 2,
+            digits = all_continuous() ~ 1,
             missing = "ifany",
             missing_text = "Missing",
             statistic = list(

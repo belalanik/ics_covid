@@ -32,7 +32,6 @@ subset_df <- df[!is.na(df$treatgroup),]
 subset_df %>%
   group_by(treatgroup) %>%
   summarise(mean_ate_weight_stab = mean(ate_weight_stab),
-            mean_att_weight_stab = mean(att_weight_stab),
             mean_ate_weight_unstab = mean(ate_weight_unstab),
             mean_att_weight_unstab = mean(att_weight_unstab))
 #median follow up times for whole cohort

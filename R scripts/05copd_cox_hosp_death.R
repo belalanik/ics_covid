@@ -23,7 +23,6 @@ palette <- met.brewer("Cassatt2")
 subset_df %>%
   group_by(treatgroup) %>%
   summarise(mean_ate_weight_stab = mean(ate_weight_stab),
-            mean_att_weight_stab = mean(att_weight_stab),
             mean_ate_weight_unstab = mean(ate_weight_unstab),
             mean_att_weight_unstab = mean(att_weight_unstab))
 
@@ -131,7 +130,7 @@ subset_df$treat <- relevel(subset_df$treat, ref = "LABA/LAMA")
 # Define the survival outcome variables
 outcomes <- c("covid_hes_present", "covid_death_present", "any_death_present")
 time_to_outcome_vars <- c("timeinstudy2", "timeinstudy3", "timeinstudy_death_any")
-weight_vars <- c("ate_weight_stab", "att_weight_stab")
+weight_vars <- c("ate_weight_stab", "att_weight_unstab")
 
 km_weighted <- function(weight_var, outcome, time_to_outcome_var) {
   km_surv <<- Surv(subset_df[[time_to_outcome_var]], subset_df[[outcome]]) 
@@ -308,12 +307,12 @@ for (j in seq_along(outcomes)){
     # Use the 'switch' function to select the appropriate time-in-study variable
     weight_var <- switch(weight_name,
                          "ate_weight_stab" = as.name("ate_weight_stab"),
-                         "att_weight_stab" = as.name("att_weight_stab"))
+                         "att_weight_unstab" = as.name("att_weight_unstab"))
     print(weight_var)
     
     weight_label <- switch(outcome_position,
                             as.name("stabilised ATE weights"),
-                            as.name("stabilised ATT weights"))
+                            as.name("unstabilised ATT weights"))
     print(weight_label)
     
     # Formula for IPTW model using the selected time-in-study variable

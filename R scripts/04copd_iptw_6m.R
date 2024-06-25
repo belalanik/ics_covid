@@ -138,18 +138,11 @@ att_unstabilised <- weightit(formula = ps_formula,
                              stabilize = FALSE,
                              focal = "1")
 
-att_stabilised <- weightit(formula = ps_formula,
-                           data = subset_df,
-                           method = "glm",
-                           estimand = "ATT",
-                           stabilize = TRUE,
-                           focal = "1")
 
 # add ATE and ATT weights to dataset
 subset_df$ate_weight_stab <- ate_stabilised[[1]]
 subset_df$ate_weight_unstab <- ate_unstabilised[[1]]
 subset_df$att_weight_unstab <- att_unstabilised[[1]]
-subset_df$att_weight_stab <- att_stabilised[[1]]
 
 #save as parquet
 write_parquet(subset_df, "SA_copd_wave1_6m_iptw.parquet")
@@ -193,7 +186,6 @@ generate_density_plot <- function(data, weight, title, file_name) {
 generate_density_plot(subset_df, "ate_weight_unstab", "Distribution of unstabilised ATE Weights by Treatment Group", "SA_dist_ate_unstab_6m.png")
 generate_density_plot(subset_df, "ate_weight_stab", "Distribution of stabilised ATE Weights Propensity Scores by Treatment Group", "SA_dist_ate_stab_6m.png")
 generate_density_plot(subset_df, "att_weight_unstab", "Distribution of ATT Weights by Treatment Group", "SA_dist_att_unstab_6m.png")
-generate_density_plot(subset_df, "att_weight_stab", "Distribution of ATT Weights by Treatment Group", "SA_dist_att_stab_6m.png")
 
 # Function to generate density plot of weighted propensity scores
 generate_density_plot <- function(data, weight, title, file_name) {
@@ -218,7 +210,6 @@ generate_density_plot <- function(data, weight, title, file_name) {
 generate_density_plot(subset_df, "ate_weight_unstab", "Distribution of unstabilised ATE-Weighted Propensity Scores by Treatment Group", "SA_ps_dist_ate_unstab_6m.png")
 generate_density_plot(subset_df, "ate_weight_stab", "Distribution of stabilised ATE-Weighted Propensity Scores by Treatment Group", "SA_ps_dist_ate_stab_6m.png")
 generate_density_plot(subset_df, "att_weight_unstab", "Distribution of unstabilised ATT-Weighted Propensity Scores by Treatment Group", "SA_ps_dist_att_unstab_6m.png")
-generate_density_plot(subset_df, "att_weight_stab", "Distribution of stabilised ATT-Weighted Propensity Scores by Treatment Group", "SA_ps_dist_att_stab_6m.png")
 
 #summarise mean and median ate and att weights by treatment group, with IQR and range
 weight_summary <- subset_df %>% 
@@ -229,12 +220,6 @@ weight_summary <- subset_df %>%
             p75_att_weight_unstab = quantile(att_weight_unstab, 0.75, na.rm = TRUE),
             min_att_weight_unstab = min(att_weight_unstab, na.rm = TRUE),
             max_att_weight_unstab = max(att_weight_unstab, na.rm = TRUE),
-            mean_att_weight_stab = mean(att_weight_stab, na.rm = TRUE),
-            median_att_weight_stab = median(att_weight_stab, na.rm = TRUE),
-            p25_att_weight_stab = quantile(att_weight_stab, 0.25, na.rm = TRUE),
-            p75_att_weight_stab = quantile(att_weight_stab, 0.75, na.rm = TRUE),
-            min_att_weight_stab = min(att_weight_stab, na.rm = TRUE),
-            max_att_weight_stab = max(att_weight_stab, na.rm = TRUE),
             mean_ate_weight_stab = mean(ate_weight_stab, na.rm = TRUE),
             median_ate_weight_stab = median(ate_weight_stab, na.rm = TRUE),
             p25_ate_weight_stab = quantile(ate_weight_stab, 0.25, na.rm = TRUE),
@@ -258,20 +243,17 @@ covariates <- c("exacerb_present",  "pneumo_vacc_present", "flu_vacc_present", "
 data_ate_unstab <- subset_df[c(covariates, "treatgroup", "ate_weight_unstab")]
 data_ate_stab <- subset_df[c(covariates, "treatgroup", "ate_weight_stab")]
 data_att_unstab <- subset_df[c(covariates, "treatgroup", "att_weight_unstab")]
-data_att_stab <- subset_df[c(covariates, "treatgroup", "att_weight_stab")]
 
 #generate bal.tab tables
 ate_weighted_table_unstab <- bal.tab(data_ate_unstab, treat = data_ate_unstab$treatgroup, weights = data_ate_unstab$ate_weight_unstab)[[1]]
 ate_weighted_table_stab <- bal.tab(data_ate_stab, treat = data_ate_stab$treatgroup, weights = data_ate_stab$ate_weight_stab)[[1]]
 att_weighted_table_unstab <- bal.tab(data_att_unstab, treat = data_att_unstab$treatgroup, weights = data_att_unstab$att_weight_unstab)[[1]]
-att_weighted_table_stab <- bal.tab(data_att_stab, treat = data_att_stab$treatgroup, weights = data_att_stab$att_weight_stab)[[1]]
 bal_unweighted_table <- bal.tab(data_ate_unstab, treat = data_ate_unstab$treatgroup)[[1]]
 
 #remove the treatgroup and weight rows from the table
 ate_weighted_table_unstab <- ate_weighted_table_unstab[!rownames(ate_weighted_table_unstab) %in% c("treatgroup", "ate_weight_unstab"), ]
 ate_weighted_table_stab <- ate_weighted_table_stab[!rownames(ate_weighted_table_stab) %in% c("treatgroup", "ate_weight_stab"), ]
 att_weighted_table_unstab <- att_weighted_table_unstab[!rownames(att_weighted_table_unstab) %in% c("treatgroup", "att_weight_unstab"), ]
-att_weighted_table_stab <- att_weighted_table_stab[!rownames(att_weighted_table_stab) %in% c("treatgroup", "att_weight_stab"), ]
 bal_unweighted_table <- bal_unweighted_table[!rownames(bal_unweighted_table) %in% c("treatgroup", "ate_weight_unstab"), ]
 
 #check that rownames are the same
@@ -281,7 +263,6 @@ all.equal(rownames(ate_weighted_table_unstab), rownames(ate_weighted_table_stab)
 smd_data <- data.frame(variable = rownames(ate_weighted_table_unstab),
                        unweighted = bal_unweighted_table$Diff.Un,
                        "ATT (unstabilised)" = att_weighted_table_unstab$Diff.Adj,
-                       "ATT (stabilised)" = att_weighted_table_stab$Diff.Adj,
                        "ATE (unstabilised)" = ate_weighted_table_unstab$Diff.Adj,
                        "ATE (stabilised)" = ate_weighted_table_stab$Diff.Adj)
 
@@ -289,13 +270,12 @@ smd_data <- data.frame(variable = rownames(ate_weighted_table_unstab),
 file_path <- file.path(Graphdir,  "iptw_diagnostics", "SA_smd_table_6m.xlsx")
 write.xlsx(smd_data, file_path, rowNames = FALSE)
 
-new_names <- c("variable", "unweighted", "att_unstab", "att_stab", "ate_unstab", "ate_stab")
+new_names <- c("variable", "unweighted", "att_unstab", "ate_unstab", "ate_stab")
 colnames(smd_data) <- new_names
 
 #generate absolute SMDs
 smd_data$abs_smd_unweighted <- abs(smd_data$unweighted)
 smd_data$abs_smd_att_unstab <- abs(smd_data$att_unstab)
-smd_data$abs_smd_att_stab <- abs(smd_data$att_stab)
 smd_data$abs_smd_ate_unstab <- abs(smd_data$ate_unstab)
 smd_data$abs_smd_ate_stab <- abs(smd_data$ate_stab)
 
@@ -303,7 +283,7 @@ smd_data$abs_smd_ate_stab <- abs(smd_data$ate_stab)
 # Create plot of SMDs
 ggplot(smd_data, aes(x = abs_smd_ate_stab, y = variable)) +
   geom_point(aes(shape = "ATE", fill = "ATE"), color = palette[9], size = 3) +
-  geom_point(data = smd_data, aes(x = abs_smd_att_stab, shape = "ATT", fill = "ATT"), color = palette[4], size = 2) +
+  geom_point(data = smd_data, aes(x = abs_smd_att_unstab, shape = "ATT", fill = "ATT"), color = palette[4], size = 2) +
   geom_point(data = smd_data, aes(x = abs_smd_unweighted, shape = "unweighted", fill = "unweighted"), color = palette[7], size = 2) +
   scale_shape_manual(values = c("ATE" = 23, "ATT" = 21, "unweighted" = 24)) +
   scale_fill_manual(values = c("ATE" = palette[9], "ATT" = palette[4], "unweighted" = palette[7])) +
@@ -319,7 +299,7 @@ file_path <- file.path(Graphdir, "iptw_diagnostics", "SA_SMD_plot_6m.png")
 ggsave(file_path, width = 8, height = 4)
 
 # Specify the weight variables
-weight_vars <- c("ate_weight_stab", "ate_weight_unstab", "att_weight_unstab", "att_weight_stab")
+weight_vars <- c("ate_weight_stab", "ate_weight_unstab", "att_weight_unstab")
 
 # Loop through each weight variable
 for (weight_var in weight_vars) {

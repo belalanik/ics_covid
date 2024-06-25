@@ -102,6 +102,20 @@ pba.summary.exp.rr <- function(a1, b1, c1, d1, total_exp, total_unexp, death_exp
   se <- rbeta(I, se1.a, se1.b)
   sp <- rbeta(I, sp1.a, sp1.b)
   
+  # Create a data frame with only the first 1000 draws for both variables
+  data_for_plot <- data.frame(Sensitivity = se[1:2000], Specificity = sp[1:2000])
+  
+  # Create the scatter plot
+  plot <- ggplot(data_for_plot, aes(x = Sensitivity, y = Specificity)) +
+    geom_point(alpha = 0.2) + 
+    theme_minimal()
+  
+  # Save the plot
+  ggsave(filename = file.path(Graphdir, "QBA", "copd_death_w1", "sens_spec_scatter_death_summary.png"),
+         plot = plot,
+         width = 6,
+         height = 6)
+ 
   # calculate bias-adjusted cell frequencies: only among deaths
   ac1 <- round((a1 - death_exp*(1-sp))/(se - (1-sp))) #bias-adjusted cases, exposed 
   cc1 <- round(death_exp - ac1) #bias-adjusted cases, unexposed
