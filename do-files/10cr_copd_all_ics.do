@@ -46,6 +46,8 @@ drop termfromemis productname
 
 compress
 save "copd_all_ics.dta", replace
+
+drop (quantunitid, drugsubstancename, substancestrength, 
 export delim "copd_all_ics.csv", replace
 
 /*********************************************************
