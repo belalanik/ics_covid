@@ -1,0 +1,224 @@
+medcodeid	term	weight	bmi	height	bmicat
+"100716012"	"body mass index"		9		
+"11905011000006114"	"o/e - weight"	9			
+"11905141000006112"	"o/e - height"			9	
+"11923361000006119"	"finding of body mass index"		9		
+"11929721000006110"	"expectation of weight management programme"	9			
+"12113161000006113"	"obese class i"				3
+"12113181000006115"	"obese class ii"				3
+"13638231000006115"	"self reported body weight"	9			
+"13926671000006119"	"obese class iii"				3
+"14166701000006113"	"weight loss process"	9			
+"14176391000006111"	"referral to weight management service"	9			
+"14176401000006113"	"weight management service not available"	9			
+"1662431000000112"	"advice given about weight management"	9			
+"1709681000000111"	"referral to weight management service offered"	9			
+"1715211000000118"	"unintentional weight loss"	9			
+"1721501000000113"	"referral to local authority weight management programme"	9			
+"1735631000000119"	"discussion about weight management programme"	9			
+"1737991000000117"	"pattern of weight gain"	9			
+"1738991000000118"	"expectation of weight management programme"	9			
+"1749511000006118"	"pattern of weight gain"	9			
+"1750501000006114"	"checking weight monitoring"	9			
+"1750991000000117"	"weight management service opportunity signposted"	9			
+"1753271000006112"	"risk to health associated with overweight and obesity, at no increased risk"	9			2
+"1753281000006110"	"risk to health associated with overweight and obesity, at increased risk"	9			2
+"1753291000006113"	"risk to health associated with overweight and obesity, at high risk"	9			2
+"1753301000006114"	"risk to health associated with overweight and obesity, at very high risk"	9			2
+"1753311000006112"	"intervention for risk to health associated with overweight and obesity, general advice on healthy weight and lifestyle"	9			2
+"1770141000006119"	"did not attend weight management special interest general practitioner clinic"	9			
+"1773481000006111"	"mosaic trial - weight advice"	9			
+"1773731000006116"	"weight advice - verbal [mosaic trial]"	9			
+"1773741000006114"	"weight advice - verbal & written [mosaic trial]"	9			
+"1773751000006111"	"weight advice - not this time [mosaic trial]"	9			
+"1773761000006113"	"weight advice - not appropriate [mosaic trial]"	9			
+"1778201000006111"	"group session: weight management"	9			
+"1780175010"	"baseline weight"	9			
+"1780210016"	"weight loss from baseline weight"	9			
+"1808061000006114"	"body mass index less than 18.5"		9		0
+"1808071000006119"	"body mass index 18.5-24.9"		9		1
+"1809441000006111"	"weight change"	9			
+"1844501000006115"	"referral to weight management special interest general practitioner"	9			
+"1900331000006113"	"obese class iii (body mass index equal to or greater than 40.0)"		9		3
+"1910901000006116"	"estimated weight"	9			
+"1910911000006118"	"reported weight"	9			
+"1910921000006114"	"estimated height"			9	
+"1910931000006112"	"reported height"			9	
+"1979501000006111"	"weight management follow-up"	9			
+"1979511000006114"	"weight management 6 month follow-up"	9			
+"1979521000006118"	"weight management 12 month follow-up"	9			
+"1979531000006115"	"lost to weight management follow-up"	9			
+"1979961000006118"	"weight management 3 month follow-up"	9			
+"2000621000006111"	"date for weight management intervention offered to patient"	9			
+"2154209017"	"refer to weight management programme"	9			
+"2159952010"	"underweight"	9			
+"2160062010"	"body mass index 40+ - severely obese"		9		3
+"2173321000000116"	"referral to residential weight management programme"	9			
+"217781000000116"	"o/e - weight greater than 20% over ideal"	9			
+"2196071000000116"	"baseline body mass index"		9		
+"2265731000000113"	"seen in weight management clinic"	9			
+"2316211000000111"	"unintentional weight gain"	9			
+"2326311000000114"	"intensive weight management programme commenced"	9			
+"2326451000000118"	"intensive weight management programme ended"	9			
+"2350241000000116"	"obese class i (body mass index 30.0 - 34.9)"		9		3
+"2350261000000115"	"obese class ii (body mass index 35.0 - 39.9)"		9		3
+"240911000006113"	"patient advised to lose weight"	9			
+"2474325012"	"body mass index 20-24 - normal"		9		1
+"252191014"	"weight increasing"	9			
+"252192019"	"weight decreasing"	9			
+"252194018"	"abnormal weight gain"	9			
+"252198015"	"weight symptom nos"	9			
+"253576010"	"o/e - obese"	9			
+"2536041016"	"weight static"	9			
+"253669010"	"standing height"			9	
+"253672015"	"o/e -height within 10% average"			9	
+"253673013"	"o/e-height 10-20% over average"			9	
+"253675018"	"o/e - loss of height"			9	
+"253676017"	"o/e - height nos"			9	
+"253677014"	"body weight"	9			
+"253679012"	"o/e -weight 10-20% below ideal"	9			
+"253680010"	"o/e - weight within 10% ideal"	9			
+"253687013"	"o/e - underweight"	9			
+"253688015"	"o/e - weight nos"	9			
+"253844013"	"normal body mass index"		9		
+"253845014"	"increased body mass index"		9		
+"253846010"	"decreased body mass index"		9		
+"253847018"	"body mass index index 25-29 - overweight"	9	9		2
+"253848011"	"body mass index 30+ - obesity"		9		3
+"253866018"	"height and weight"	9		9	
+"2549043017"	"intentional weight loss"	9			
+"2642891000006110"	"weight gain"	9			
+"264766018"	"wants to lose weight"	9			
+"264767010"	"difficulty maintaining weight loss"	9			
+"271181000006113"	"o/e-height > 20% below average"			9	
+"2714971000000116"	"signposting to weight management service"	9			
+"272151000006114"	"o/e -height > 20% over average"			9	
+"272551000006116"	"o/e - weight > 20% below ideal"	9			
+"2729021000006118"	"measuring height of patient"			9	
+"280881000006115"	"o/e - obese"	9			
+"284561000006119"	"o/e - height 10-20% < average"			9	
+"2865221000006115"	"impaired glucose tolerance in obese"				3
+"2934311000006118"	"weight"	9			
+"297811000000117"	"weight management programme offered"	9			
+"297841000000116"	"weight management plan started"	9			
+"297861000000115"	"weight management plan completed"	9			
+"297891000000114"	"target weight reached"	9			
+"299281000000119"	"complaining of weight loss"	9			
+"3020131000006118"	"impaired glucose tolerance in nonobese"				
+"3044831000006118"	"weight maintenance regimen"	9			
+"3070611000006119"	"normal bmi (body mass index)"		9		1
+"3087271000006119"	"poor weight gain"	9			
+"3087281000006116"	"not putting on weight"	9			
+"3087291000006118"	"not gaining weight"	9			
+"317236017"	"[d]abnormal weight gain"	9			
+"317237014"	"[d]abnormal loss of weight"	9			
+"317244017"	"failure to gain weight"	9			
+"3203281000006116"	"normal weight"	9			1
+"3315711000006110"	"body height measure"			9	
+"3315721000006119"	"body height"			9	
+"3484791000006113"	"weight: body mass"	9			
+"3484801000006114"	"bmi - body mass index"		9		
+"3514400010"	"current body weight"	9			
+"356960015"	"overweight"	9			
+"3667431000006112"	"decrease in height"			9	
+"3952531000006117"	"weight loss"	9			
+"3976301000006116"	"heavy (weight)"	9			
+"397867018"	"abnormal weight loss"	9			
+"401535015"	"target weight discussed"	9			
+"402435016"	"o/e - weight 10-20% over ideal"	9			
+"406131000000117"	"did not attend weight monitoring clinic"	9			
+"406169014"	"weight steady"	9			
+"411892019"	"weight loss advised"	9			
+"411922013"	"o/e - overweight"	9			
+"4150511000006113"	"weight finding"	9			
+"437661000006118"	"abnormal weight loss - symptom"	9			
+"451201014"	"weight monitoring"	9			
+"453856012"	"body mass index less than 20"		9		
+"4544701000006119"	"losing weight"	9			
+"4544711000006116"	"progressive weight loss"	9			
+"4551671000006115"	"on examination - height"			9	
+"4551681000006117"	"o/e - height greater than 20% below average"			9	
+"4551701000006119"	"o/e - height 10-20% below average"			9	
+"4551761000006118"	"o/e - height greater than 20% over average"			9	
+"4551811000006113"	"on examination - weight"	9			
+"4551821000006117"	"o/e - weight greater than 20% below ideal"	9			
+"4553701000006115"	"body mass index 25-29 - overweight"	9	9		2
+"4553721000006113"	"bmi 25-29 - overweight"	9	9		2
+"4553741000006118"	"bmi 30+ - obesity"		9		3
+"4935051000006112"	"excessive weight gain"	9			
+"4937201000006110"	"weight and body mass assessment procedure"	9			
+"4986261000006116"	"g/kg body weight"	9			
+"5117851000006111"	"patient overweight"	9			2
+"5247501000006116"	"overestimates own body weight"	9			
+"5247511000006118"	"underestimates own body weight"	9			
+"5256071000006119"	"general finding of height"			9	
+"5256131000006116"	"has grown in height"			9	
+"5256251000006115"	"patient underweight"	9			
+"5256311000006113"	"reference weight"	9			
+"5273061000006119"	"obese abdomen"				3
+"5451371000006112"	"weight decreased"	9			
+"5451381000006110"	"weight increased"	9			
+"5507901000006110"	"o/e - weight greater than 20% over ideal"	9			
+"5524151000006112"	"weight stable"	9			
+"5526441000006112"	"obese build"				3
+"5526601000006112"	"height / growth measure"			9	
+"5529851000006116"	"has not grown in height"			9	
+"5533851000006117"	"weights"	9			
+"567001000000116"	"counterweight programme"	9			
+"5892171000006118"	"finding of measures of body height and growth"			9	
+"5892201000006119"	"observation of body mass index"		9		
+"5892251000006115"	"body weight problem"	9			
+"59281000006111"	"weight screening"	9			
+"59311000006113"	"weight symptom"	9			
+"5986631000006118"	"excessive weight loss"	9			
+"5990011000006117"	"normal height"			9	
+"5998281000006119"	"bmi less than 20"		9		
+"6251131000006111"	"weight gain (amount)"	9			
+"6251141000006118"	"weight loss (amount)"	9			
+"6251151000006116"	"body weight measure"	9			
+"6251171000006114"	"usual body weight"	9			
+"628891000000118"	"counterweight weight management programme"	9			
+"6509591000006118"	"weight maintenance regimen"	9			
+"6509811000006113"	"weight gain regimen"	9			
+"6611061000006111"	"referral to weight maintenance regimen service"	9			
+"6702411000006117"	"general appraisal of patient weight"	9			
+"6759901000006112"	"refer to weight management program"	9			
+"6763391000006114"	"body mass index 40+ - morbidly obese"		9		3
+"6763401000006111"	"bmi (body mass index) 40+ - severely obese"		9		3
+"6866991000006116"	"obese"				3
+"6922511000006116"	"height below average"			9	
+"6997371000006111"	"unexplained weight loss"	9			
+"7067191000006116"	"recent weight loss"	9			
+"7068841000006116"	"body mass index less than 16.5"		9		0
+"7075901000006114"	"recent weight gain"	9			
+"7116681000006115"	"abnormal intentional weight loss"	9			
+"7297941000006116"	"weight/weight ratio"	9			
+"7504441000006114"	"measurement of body mass index"		9		
+"7508801000006119"	"patient advised about weight management"	9			
+"7771291000006114"	"weight management programme"	9			
+"7771301000006110"	"weight management program"	9			
+"7833991000006118"	"overweight in adulthood with body mass index of 25 or more but less than 30"	9	9		2
+"7879461000006116"	"weight"	9			
+"8278851000006114"	"referral to weight management gpwsi (general practitioner with special interest)"	9			
+"8286991000006119"	"baseline bmi (body mass index)"		9		
+"839191000006115"	"weight control education"	9			
+"857321000006113"	"moderately obese"				3
+"857681000006117"	"weight reduction clinic"	9			
+"857911000006118"	"very obese"				3
+"903061000006114"	"weight loss"	9			
+"908721000006111"	"[rfc] overweight/ underweight"	9			
+"909921000006118"	"[rfc] weight problem"	9			
+"910251000006110"	"[rfc] overweight"	9			
+"910261000006112"	"[rfc] underweight"	9			
+"923831000006115"	"o/e - height"			9	
+"923851000006110"	"o/e - weight"	9			
+"923861000006112"	"body mass index"		9		
+"9423891000006114"	"slow weight gain"	9			
+"960561000006110"	"unexplained/progressive weight loss"	9			
+"977951000006110"	"health education - weight management"	9			
+"981731000006117"	"overweight: adult bmi 25.0; child bmi 95th percentile; or more"	9	9		2
+"981741000006110"	"underweight: adult bmi 18.5; child bmi 5th percentile; or less"	9	9		0
+"982581000006118"	"weight (over)"	9			
+"982591000006115"	"weight (under)"	9			
+"982601000006111"	"height (over)"			9	
+"982611000006114"	"height (under)"			9	

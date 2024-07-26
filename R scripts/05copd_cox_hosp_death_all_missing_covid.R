@@ -233,11 +233,22 @@ for (j in seq_along(outcomes)){
   
   # Calculate the residuals
   residuals <- residuals(model_unadj_log)
-  file_path_resid <- file.path(Graphdir, "cox_regression", paste0("log_resid_", outcome_event, "_unadj_all_missing_covid.png"))
+  fitted_values <- fitted.values(model_unadj_log)
+  file_path_resid <- file.path(Graphdir, "cox_regression", paste0("SA_log_resid_", outcome_event, "_unadj_all_missing_covid_jittered.png"))
   png(file_path_resid)
-  # Create a plot of the residuals versus the fitted values
-  plot(fitted.values(model_unadj_log), residuals, main = paste("Log residuals for", outcome_label, "(unadjusted)"), cex.main = 0.9, xlab = "Fitted values", ylab = "Residuals")
-  abline(h = 0, lty = 2)
+  
+  # Create a plot of the jittered residuals versus the jittered fitted values
+  plot(
+    jitter(fitted_values, factor = 0.3),
+    jitter(residuals, factor = 10),
+    main = paste("Log residuals for", outcome_label, "(unadjusted)"),
+    cex.main = 0.9,
+    xlab = "Fitted values",
+    ylab = "Residuals",
+    pch = 16,  # Use solid circles for points
+    cex = 0.5  # Reduce point size for better visibility
+  )
+  
   dev.off()
   
   # # Extract coefficients, odds ratios, standard errors, and confidence intervals as shown in the previous example
@@ -324,13 +335,21 @@ for (j in seq_along(outcomes)){
     # Calculate the residuals
     residuals <- residuals(model_iptw_log, type = "response")
     fitted_values <- predict(model_iptw_log, type = "response")
-    file_path_resid <- file.path(Graphdir, "cox_regression", paste0("log_resid_", outcome_event, "_IPTW_", weight_name, "_all_missing_covid.png"))
+    file_path_resid <- file.path(Graphdir, "cox_regression", paste0("SA_log_resid_", outcome_event, "_IPTW_all_", weight_name, "_all_missing_covid_jittered.png"))
     
     png(file_path_resid)
     # Create a plot of the residuals versus the fitted values
-    plot(fitted_values, residuals, xlab = "Fitted Values", ylab = "Residuals",
-         main = paste("Log residuals for", outcome_label, "using", weight_label), cex.main = 0.9)
-    abline(h = 0, lty = 2)
+    plot(
+      jitter(fitted_values, factor = 0.3),
+      jitter(residuals, factor = 10),
+      main = paste("Log residuals for", outcome_label, "using", weight_label),
+      cex.main = 0.9,
+      xlab = "Fitted values",
+      ylab = "Residuals",
+      pch = 16,  # Use solid circles for points
+      cex = 0.5  # Reduce point size for better visibility
+    )
+    
     dev.off()
     
     # Save estimates to dataframe
