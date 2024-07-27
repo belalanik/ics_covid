@@ -268,7 +268,7 @@ for (j in seq_along(outcomes)){
     # Calculate the residuals
     residuals <- residuals(model_iptw_log, type = "response")
     fitted_values <- predict(model_iptw_log, type = "response")
-    file_path_resid <- file.path(Graphdir, "cox_regression", paste0("SA_log_resid_", outcome_event, "_IPTW_all_", weight_name, "_no_triple_jittered.png"))
+    file_path_resid <- file.path(Graphdir, "cox_regression", paste0("SA_log_resid_", outcome_event, "_IPTW_", weight_name, "_no_triple_jittered.png"))
     
     png(file_path_resid)
     # Create a plot of the residuals versus the fitted values
