@@ -2,7 +2,7 @@
 # Date: 03/2023
 # Purpose: creates baseline table for COPD cohort, wave 1 
 
-packages <- c("tidyverse", "ggplot2", "gtsummary", "arrow", "flextable", "dplyr")
+packages <- c("tidyverse", "ggplot2", "gtsummary", "arrow", "flextable")
 installed_packages <- packages %in% rownames(installed.packages())
 if (any(installed_packages == FALSE)) {
   install.packages(packages[!installed_packages])
