@@ -2,7 +2,7 @@
 # Date: 03/2023
 # Purpose: generate propensity scores and IPTW weights for COPD cohort. Fit Cox models for all three outcomes.
 
-packages <- c("tidyverse", "MetBrewer", "arrow", "MatchThem", "mice", "survey", "cobalt", "ggplot2", "twang", "ipw", "WeightIt", "gtsummary", "flextable", "openxlsx", "jskm", "tidysmd", "tools")
+packages <- c("tidyverse", "MetBrewer", "arrow", "mice", "survey", "cobalt", "ggplot2", "WeightIt", "gtsummary", "flextable", "openxlsx", "tools")
 installed_packages <- packages %in% rownames(installed.packages())
 
 if (any(installed_packages == FALSE)) {
