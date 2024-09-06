@@ -35,6 +35,8 @@ for (var_name in outcome_variables) {
 #subset patients who are either using laba/lama or ics/laba
 subset_df <- df[!is.na(df$treatgroup),]
 
+unique_patids <- subset_df$patid[subset_df$treatgroup == "0"]
+
 #MAIN TABLE
 tab1 <- tbl_summary(subset_df %>%  dplyr::select(age_index, gender, bmicat, eth, smok, imd, diabetes_present, hypertension_present, cvd_present, allcancers_present, past_asthma_present, kidney_present, immunosuppression_present, flu_vacc_present, pneumo_vacc_present,  exacerb_present, treat),
             by = treat,
