@@ -37,6 +37,9 @@ subset_df <- df[!is.na(df$treatgroup),]
 #remove people with baseline_triple =1
 subset_df <- subset_df[subset_df$baseline_triple == 0,]
 
+#get unique patids for laba/lama group
+unique_patids_no_triple <- subset_df$patid[subset_df$treatgroup == "0"]
+
 #MAIN TABLE
 #MAIN TABLE
 tab1 <- tbl_summary(subset_df %>%  dplyr::select(age_index, gender, bmicat, eth, smok, imd, diabetes_present, hypertension_present, cvd_present, allcancers_present, past_asthma_present, kidney_present, immunosuppression_present, flu_vacc_present, pneumo_vacc_present,  exacerb_present, treat),
